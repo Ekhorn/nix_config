@@ -1,0 +1,228 @@
+/* -----------------------------------------------------
+ * General
+ * ----------------------------------------------------- */
+
+* {
+  font-family: "Unifont";
+  font-size: 16px;
+  border: none;
+  border-radius: 0px;
+  font-weight: bold;
+}
+
+window#waybar {
+  background-color: rgba(56, 60, 74, 0.8);
+  border-bottom: 2px solid rgba(72, 75, 85, 0.8);
+  color: white;
+  transition-property: background-color;
+  transition-duration: 0.5s;
+}
+
+window#waybar > box.horizontal {
+  padding: 4px;
+  padding-bottom: 6px;
+}
+
+box.horizontal > widget {
+  background-color: rgba(56, 60, 74, 1);
+  border-radius: 10px;
+}
+
+/* -----------------------------------------------------
+ * Tooltips
+ * ----------------------------------------------------- */
+
+tooltip {
+  border-radius: 10px;
+  background-color: rgba(56, 60, 74, 1);
+  padding: 20px;
+  margin: 0px;
+}
+
+tooltip label {
+  color: white;
+}
+
+/* -----------------------------------------------------
+ * Modules
+ * ----------------------------------------------------- */
+
+.modules-left {
+}
+
+.modules-center {
+}
+
+.modules-right {
+}
+
+/* -----------------------------------------------------
+ * Workspaces
+ * ----------------------------------------------------- */
+
+#workspaces {
+  padding: 0px 1px;
+  border: 0px;
+}
+
+#workspaces button {
+  color: white;
+  padding: 0px 5px;
+  margin: 4px 3px;
+  border-radius: 15px;
+  border: 0px;
+  transition: all 0.3s ease-in-out;
+  opacity: 0.4;
+}
+
+#workspaces button.active {
+  background-color: rgba(45, 48, 60, 1);
+  border-radius: 15px;
+  min-width: 40px;
+  transition: all 0.3s ease-in-out;
+  opacity: 0.8;
+}
+
+#workspaces button:hover {
+  background-color: rgb(19, 20, 26);
+  border-radius: 15px;
+}
+
+/* -----------------------------------------------------
+ * Tray
+ * ----------------------------------------------------- */
+
+#tray {
+  padding: 0 9px;
+}
+
+#tray > .passive {
+  -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+  -gtk-icon-effect: highlight;
+}
+
+/* -----------------------------------------------------
+ * Local Group - Clock / Weather
+ * ----------------------------------------------------- */
+
+#clock,
+#custom-weather {
+  padding: 0 9px;
+}
+
+/* -----------------------------------------------------
+ * Sound Group - Pulseaudio
+ * ----------------------------------------------------- */
+
+#pulseaudio,
+#pulseaudio.mic,
+#pulseaudio-sider {
+  padding: 0 9px;
+}
+
+#pulseaudio {
+  min-width: 60px;
+}
+
+#pulseaudio-slider {
+  min-width: 60px;
+}
+#pulseaudio-slider slider {
+  min-height: 0px;
+  min-width: 0px;
+  opacity: 0;
+  background-image: none;
+  border: none;
+  box-shadow: none;
+}
+#pulseaudio-slider trough {
+  min-width: 10px;
+  border-radius: 5px;
+  background-color: black;
+}
+#pulseaudio-slider highlight {
+  min-height: 10px;
+  min-width: 10px;
+  border-radius: 5px;
+  background-color: green;
+}
+
+#pulseaudio.muted {
+  background-color: @backgrounddark;
+}
+
+/* -----------------------------------------------------
+ * Connectivity Group - Network / Bluetooth
+ * ----------------------------------------------------- */
+
+#network,
+#bluetooth {
+  padding: 0 9px;
+}
+
+box#network > widget > #network {
+  min-width: 102px;
+}
+
+#bluetooth,
+#bluetooth.on,
+#bluetooth.connected {
+  /*color: #2a91c9;*/
+}
+
+#bluetooth.off {
+  background-color: transparent;
+}
+
+/* -----------------------------------------------------
+ * Hardware Group
+ * ----------------------------------------------------- */
+
+box#hardware {
+}
+
+.disk1,
+#memory,
+#cpu {
+  padding: 0 9px;
+}
+
+.disk2 {
+  padding-right: 10px;
+}
+
+#memory,
+#cpu {
+  min-width: 60px;
+}
+
+/* -----------------------------------------------------
+ * Battery
+ * ----------------------------------------------------- */
+
+#battery {
+  padding: 0 9px;
+}
+
+#battery.charging,
+#battery.plugged {
+  color: @textcolor2;
+}
+
+@keyframes blink {
+  to {
+    color: orange;
+  }
+}
+
+#battery.critical:not(.charging) {
+  background-color: #f53c3c;
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}

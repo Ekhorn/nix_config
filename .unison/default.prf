@@ -1,0 +1,6 @@
+# Unison preferences file
+root=/home/koen/Desktop/
+root=ssh://koen@192.168.1.XXX//home/koen/Desktop/
+
+ignore = Name ?*
+ignorenot = Name koen.kdbx

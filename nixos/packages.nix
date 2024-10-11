@@ -1,0 +1,64 @@
+{ pkgs, ... }:
+
+{
+  environment.systemPackages = with pkgs; [
+    alacritty
+    awscli2
+    bluez
+    clang
+    cmake
+    discord
+    dunst
+    fastfetch
+    fd
+    firefox
+    gcc
+    gedit
+    gh
+    git
+    glxinfo
+    gnupg
+    greetd.tuigreet
+    helm
+    htop
+    hyprcursor
+    hypridle
+    hyprlock
+    hyprpaper
+    hyprpicker
+    jdk17
+    jq
+    keepassxc
+    #kitty
+    kubectl
+    lld 
+    lsof
+    gnumake
+    nautilus
+    neovim
+    nodejs_18
+    obsidian
+    pciutils
+    pinentry
+    podman-compose
+    postgresql_16
+    protobuf
+    python3
+    ripgrep
+    rofi-bluetooth
+    rofi-wayland
+    spice-vdagent
+    sqlite
+    syncthing
+    thunderbird
+    tree-sitter
+    unison
+    unzip
+    vscode
+    waybar
+    wget
+    wl-clipboard
+    yarn-berry
+    zsh
+  ];
+}
