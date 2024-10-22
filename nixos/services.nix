@@ -14,9 +14,8 @@
     alsa.support32Bit = true;
     pulse.enable = true;
   };
-  # TODO: doesn't work
   services.logind.extraConfig = ''
-    HandlePowerKey=ingore
+    HandlePowerKey=ignore
   '';
   #services.spice-vdagentd.enable = true;
   #services.qemuGuest.enable = true;
