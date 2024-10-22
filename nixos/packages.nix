@@ -33,6 +33,7 @@
     hyprpaper
     hyprpicker
     hyprshot
+    input-leap
     #jdk17
     jq
     keepassxc
