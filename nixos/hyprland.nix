@@ -11,11 +11,11 @@
   environment.sessionVariables.GDK_BACKEND = "wayland";
 
   xdg.icons.enable = true;
-  #xdg.portal = {
-  #  enable = true;
-  #  xdgOpenUsePortal = true;
-  #  extraPortals = [
-  #    pkgs.xdg-desktop-portal-hyprland
-  #  ];
-  #};
+  xdg.portal = {
+    enable = true;
+    xdgOpenUsePortal = true;
+    extraPortals = [
+      pkgs.xdg-desktop-portal-hyprland
+    ];
+  };
 }

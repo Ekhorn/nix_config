@@ -1,10 +1,13 @@
 { pkgs, ... }:
 
 {
+  programs.gnupg.agent.enable = true;
+  programs.gnupg.agent.pinentryPackage = pkgs.pinentry-gnome3;
   programs.dconf.enable = true;
   programs.zsh.enable = true;
   programs.direnv.enable = true;
 
+  services.gnome.gnome-keyring.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;

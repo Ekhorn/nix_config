@@ -17,6 +17,7 @@
     gh
     git
     glxinfo
+    gnome-keyring
     gnupg
     greetd.tuigreet
     helm
