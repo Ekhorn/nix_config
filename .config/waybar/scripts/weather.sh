@@ -7,6 +7,6 @@ tooltip="$(curl -s "https://wttr.in/$L?0QT" |
   sed ':a;N;$!ba;s/\n/\\n/g' |
   sed 's/"/\\"/g')"
 
-if ! rg -q "Unknown location" <<< "$text"; then
+if [ ${#text} -lt 5 ]; then
   echo "{\"text\": \"$text\", \"tooltip\": \"<tt>$tooltip</tt>\", \"class\": \"weather\"}"
 fi
