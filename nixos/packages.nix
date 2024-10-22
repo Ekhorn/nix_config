@@ -5,10 +5,13 @@
     alacritty
     awscli2
     bluez
+    celluloid
+    chromium
     clang
     cmake
     discord
     dunst
+    eog
     fastfetch
     fd
     firefox
@@ -29,6 +32,7 @@
     hyprlock
     hyprpaper
     hyprpicker
+    hyprshot
     #jdk17
     jq
     keepassxc
