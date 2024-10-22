@@ -9,6 +9,7 @@
   programs.java.enable = true;
   programs.java.package = pkgs.jdk17;
 
+  services.gvfs.enable = true;
   services.gnome.gnome-keyring.enable = true;
   services.pipewire = {
     enable = true;
