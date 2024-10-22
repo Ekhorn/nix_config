@@ -5,6 +5,12 @@
   programs.zsh.enable = true;
   programs.direnv.enable = true;
 
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+  };
   # TODO: doesn't work
   services.logind.extraConfig = ''
     HandlePowerKey=ingore

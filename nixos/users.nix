@@ -1,8 +1,6 @@
 { pkgs, ... }:
 
 {
-  xdg.icons.enable = true;
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.koen = {
     isNormalUser = true;

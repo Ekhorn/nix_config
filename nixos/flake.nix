@@ -25,11 +25,12 @@
         ./packages.nix
         ./rust.nix 
         ./security.nix
-	./services.nix
+        ./services.nix
         ./ssh.nix
         ./time.nix
         ./users.nix
-	./virtualization.nix
+        ./variables.nix
+        ./virtualization.nix
       ];
     };
   };
