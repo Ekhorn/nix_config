@@ -19,6 +19,7 @@
     glxinfo
     gnome-keyring
     gnupg
+    graphviz
     greetd.tuigreet
     helm
     htop
@@ -32,7 +33,7 @@
     keepassxc
     #kitty
     kubectl
-    lld 
+    lld
     lsof
     gnumake
     nautilus
