@@ -6,6 +6,8 @@
   programs.dconf.enable = true;
   programs.zsh.enable = true;
   programs.direnv.enable = true;
+  programs.java.enable = true;
+  programs.java.package = pkgs.jdk17;
 
   services.gnome.gnome-keyring.enable = true;
   services.pipewire = {

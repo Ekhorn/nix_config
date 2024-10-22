@@ -20,6 +20,7 @@
     gnome-keyring
     gnupg
     graphviz
+    gradle_7
     greetd.tuigreet
     helm
     htop
@@ -28,7 +29,7 @@
     hyprlock
     hyprpaper
     hyprpicker
-    jdk17
+    #jdk17
     jq
     keepassxc
     #kitty
