@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   #environment.variables.JDK_PATH = "${pkgs.jdk17}/";
@@ -6,4 +6,5 @@
   environment.variables.XDG_CURRENT_DESKTOP = "Hyprland";
   environment.variables.XDG_SESSION_TYPE = "wayland";
   environment.variables.XDG_SESSION_DESKTOP = "Hyprland";
+  environment.variables.SSH_ASKPASS = lib.mkForce "${pkgs.x11_ssh_askpass}/libexec/x11-ssh-askpass";
 }
