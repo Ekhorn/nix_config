@@ -9,12 +9,15 @@
     chromium
     clang
     cmake
+    deno
+    dig
     discord
     dunst
     eog
     fastfetch
     fd
     firefox
+    #(flameshot.override { enableWlrSupport = true; })
     gcc
     gedit
     gh
@@ -44,17 +47,19 @@
     gnumake
     nautilus
     neovim
-    nodejs_18
+    nixos-anywhere
+    nodejs_20
     obsidian
     pciutils
     pinentry
     podman-compose
-    postgresql_16
+    postgresql_17
     protobuf
     python3
     ripgrep
     rofi-bluetooth
     rofi-wayland
+    seahorse
     spice-vdagent
     sqlite
     syncthing
@@ -66,6 +71,7 @@
     waybar
     wget
     wl-clipboard
+    x11_ssh_askpass
     yarn-berry
     zsh
   ];
