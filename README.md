@@ -10,32 +10,23 @@ nix-shell -p git
 git clone https://github.com/Ekhorn/dotfiles
 ```
 
-Copy nix configuration to `/etc/nixos`.
+Copy the hardware configuration to the host directory.
 
 ```sh
-sudo rm -rf /etc/nixos/configuration.nix
-sudo cp -rn nixos/* /etc/nixos/
+sudo cp /etc/nixos/hardware-configuration.nix nixos/hosts/default/
 ```
 
-Copy dotfiles to home directory.
+Symlink nix flake to `/etc/nixos/flake.nix`.
 
 ```sh
-cp -r .config/ ~
-cp -r .git/ ~
-cp .gitconfig ~
-cp Pictures/ ~
-cp -r Pictures/ ~
-cp .tmux.conf ~
-cp .unison/ ~
-cp -r .unison/ ~
-cp .zshrc ~
+sudo rm -rf /etc/nixos/*
+sudo ln -s ~/develop/dotfiles/nixos/flake.nix /etc/nixos/flake.nix
 ```
 
-Rename hostname.
+Setup user in configuration.
 
 ```sh
-sudo nano /etc/nixos/networking.nix
-sudo nano /etc/nixos/flake.nix
+sudo nano /etc/nixos/default/configuration.nix
 sudo nixos-rebuild switch /etc/nixos#hostname
 ```
 
@@ -50,7 +41,7 @@ Setup ssh.
 
 ```sh
 ssh-keygen
-sudo nvim /etc/nixos/ssh.nix
+sudo nvim nixos/modules/ssh.nix
 # Temporarily enable password login
 sudo nixos-rebuild test
 ```
@@ -66,14 +57,13 @@ chmod 600 ~/.ssh/authorized_keys
 Then disable password login.
 
 ```sh
-sudo nvim /etc/nixos/ssh.nix
+sudo nvim nixos/modules/ssh.nix
 sudo nixos-rebuild test
 ```
 
-Then configure- and run `unison` and open the password manager.
+Then run `unison` and open the password manager.
 
 ```sh
-nvim ~/.unison/default.prf
 unison
 keepassxc ~/Desktop/$USER.kdbx
 ```
@@ -86,9 +76,3 @@ gpg --edit-key "$(gpg -K | rg -o "[A-F0-9]{40}")"
 nix-shell -p seahorse --run "seahorse" # Check if everything is correct
 ```
 
-Then configure oh-my-zsh.
-
-```sh
-wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
-sh install.sh
-```
