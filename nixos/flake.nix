@@ -10,28 +10,37 @@
     rust-overlay.url = "github:oxalica/rust-overlay";
   };
 
-  outputs = { stable, ... } @ inputs:
+  outputs = { self, stable, home-manager, ... } @ inputs:
   let
+    inherit (self) outputs;
+
     system = "x86_64-linux";
-    pkgs-unstable = inputs.unstable.legacyPackages.${system};
+    stable_x86 = stable.legacyPackages.${system};
+    #unstable_x86 = unstable.legacyPackages.${system};
     home-manager = inputs.home-manager.nixosModules.default;
+
+    mkNixos = modules:
+      stable.lib.nixosSystem {
+        inherit modules;
+        specialArgs = { inherit inputs outputs; };
+      };
+    mkHome = modules: pkgs:
+      home-manager.lib.homeManagerConfiguration {
+        inherit modules pkgs;
+        extraSpecialArgs = { inherit inputs outputs; };
+      };
   in
   {
+    nixosModules = import ./modules;
+
     nixosConfigurations = {
-      pc-koen = stable.lib.nixosSystem {
-        specialArgs = { inherit inputs; };
-        modules = [
-          ./hosts/default/configuration.nix
-          home-manager
-        ];
-      };
-      laptop-koen = stable.lib.nixosSystem {
-        specialArgs = { inherit inputs; };
-        modules = [
-          ./hosts/laptop/configuration.nix
-          home-manager
-        ];
-      };
+      pc-koen = mkNixos [./hosts/default/configuration.nix];
+      laptop-koen = mkNixos [./hosts/laptop/configuration.nix];
+    };
+
+    homeConfigurations = {
+      "koen@pc-koen" = mkHome [./hosts/default/home.nix] stable_x86;
+      "koen@laptop-koen" = mkHome [./hosts/laptop/home.nix] stable_x86;
     };
   };
 }

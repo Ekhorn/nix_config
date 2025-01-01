@@ -1,31 +1,8 @@
-{ config, inputs, ... }:
+{ outputs, ... }:
 
-let
-  modules = ../../modules;
-in
 {
-  imports = [
-    "${modules}/common.nix"
-    ./hardware-configuration.nix
-    inputs.home-manager.nixosModules.default
-    # The following modules MUST be specific, and NOT general like "security" or
-    # "services", only "common" is allowed.
-    "${modules}/greetd.nix"
-    "${modules}/hyprland.nix"
-    "${modules}/nvidia.nix"
-    "${modules}/rust.nix"
-    "${modules}/ssh.nix"
-    "${modules}/user.nix"
-    "${modules}/virtualization.nix"
-    "${modules}/wayland.nix"
-  ];
-
-  home-manager = {
-    extraSpecialArgs = { inherit inputs; };
-    users = {
-      "${config.user.username}" = import ./home.nix;
-    };
-  };
+  imports = [ ./hardware-configuration.nix ]
+    ++ (builtins.attrValues outputs.nixosModules);
 
   networking.hostName = "pc-koen";
   networking.networkmanager.enable = true;
@@ -41,7 +18,7 @@ in
   system.autoUpgrade = {
     enable = true;
     flake = "/etc/nixos#default";
-    flags = [ "--update-input" "stable" "unstable" "rust-overlay" ];
+    flags = [ "--update-input" "stable" "unstable" "home-manager" "rust-overlay" ];
   };
   system.stateVersion = "24.05";
 
