@@ -1,8 +1,17 @@
-{ outputs, ... }:
+{ config, inputs, outputs, ... }:
 
 {
-  imports = [ ./hardware-configuration.nix ]
-    ++ (builtins.attrValues outputs.nixosModules);
+  imports = [
+    ./hardware-configuration.nix
+    inputs.home-manager.nixosModules.home-manager
+  ] ++ (builtins.attrValues outputs.nixosModules);
+
+  home-manager.users.${config.user.username} =
+    import ../../hosts/${config.networking.hostName}/home.nix;
+
+  home-manager = {
+      backupFileExtension = "backup";
+  };
 
   networking.hostName = "pc-koen";
   networking.networkmanager.enable = true;
@@ -15,15 +24,9 @@
 
   programs.steam.enable = true;
 
-  system.autoUpgrade = {
-    enable = true;
-    flake = "/etc/nixos#default";
-    flags = [ "--update-input" "stable" "unstable" "home-manager" "rust-overlay" ];
-  };
   system.stateVersion = "24.05";
 
   time.timeZone = "Europe/Amsterdam";
-
   # Don't forget to set a password with ‘passwd’.
   user.enable = true;
   user.username = "koen";

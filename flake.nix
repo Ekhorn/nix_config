@@ -31,15 +31,16 @@
       };
   in
   {
-    nixosModules = import ./modules;
+    nixosModules = import ./modules/nixos;
+    homeManagerModules = import ./modules/home-manager;
 
     nixosConfigurations = {
-      pc-koen = mkNixos [./hosts/default/configuration.nix];
+      pc-koen = mkNixos [./hosts/pc-koen/configuration.nix];
       laptop-koen = mkNixos [./hosts/laptop/configuration.nix];
     };
 
     homeConfigurations = {
-      "koen@pc-koen" = mkHome [./hosts/default/home.nix] stable_x86;
+      "koen@pc-koen" = mkHome [./hosts/pc-koen/home.nix] stable_x86;
       "koen@laptop-koen" = mkHome [./hosts/laptop/home.nix] stable_x86;
     };
   };

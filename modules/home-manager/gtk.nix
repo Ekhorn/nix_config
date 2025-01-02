@@ -1,3 +1,8 @@
+{ ... }:
+
+{
+  home.file = {
+    ".config/gtk-3.0/settings.ini".text = ''
 [Settings]
 gtk-theme-name=Adwaita-Dark
 gtk-icon-theme-name=Adwaita-Dark
@@ -15,3 +20,10 @@ gtk-xft-hinting=1
 gtk-xft-hintstyle=hintslight
 gtk-xft-rgba=rgb
 gtk-application-prefer-dark-theme=1
+    '';
+    ".config/gtk-4.0/settings.ini".text = ''
+      [Settings]
+      gtk-application-prefer-dark-theme=true
+    '';
+  };
+}

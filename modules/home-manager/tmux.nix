@@ -1,3 +1,10 @@
+{ ... }:
+
+{
+  programs.tmux = {
+    enable = true;
+    escapeTime = 0;
+    extraConfig = ''
 set -g default-terminal "screen-255color"
 
 set -sg escape-time 0
@@ -44,3 +51,6 @@ set -g @continuum-restore 'on'
 
 # Initialize TMUX plugin manager
 run '~/.tmux/plugins/tpm/tpm'
+  '';
+  };
+}

@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, inputs, outputs, pkgs, ... }:
 
 {
   boot.loader.efi.canTouchEfiVariables = true;
@@ -6,77 +6,16 @@
 
   environment.systemPackages = with pkgs; [
     alacritty
-    awscli2
     bluez
-    celluloid
-    chromium
-    clang
-    cmake
-    deno
-    dig
-    discord
-    dunst
-    eog
-    fastfetch
-    fd
-    firefox
-    #(flameshot.override { enableWlrSupport = true; })
-    gcc
-    gedit
-    gh
-    git
-    glxinfo
     gnome-keyring
     gnupg
-    graphviz
-    gradle_7
     greetd.tuigreet
-    helm
-    htop
-    hyprcursor
-    hypridle
-    hyprlock
-    hyprpaper
-    hyprpicker
-    hyprshot
-    #input-leap
-    #jdk17
-    jq
-    keepassxc
-    #kitty
-    kubectl
-    lld
-    lsof
-    gnumake
-    nautilus
-    neovim
-    nixos-anywhere
-    nodejs_20
-    obsidian
-    pciutils
-    pinentry
-    podman-compose
-    postgresql_17
-    protobuf
-    python3
-    ripgrep
-    rofi-bluetooth
-    rofi-wayland
-    seahorse
-    spice-vdagent
-    sqlite
-    thunderbird
-    tree-sitter
-    unison
-    unzip
-    vscode
-    waybar
-    wget
     wl-clipboard
     x11_ssh_askpass
-    yarn-berry
   ];
   environment.variables.NODEJS_PATH = "${pkgs.nodePackages_latest.nodejs}/";
+
+  home-manager.extraSpecialArgs = { inherit inputs outputs; };
 
   programs.zsh.enable = true;
   programs.dconf.enable = true;
@@ -146,5 +85,11 @@
       layout = "us";
       variant = "";
     };
+  };
+
+  system.autoUpgrade = {
+    enable = true;
+    flake = "/etc/nixos#${config.networking.hostName}";
+    flags = [ "--update-input" "stable" "unstable" "home-manager" "rust-overlay" ];
   };
 }
