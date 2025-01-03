@@ -44,11 +44,12 @@
     #jdk17
     jq
     kubectl
+    lua51Packages.lua
+    luajitPackages.luarocks-nix
     lld
     lsof
     gnumake
     nautilus
-    neovim
     nixos-anywhere
     nodejs_20
     obsidian
@@ -63,7 +64,6 @@
     spice-vdagent
     sqlite
     thunderbird
-    tree-sitter
     unison
     unzip
     wget
