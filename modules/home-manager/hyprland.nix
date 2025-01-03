@@ -25,6 +25,8 @@
     settings = {
       monitor= ",highrr,auto,1";
 
+      exec-once = "hyprctl setcursor Adwaita 24";
+
       cursor = {
         no_hardware_cursors = true;
         enable_hyprcursor = true;
