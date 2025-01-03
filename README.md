@@ -13,6 +13,7 @@ git clone https://github.com/Ekhorn/nix_config
 Copy the hardware configuration to the host directory.
 
 ```sh
+mkdir hosts/new-host/
 cp /etc/nixos/hardware-configuration.nix hosts/new-host/
 ```
 

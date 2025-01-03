@@ -36,12 +36,12 @@
 
     nixosConfigurations = {
       pc-koen = mkNixos [./hosts/pc-koen/configuration.nix];
-      laptop-koen = mkNixos [./hosts/laptop/configuration.nix];
+      laptop-koen = mkNixos [./hosts/laptop-koen/configuration.nix];
     };
 
     homeConfigurations = {
       "koen@pc-koen" = mkHome [./hosts/pc-koen/home.nix] stable_x86;
-      "koen@laptop-koen" = mkHome [./hosts/laptop/home.nix] stable_x86;
+      "koen@laptop-koen" = mkHome [./hosts/laptop-koen/home.nix] stable_x86;
     };
   };
 }
