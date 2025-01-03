@@ -14,9 +14,6 @@
     users.users.${config.user.username} = {
       extraGroups = [ "networkmanager" "wheel" ];
       isNormalUser = true;
-      packages = with pkgs; [
-        adwaita-icon-theme
-      ];
       openssh.authorizedKeys.keys =
         (lib.strings.splitString "\n" (builtins.readFile ./authorized_keys));
       shell = pkgs.zsh;
