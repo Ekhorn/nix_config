@@ -1,4 +1,4 @@
-# Dotfiles
+# Nix Configuration
 
 ### Setup
 
