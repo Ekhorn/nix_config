@@ -68,6 +68,7 @@
     unison
     unzip
     wget
+    x11_ssh_askpass
     yarn-berry
     # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
     # (pkgs.writeShellScriptBin "my-hello" ''

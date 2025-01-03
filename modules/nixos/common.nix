@@ -11,7 +11,6 @@
     gnupg
     greetd.tuigreet
     wl-clipboard
-    x11_ssh_askpass
   ];
   environment.variables.NODEJS_PATH = "${pkgs.nodePackages_latest.nodejs}/";
 
