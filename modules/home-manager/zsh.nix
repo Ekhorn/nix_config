@@ -12,6 +12,22 @@
 
     oh-my-zsh = {
       enable = true;
+      theme = "robbyrussell";
+      plugins = [
+        "colored-man-pages"
+        "deno"
+        "direnv"
+        "docker"
+        "doctl"
+        "gh"
+        "git"
+        "kubectl"
+        "podman"
+        "rust"
+        "ssh"
+        "sudo"
+        "tmux"
+      ];
     };
   };
 }
