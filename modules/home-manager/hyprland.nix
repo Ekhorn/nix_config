@@ -167,10 +167,8 @@
       # Move active window to a workspace with mod + SHIFT + [0-9]
       ++ (map (n: "$mod SHIFT, ${n},movetoworkspace, ${n}") workspaces);
 
-      bindr = let
-        rofi = lib.getExe pkgs.rofi;
-      in [
-        "SUPER, SUPER_L, exec, ${rofi} -show drun"
+      bindr = [
+        "SUPER, SUPER_L, exec, rofi -show combi"
       ];
 
       bindm = [
