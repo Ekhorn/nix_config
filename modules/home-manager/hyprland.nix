@@ -25,7 +25,13 @@
     settings = {
       monitor= ",highrr,auto,1";
 
-      exec-once = "hyprctl setcursor Adwaita 24";
+      exec-once = [
+        "hyprctl setcursor Adwaita 24"
+        "[workspace 1 silent] alacritty"
+        "[workspace 2 silent] firefox"
+        "[workspace 3 silent] obsidian"
+        #"[workspace 4 silent] discord"
+      ];
 
       cursor = {
         no_hardware_cursors = true;
