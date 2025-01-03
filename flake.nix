@@ -7,10 +7,14 @@
       url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "stable";
     };
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "stable";
+    };
     rust-overlay.url = "github:oxalica/rust-overlay";
   };
 
-  outputs = { self, stable, home-manager, ... } @ inputs:
+  outputs = { self, stable, home-manager, disko, ... } @ inputs:
   let
     inherit (self) outputs;
 
@@ -22,6 +26,17 @@
     mkNixos = modules:
       stable.lib.nixosSystem {
         inherit modules;
+        specialArgs = { inherit inputs outputs; };
+      };
+    mkAnywhere = modules: system: device:
+      let
+        mods = modules ++ [{
+          disko.devices.disk.main.device = if device != null then device else "/dev/vda";
+        }];
+      in
+      stable.lib.nixosSystem {
+        inherit system;
+        modules = mods;
         specialArgs = { inherit inputs outputs; };
       };
     mkHome = modules: pkgs:
@@ -37,6 +52,9 @@
     nixosConfigurations = {
       pc-koen = mkNixos [./hosts/pc-koen/configuration.nix];
       laptop-koen = mkNixos [./hosts/laptop-koen/configuration.nix];
+      aws = mkAnywhere [./anywhere/aws/configuration.nix] system "/dev/xvda";
+      hetzner = mkAnywhere [./anywhere/hetzner/configuration.nix] system "/dev/sda";
+      ionos = mkAnywhere [./anywhere/ionos/configuration.nix] system null;
     };
 
     homeConfigurations = {

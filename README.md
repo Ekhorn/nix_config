@@ -44,7 +44,7 @@ git commit -m "conf: add authorized public key"
 Lastly, rebuild the nixos configuration and reboot.
 
 ```sh
-sudo nixos-rebuild switch \#new-host
+sudo nixos-rebuild switch .#new-host
 reboot
 ```
 
@@ -86,4 +86,35 @@ fileSystems."/mnt/hdd" =
   { device = "/dev/disk/by-uuid/uuid";
     fsType = "ext4";
   };
+```
+
+### NixOS Anyhwere
+
+```sh
+nix run github:nix-community/nixos-anywhere -- \
+  --generate-hardware-config nixos-generate-config ./<configuration-name>/hardware-configuration.nix --no-substitute-on-destination \
+  --flake .#<configuration-name> root@<ip address>
+```
+
+```sh
+ssh user@<ip address>
+ssh root@<ip address>
+passwd user
+```
+
+```nix
+  services.openssh = {
+    enable = true;
+    ports = [ 22 ];
+    settings = {
+      # PasswordAuthentication = false;
+      # PermitRootLogin = "no";
+      # UsePAM = false;
+      # KbdInteractiveAuthentication = false;
+    };
+  };
+```
+
+```sh
+nixos-rebuild --target-host user@ip-address --use-remote-sudo switch --flake .#<configuration-name>
 ```

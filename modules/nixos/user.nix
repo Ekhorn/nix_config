@@ -8,15 +8,27 @@
         Set the users' username.
       '';
     };
+    user.extraGroups = lib.mkOption {
+      default = [ "networkmanager" "wheel" ];
+      description = ''
+        Set the users' extraGroups.
+      '';
+    };
+    user.shell = lib.mkOption {
+      default = pkgs.zsh;
+      description = ''
+        Set the users' shell.
+      '';
+    };
   };
 
   config = lib.mkIf config.user.enable {
     users.users.${config.user.username} = {
-      extraGroups = [ "networkmanager" "wheel" ];
+      extraGroups = config.user.extraGroups;
       isNormalUser = true;
       openssh.authorizedKeys.keys =
         (lib.strings.splitString "\n" (builtins.readFile ./authorized_keys));
-      shell = pkgs.zsh;
+      shell = config.user.shell;
     };
   };
 }
