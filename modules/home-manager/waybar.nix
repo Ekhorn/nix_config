@@ -9,6 +9,8 @@
       primary = {
         layer = "top";
         position = "top";
+        spacing = 6;
+
         modules-left = ["hyprland/workspaces" "tray"];
         modules-center = ["group/local"];
         modules-right = [
@@ -19,7 +21,7 @@
         ];
 
         "hyprland/workspaces" = {
-          persistent-workspace = {
+          persistent-workspaces = {
             "1" = [];
             "2" = [];
             "3" = [];
