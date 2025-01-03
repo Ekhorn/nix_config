@@ -64,3 +64,25 @@ gpg --edit-key "$(gpg -K | rg -o "[A-F0-9]{40}")"
 seahorse
 ```
 
+### Mounting drives
+
+<!-- TODO: consider disko configs?? -->
+
+List drives
+
+```sh
+lsblk -f -o NAME,UUID,FSTYPE,SIZE
+```
+
+Set drive to mount
+
+```sh
+nvim hosts/new-host/hardware-configuration.nix
+```
+
+```nix
+fileSystems."/mnt/hdd" =
+  { device = "/dev/disk/by-uuid/uuid";
+    fsType = "ext4";
+  };
+```
