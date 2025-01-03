@@ -12,7 +12,7 @@
   # You should not change this value, even if you update Home Manager. If you do
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
-  home.stateVersion = "24.11"; # Please read the comment before changing.
+  home.stateVersion = "24.11";
 
   home.packages = with pkgs; [
     adwaita-icon-theme
@@ -43,7 +43,6 @@
     #input-leap
     #jdk17
     jq
-    #kitty
     kubectl
     lld
     lsof
@@ -70,24 +69,12 @@
     wget
     x11_ssh_askpass
     yarn-berry
-    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
   ];
 
   home.file = {
-    # # Building this configuration will create a copy of 'dotfiles/screenrc' in
-    # # the Nix store. Activating the configuration will then make '~/.screenrc' a
-    # # symlink to the Nix store copy.
-    # ".screenrc".source = dotfiles/screenrc;
-
-    # # You can also set the file content immediately.
-    # ".gradle/gradle.properties".text = ''
-    #   org.gradle.console=verbose
-    #   org.gradle.daemon.idletimeout=3600000
-    # '';
-
     ".unison/default.prf".text = ''
       root=/home/koen/Desktop/
       root=ssh://koen@laptop-koen//home/koen/Desktop/
