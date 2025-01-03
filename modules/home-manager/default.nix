@@ -11,7 +11,6 @@
   hyprlock = import ./hyprlock.nix;
   hyprpaper = import ./hyprpaper.nix;
   keepassxc = import ./keepassxc.nix;
-  nvim = import ./nvim.nix;
   rofi = import ./rofi.nix;
   tmux = import ./tmux.nix;
   vscode = import ./vscode.nix;
