@@ -14,6 +14,12 @@
         Set the users' extraGroups.
       '';
     };
+    user.extraKeys = lib.mkOption {
+      default = [];
+      description = ''
+        Set the users' extra trusted SSH keys.
+      '';
+    };
     user.shell = lib.mkOption {
       default = pkgs.zsh;
       description = ''
@@ -26,10 +32,9 @@
     users.users.${config.user.username} = {
       extraGroups = config.user.extraGroups;
       isNormalUser = true;
-      openssh.authorizedKeys.keys =
+      openssh.authorizedKeys.keys = config.user.extraKeys ++
         (lib.strings.splitString "\n" (builtins.readFile ./authorized_keys));
       shell = config.user.shell;
     };
   };
 }
-
