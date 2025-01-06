@@ -10,7 +10,7 @@
 
   user.enable = true;
   user.username = "spaced";
-  user.extraGroups = ["wheel"];
+  user.extraGroups = ["wheel" "docker"];
   user.extraKeys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBySfzAUZItpRMBBunklmpCpRkXx9qfrjNcnEPtvEygB"];
   user.shell = pkgs.bash;
 

@@ -10,7 +10,7 @@
 
   user.enable = true;
   user.username = "spaced";
-  user.extraGroups = ["wheel"];
+  user.extraGroups = ["wheel" "docker"];
   user.shell = pkgs.bash;
 
   system.stateVersion = "24.11";
