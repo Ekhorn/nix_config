@@ -1,4 +1,4 @@
-{ config, inputs, outputs, ... }:
+{ config, inputs, outputs, pkgs, ... }:
 
 {
   imports = [
@@ -23,6 +23,24 @@
   nixpkgs.config.allowUnfree = true;
 
   programs.steam.enable = true;
+
+  users.groups.github-runner = {};
+  users.users.github-runner = {
+    isNormalUser = true;
+    group = "github-runner";
+    extraGroups = [ "docker" ];
+  };
+  services.github-runners.spaced.enable = true;
+  services.github-runners.spaced.user = "github-runner";
+  services.github-runners.spaced.url = "https://github.com/Ekhorn/spaced";
+  services.github-runners.spaced.tokenFile = "/etc/gh_token";
+  services.github-runners.spaced.ephemeral = true;
+  services.github-runners.spaced.workDir = "/data/runner_workspace";
+  services.github-runners.spaced.extraPackages = with pkgs; [ config.virtualisation.docker.package ccache ];
+  services.github-runners.spaced.serviceOverrides = {
+    ProtectHome = false;
+    ReadWritePaths = [ "/data/ccache" "/data/runner_workspace" ];
+  };
 
   system.stateVersion = "24.05";
 
