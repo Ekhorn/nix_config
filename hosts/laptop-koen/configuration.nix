@@ -6,6 +6,8 @@
     inputs.home-manager.nixosModules.home-manager
   ] ++ (builtins.attrValues outputs.nixosModules);
 
+  hardware.bluetooth.powerOnBoot = false;
+
   home-manager.users.${config.user.username} =
     import ../../hosts/${config.networking.hostName}/home.nix;
 
