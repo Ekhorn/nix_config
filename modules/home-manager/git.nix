@@ -19,6 +19,7 @@
       credential.helper = "store";
       format.commitMessageColumns = 72;
       init.defaultBranch = "main";
+      push.autoSetupRemote = true;
     };
   };
 }
