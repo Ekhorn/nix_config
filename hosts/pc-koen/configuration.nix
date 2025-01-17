@@ -36,7 +36,7 @@
   services.github-runners.spaced.user = "github-runner";
   services.github-runners.spaced.url = "https://github.com/Ekhorn/spaced";
   services.github-runners.spaced.tokenFile = "/etc/gh_token";
-  services.github-runners.spaced.ephemeral = true;
+  services.github-runners.spaced.ephemeral = false;
   services.github-runners.spaced.workDir = "/data/runner_workspace";
   services.github-runners.spaced.extraPackages = with pkgs; [ config.virtualisation.docker.package ccache ];
   services.github-runners.spaced.serviceOverrides = {
@@ -50,4 +50,5 @@
   # Don't forget to set a password with ‘passwd’.
   user.enable = true;
   user.username = "koen";
+  user.extraGroups = [ "wheel" "networkmanager" "docker" ];
 }
