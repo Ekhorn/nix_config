@@ -38,7 +38,9 @@
   services.github-runners.spaced.tokenFile = "/etc/gh_token";
   services.github-runners.spaced.ephemeral = false;
   services.github-runners.spaced.workDir = "/data/runner_workspace";
-  services.github-runners.spaced.extraPackages = with pkgs; [ config.virtualisation.docker.package ccache ];
+  services.github-runners.spaced.extraPackages = with pkgs; [
+    nodejs_20 config.virtualisation.docker.package ccache jq
+  ];
   services.github-runners.spaced.serviceOverrides = {
     ProtectHome = false;
     ReadWritePaths = [ "/data/ccache" "/data/runner_workspace" ];
