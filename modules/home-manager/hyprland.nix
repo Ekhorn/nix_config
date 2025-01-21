@@ -5,7 +5,7 @@
   #programs.hyprland.xwayland.enable = true;
 
   xdg.portal = with pkgs; {
-    #wlr.enable = true;
+    enable = true;
     extraPortals = [
       xdg-desktop-portal-gtk
       xdg-desktop-portal-hyprland

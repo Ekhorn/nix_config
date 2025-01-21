@@ -61,6 +61,7 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+    wireplumber.enable = true;
   };
   #services.qemuGuest.enable = true;
   #services.spice-vdagentd.enable = true;
