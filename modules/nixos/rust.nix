@@ -11,5 +11,6 @@
     cargo-udeps
     cargo-tauri
     sqlx-cli
+    trunk
   ];
 }
