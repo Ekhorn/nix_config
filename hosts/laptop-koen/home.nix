@@ -15,7 +15,6 @@
   home.stateVersion = "24.11";
 
   home.packages = with pkgs; [
-    jdk17
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
@@ -35,6 +34,4 @@
   };
 
   programs.home-manager.enable = true;
-  programs.java.enable = true;
-  programs.java.package = pkgs.jdk17;
 }

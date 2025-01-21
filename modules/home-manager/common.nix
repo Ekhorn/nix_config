@@ -28,7 +28,7 @@
     hyprpicker
     hyprshot
     #input-leap
-    # jdk17
+    jdk17
     jetbrains.idea-community
     jq
     kubectl
@@ -68,4 +68,7 @@
       "obsidian"
       "vscode"
     ];
+
+  programs.java.enable = true;
+  programs.java.package = pkgs.jdk17;
 }
