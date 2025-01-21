@@ -29,6 +29,7 @@
     hyprshot
     #input-leap
     # jdk17
+    jetbrains.idea-community
     jq
     kubectl
     lld
@@ -39,6 +40,7 @@
     nixos-anywhere
     nodejs_20
     obsidian
+    obs-studio
     pciutils
     pinentry
     podman-compose
