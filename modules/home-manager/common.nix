@@ -62,13 +62,6 @@
 
   home.homeDirectory = "/home/${config.home.username}";
 
-  nixpkgs.config.allowUnfreePredicate = pkg:
-    builtins.elem (lib.getName pkg) [
-      "discord"
-      "obsidian"
-      "vscode"
-    ];
-
   programs.java.enable = true;
   programs.java.package = pkgs.jdk17;
 }

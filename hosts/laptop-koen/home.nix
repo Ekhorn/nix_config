@@ -1,4 +1,4 @@
-{ outputs, pkgs, ... }:
+{ lib, outputs, pkgs, ... }:
 
 {
   imports = [] ++ (builtins.attrValues outputs.homeManagerModules);
@@ -15,10 +15,13 @@
   home.stateVersion = "24.11";
 
   home.packages = with pkgs; [
+    slack
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
   ];
+
+
 
   home.file = {
     ".unison/default.prf".text = ''
@@ -31,7 +34,16 @@
   };
 
   home.sessionVariables = {
+    NIXOS_OZONE_WL = "1";
   };
+
+  nixpkgs.config.allowUnfreePredicate = pkg:
+    builtins.elem (lib.getName pkg) [
+      "discord"
+      "obsidian"
+      "slack"
+      "vscode"
+    ];
 
   programs.home-manager.enable = true;
 }
