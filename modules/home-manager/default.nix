@@ -16,4 +16,5 @@
   vscode = import ./vscode.nix;
   waybar = import ./waybar.nix;
   zsh = import ./zsh.nix;
+  zed = import ./zed.nix;
 }
