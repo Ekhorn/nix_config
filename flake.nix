@@ -52,6 +52,7 @@
     nixosConfigurations = {
       pc-koen = mkNixos [./hosts/pc-koen/configuration.nix];
       laptop-koen = mkNixos [./hosts/laptop-koen/configuration.nix];
+      qemu = mkNixos [./hosts/qemu/configuration.nix];
       aws = mkAnywhere [./anywhere/aws/configuration.nix] system "/dev/xvda";
       do = mkAnywhere [./anywhere/do/configuration.nix] system null;
       gc = mkAnywhere [./anywhere/gc/configuration.nix] system "/dev/sda";
