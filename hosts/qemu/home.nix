@@ -8,7 +8,7 @@ in
   ];
 
   home-manager.users.emu = {
-    imports = [ ./hyprland.nix ];
+    # imports = [ ./hyprland.nix ];
 
     home.stateVersion = "24.11";
 
@@ -16,9 +16,11 @@ in
       adwaita-icon-theme
       chromium
       firefox
-      hyprcursor
-      hyprpicker
-      hyprshot
+      # hyprcursor
+      # hyprpicker
+      # hyprshot
     ];
+
+    programs.home-manager.enable = true;
   };
 }

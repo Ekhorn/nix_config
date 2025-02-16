@@ -43,17 +43,27 @@ in
   security.polkit.enable = true;
   security.rtkit.enable = true;
 
-  services.greetd = {
-    enable = true;
-    settings = {
-      default_session = {
-        command = "${tuigreet} --time --time-format '%H:%M | %a * %h | %F' --remember --remember-session --sessions ${hyprland-session}";
-        user = "emu";
-      };
-    };
-  };
+  # services.greetd = {
+  #   enable = true;
+  #   settings = {
+  #     default_session = {
+  #       command = "${tuigreet} --time --time-format '%H:%M | %a * %h | %F' --remember --remember-session --sessions ${hyprland-session}";
+  #       user = "emu";
+  #     };
+  #   };
+  # };
   services.qemuGuest.enable = true;
   services.spice-vdagentd.enable = true; # enable copy and paste between host and guest
+  services.xserver = {
+    enable = true;
+    desktopManager.gnome.enable = true;
+    displayManager.gdm.enable = true;
+    videoDrivers = [];
+    xkb = {
+      layout = "us";
+      variant = "";
+    };
+  };
 
   system.stateVersion = "24.11";
 
