@@ -21,14 +21,14 @@
     gedit
     glxinfo
     graphviz
-    gradle_7
+    gradle_8
     helm
     htop
     hyprcursor
     hyprpicker
     hyprshot
     #input-leap
-    jdk17
+    jdk21_headless
     jetbrains.idea-community
     jq
     kubectl
@@ -63,5 +63,5 @@
   home.homeDirectory = "/home/${config.home.username}";
 
   programs.java.enable = true;
-  programs.java.package = pkgs.jdk17;
+  programs.java.package = pkgs.jdk21_headless;
 }
