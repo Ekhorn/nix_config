@@ -16,6 +16,7 @@
         light = "One Light";
         dark = "One Dark";
       };
+      soft_wrap = "editor_width";
     };
   };
 }
