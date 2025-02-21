@@ -16,6 +16,7 @@
 
   home.packages = with pkgs; [
     slack
+    jetbrains.idea-ultimate
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
@@ -40,6 +41,7 @@
   nixpkgs.config.allowUnfreePredicate = pkg:
     builtins.elem (lib.getName pkg) [
       "discord"
+      "idea-ultimate"
       "obsidian"
       "slack"
       "vscode"
