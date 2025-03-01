@@ -14,7 +14,6 @@ in
 
     home.packages = with pkgs; [
       adwaita-icon-theme
-      chromium
       firefox
       # hyprcursor
       # hyprpicker

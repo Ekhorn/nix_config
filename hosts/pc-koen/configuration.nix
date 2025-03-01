@@ -12,7 +12,7 @@
     import ../../hosts/${config.networking.hostName}/home.nix;
 
   home-manager = {
-      backupFileExtension = "backup";
+    backupFileExtension = "backup";
   };
 
   networking.hostName = "pc-koen";
