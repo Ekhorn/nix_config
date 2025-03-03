@@ -3,7 +3,7 @@
 {
   programs.zed-editor = {
     enable = true;
-    extensions = ["java" "nix" "toml"];
+    extensions = ["java" "java-eclipse-jdtls" "nix" "toml"];
 
     userSettings = {
       hour_format = "hour24";
