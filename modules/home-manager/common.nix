@@ -20,6 +20,7 @@
     #gcc
     gedit
     glxinfo
+    go
     graphviz
     gradle_8
     helm
