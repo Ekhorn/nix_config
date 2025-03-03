@@ -32,7 +32,7 @@
 
   hardware.bluetooth.enable = true;
   hardware.graphics.enable = true;
-  #hardware.graphics.enable32Bit = true;
+  hardware.graphics.enable32Bit = true;
 
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.extraLocaleSettings = {
