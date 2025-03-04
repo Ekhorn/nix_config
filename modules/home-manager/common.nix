@@ -56,6 +56,7 @@
     tree-sitter
     unison
     unzip
+    vulnix
     wget
     x11_ssh_askpass
     yarn-berry
