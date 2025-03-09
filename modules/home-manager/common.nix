@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, inputs, pkgs, ... }:
 
 {
   home.packages = with pkgs; [
@@ -38,6 +38,9 @@
     gnumake
     nautilus
     neovim
+    nil
+    nixfmt-rfc-style
+    unstable.package-version-server
     nixos-anywhere
     nodejs_20
     obsidian
@@ -63,6 +66,14 @@
   ];
 
   home.homeDirectory = "/home/${config.home.username}";
+
+  nixpkgs.overlays = [
+    (final: prev: {
+      unstable = import inputs.unstable {
+        system = prev.system;
+      };
+    })
+  ];
 
   programs.java.enable = true;
   programs.java.package = pkgs.jdk21_headless;

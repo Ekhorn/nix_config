@@ -1,10 +1,10 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   programs.zed-editor = {
     enable = true;
-    extensions = ["java" "java-eclipse-jdtls" "nix" "toml"];
-
+    extensions = ["groovy" "java" "nix" "toml"];
+    package = pkgs.unstable.zed-editor-fhs;
     userSettings = {
       hour_format = "hour24";
       auto_update = false;
@@ -16,7 +16,21 @@
         light = "One Light";
         dark = "One Dark";
       };
+      # vim_mode = true;
+      show_whitespaces = "all";
       soft_wrap = "editor_width";
+
+      languages = {
+        Nix = {
+          language_servers = [ "nil" "!nixd" ];
+          formatter = {
+            external = {
+              command = "nixfmt";
+              arguments = ["--quiet" "--"];
+            };
+          };
+        };
+      };
     };
   };
 }
