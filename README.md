@@ -1,50 +1,118 @@
 # Nix Configuration
 
-### Setup
+### Minimal Installation
 
-First clone this repository. To configure wifi run `nmtui`.
+Based on <https://nixos.org/manual/nixos/stable/#sec-installation-manual>
 
 ```sh
-mkdir develop && cd develop
-nix-shell -p git
-git clone https://github.com/Ekhorn/nix_config
+sudo -i
+```
+
+```sh
+sudo systemctl start wpa_supplicant
+```
+
+```sh
+wpa_cli
+0
+set_network 0 ssid "network"
+OK
+set_network 0 psk "password"
+OK
+enable_network 0
+OK
+quit
+```
+
+**UEFI (GPT)**
+
+```sh
+parted /dev/disk1 -- mklabel gpt
+parted /dev/disk1 -- mkpart root ext4 512MB -8GB
+parted /dev/disk1 -- mkpart swap linux-swap -8GB 100%
+parted /dev/disk1 -- mkpart ESP fat32 1MB 512MB
+parted /dev/disk1 -- set 3 esp on
+```
+
+**(Optional) LUKS Setup**
+
+```sh
+cryptsetup luksFormat /dev/disk1part1
+cryptsetup luksOpen /dev/disk1part1 crypted
+mkfs.ext4 /dev/mapper/crypted
+```
+
+**Formatting**
+
+```sh
+mkfs.ext4 -L nixos /dev/disk1part2 # Skip when using LUKS
+mkswap -L swap /dev/disk1part2
+mkfs.fat -F 32 -n boot /dev/disk1part3
+```
+
+**Installing**
+
+```sh
+mount /dev/disk/by-label/nixos /mnt # No LUKS
+mount /dev/mapper /mnt # LUKS
+mkdir -p /mnt/boot
+mount -o umask=077 /dev/disk/by-label/boot /mnt/boot
+swapon /dev/disk1part2
+```
+
+```sh
+nixos-generate-config --root /mnt
+```
+
+Configure `hostname`, enable `networking.networkmanager.enable`, set `user` with package `git` and save.
+
+```sh
+nano /mnt/etc/nixos/configuration.nix
+```
+
+Install nixos
+
+```sh
+nixos-install
+```
+
+Set user password and reboot.
+
+```sh
+nixos-enter --root /mnt -c 'passwd user'
+reboot
+```
+
+### Setup
+
+Assuming the repo is cloned (use `nmtui` for wifi).
+
+```sh
+cd develop/nix_config
 ```
 
 Copy the hardware configuration to the host directory.
 
 ```sh
-mkdir hosts/new-host/
-cp /etc/nixos/hardware-configuration.nix hosts/new-host/
+cp /etc/nixos/hardware-configuration.nix hosts/my-host
 ```
 
-Symlink nix flake to `/etc/nixos/flake.nix`.
+Wipe the old nixos configuration.
 
 ```sh
 sudo rm -rf /etc/nixos/*
-sudo ln -s ~/develop/nix_config/flake.nix /etc/nixos/flake.nix
 ```
 
-Setup user in configuration, and adjust to your liking.
+Symlink new configuration.
 
 ```sh
-cp hosts/pc-koen/configuration.nix hosts/new-host
-cp hosts/pc-koen/home.nix hosts/new-host
-nano hosts/new-host/configuration.nix
-nano hosts/new-host/home.nix
-```
-
-Create and add new ssh key.
-
-```sh
-ssh-keygen
-cat ~/.ssh/id_*.pub >> modules/nixos/authorized_keys
-git commit -m "conf: add authorized public key"
+sudo ln -s flake.nix /etc/nixos/flake.nix
 ```
 
 Lastly, rebuild the nixos configuration and reboot.
 
 ```sh
-sudo nixos-rebuild switch .#new-host
+sudo nixos-rebuild switch .#my-host
 reboot
 ```
 
@@ -57,7 +125,15 @@ unison
 keepassxc ~/Desktop/$USER.kdbx
 ```
 
-Then copy GPG from other system.
+Create and add new ssh key.
+
+```sh
+ssh-keygen
+cat ~/.ssh/id_*.pub >> modules/nixos/authorized_keys
+git commit -m "conf: add authorized public key" --no-gpg-sign
+```
+
+Then copy GPG from other system, you may need to reboot the system.
 
 ```sh
 ssh other@hostname 'gpg --export-secret-keys -a "$(gpg -K | rg -o "[A-F0-9]{40}")"' | gpg --import
