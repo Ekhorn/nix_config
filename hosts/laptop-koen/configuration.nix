@@ -1,4 +1,10 @@
-{ config, inputs, lib, outputs, ... }:
+{
+  config,
+  inputs,
+  lib,
+  outputs,
+  ...
+}:
 
 {
   imports = [
@@ -19,10 +25,14 @@
   networking.networkmanager.enable = true;
 
   nix.settings = {
-    experimental-features = ["nix-command" "flakes"];
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
   };
 
-  nixpkgs.config.allowUnfreePredicate = pkg:
+  nixpkgs.config.allowUnfreePredicate =
+    pkg:
     builtins.elem (lib.getName pkg) [
       "nvidia-x11"
       "nvidia-settings"

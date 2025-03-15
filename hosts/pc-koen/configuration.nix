@@ -1,4 +1,10 @@
-{ config, inputs, outputs, pkgs, ... }:
+{
+  config,
+  inputs,
+  outputs,
+  pkgs,
+  ...
+}:
 
 {
   imports = [
@@ -19,14 +25,17 @@
   networking.networkmanager.enable = true;
 
   nix.settings = {
-    experimental-features = ["nix-command" "flakes"];
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
   };
 
   nixpkgs.config.allowUnfree = true;
 
   programs.steam.enable = true;
 
-  users.groups.github-runner = {};
+  users.groups.github-runner = { };
   users.users.github-runner = {
     isNormalUser = true;
     group = "github-runner";
@@ -39,11 +48,17 @@
   services.github-runners.spaced.ephemeral = false;
   services.github-runners.spaced.workDir = "/data/runner_workspace";
   services.github-runners.spaced.extraPackages = with pkgs; [
-    nodejs_20 config.virtualisation.docker.package ccache jq
+    nodejs_20
+    config.virtualisation.docker.package
+    ccache
+    jq
   ];
   services.github-runners.spaced.serviceOverrides = {
     ProtectHome = false;
-    ReadWritePaths = [ "/data/ccache" "/data/runner_workspace" ];
+    ReadWritePaths = [
+      "/data/ccache"
+      "/data/runner_workspace"
+    ];
   };
 
   system.stateVersion = "24.05";
@@ -52,5 +67,9 @@
   # Don't forget to set a password with ‘passwd’.
   user.enable = true;
   user.username = "koen";
-  user.extraGroups = [ "wheel" "networkmanager" "docker" ];
+  user.extraGroups = [
+    "wheel"
+    "networkmanager"
+    "docker"
+  ];
 }

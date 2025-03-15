@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   tuigreet = "${pkgs.greetd.tuigreet}/bin/tuigreet";
@@ -32,7 +37,10 @@ in
   networking.hostName = "nixos";
 
   nix.settings = {
-    experimental-features = ["nix-command" "flakes"];
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
   };
 
   nixpkgs.config.allowUnfree = true;
@@ -58,7 +66,7 @@ in
     enable = true;
     desktopManager.gnome.enable = true;
     displayManager.gdm.enable = true;
-    videoDrivers = [];
+    videoDrivers = [ ];
     xkb = {
       layout = "us";
       variant = "";

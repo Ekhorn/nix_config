@@ -1,7 +1,12 @@
-{ lib, outputs, pkgs, ... }:
+{
+  lib,
+  outputs,
+  pkgs,
+  ...
+}:
 
 {
-  imports = [] ++ (builtins.attrValues outputs.homeManagerModules);
+  imports = [ ] ++ (builtins.attrValues outputs.homeManagerModules);
 
   home.username = "koen";
 
@@ -22,8 +27,6 @@
     # '')
   ];
 
-
-
   home.file = {
     ".unison/default.prf".text = ''
       root=/home/koen/Desktop/
@@ -38,7 +41,8 @@
     NIXOS_OZONE_WL = "1";
   };
 
-  nixpkgs.config.allowUnfreePredicate = pkg:
+  nixpkgs.config.allowUnfreePredicate =
+    pkg:
     builtins.elem (lib.getName pkg) [
       "discord"
       "idea-ultimate"

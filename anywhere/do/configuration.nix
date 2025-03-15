@@ -1,4 +1,10 @@
-{ inputs, modulesPath, lib, pkgs, ... }:
+{
+  inputs,
+  modulesPath,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   imports = [
@@ -10,8 +16,13 @@
 
   user.enable = true;
   user.username = "spaced";
-  user.extraGroups = ["wheel" "docker"];
-  user.extraKeys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOpnh3ftRObnt6vht3N6qcJbpzHzzXi/5eE0gr7aT5G4"];
+  user.extraGroups = [
+    "wheel"
+    "docker"
+  ];
+  user.extraKeys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOpnh3ftRObnt6vht3N6qcJbpzHzzXi/5eE0gr7aT5G4"
+  ];
   user.shell = pkgs.bash;
 
   # do not use DHCP, as DigitalOcean provisions IPs using cloud-init

@@ -8,7 +8,10 @@
     efiInstallAsRemovable = true;
   };
 
-  nix.settings.trusted-users = [ "root" "@wheel" ];
+  nix.settings.trusted-users = [
+    "root"
+    "@wheel"
+  ];
 
   security.sudo.wheelNeedsPassword = true;
   security.pam.sshAgentAuth.enable = true;
@@ -26,9 +29,10 @@
 
   virtualisation.docker.enable = true;
 
-  environment.systemPackages = map lib.lowPrio [];
+  environment.systemPackages = map lib.lowPrio [ ];
 
   users.users = {
-    root.openssh.authorizedKeys.keys = config.users.users."${config.user.username}".openssh.authorizedKeys.keys;
+    root.openssh.authorizedKeys.keys =
+      config.users.users."${config.user.username}".openssh.authorizedKeys.keys;
   };
 }

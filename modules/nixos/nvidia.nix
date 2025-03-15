@@ -1,7 +1,7 @@
 { config, ... }:
 
 {
-  boot.blacklistedKernelModules = ["nouveau"];
+  boot.blacklistedKernelModules = [ "nouveau" ];
   boot.extraModprobeConfig = ''
     blacklist nouveau
     options nouveau modeset=0

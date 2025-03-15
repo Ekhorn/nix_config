@@ -3,7 +3,8 @@
 let
   tuigreet = "${pkgs.greetd.tuigreet}/bin/tuigreet";
   hyprland-session = "${pkgs.hyprland}/share/wayland-sessions";
-in {
+in
+{
   services.greetd = {
     enable = true;
     settings = {

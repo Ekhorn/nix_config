@@ -3,7 +3,12 @@
 {
   programs.zed-editor = {
     enable = true;
-    extensions = ["groovy" "java" "nix" "toml"];
+    extensions = [
+      "groovy"
+      "java"
+      "nix"
+      "toml"
+    ];
     package = pkgs.unstable.zed-editor-fhs;
     userSettings = {
       hour_format = "hour24";
@@ -22,11 +27,17 @@
 
       languages = {
         Nix = {
-          language_servers = [ "nil" "!nixd" ];
+          language_servers = [
+            "nil"
+            "!nixd"
+          ];
           formatter = {
             external = {
               command = "nixfmt";
-              arguments = ["--quiet" "--"];
+              arguments = [
+                "--quiet"
+                "--"
+              ];
             };
           };
         };

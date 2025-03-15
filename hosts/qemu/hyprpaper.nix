@@ -4,8 +4,8 @@
   services.hyprpaper = {
     enable = true;
     settings = {
-      preload = [""];
-      wallpaper = [","];
+      preload = [ "" ];
+      wallpaper = [ "," ];
       splash = false;
     };
   };

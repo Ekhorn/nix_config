@@ -16,7 +16,7 @@
   };
 
   programs.virt-manager.enable = true;
-  users.groups.libvirtd.members = ["koen"];
+  users.groups.libvirtd.members = [ "koen" ];
   virtualisation.libvirtd.enable = true;
   virtualisation.spiceUSBRedirection.enable = true;
 }

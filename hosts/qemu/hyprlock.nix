@@ -38,7 +38,8 @@
       ];
 
       label = [
-        { # Clock
+        {
+          # Clock
           monitor = "";
           text = "cmd[update:1000] echo \"$(LC_TIME=en_US.UTF-8 date +\"%H:%M | %a *
         %b | %Y-%m-%d\")\"";

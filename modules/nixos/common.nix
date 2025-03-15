@@ -1,4 +1,10 @@
-{ config, inputs, outputs, pkgs, ... }:
+{
+  config,
+  inputs,
+  outputs,
+  pkgs,
+  ...
+}:
 
 {
   boot.loader.efi.canTouchEfiVariables = true;
@@ -79,7 +85,7 @@
     enable = true;
     #desktopManager.gnome.enable = true;
     displayManager.gdm.enable = true;
-    videoDrivers = ["nvidia"];
+    videoDrivers = [ "nvidia" ];
     xkb = {
       layout = "us";
       variant = "";
@@ -89,6 +95,12 @@
   system.autoUpgrade = {
     enable = true;
     flake = "/etc/nixos#${config.networking.hostName}";
-    flags = [ "--update-input" "stable" "unstable" "home-manager" "rust-overlay" ];
+    flags = [
+      "--update-input"
+      "stable"
+      "unstable"
+      "home-manager"
+      "rust-overlay"
+    ];
   };
 }

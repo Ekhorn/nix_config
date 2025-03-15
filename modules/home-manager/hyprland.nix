@@ -21,12 +21,12 @@
 
     systemd = {
       enable = true;
-      variables = ["--all"];
+      variables = [ "--all" ];
     };
 
     xwayland.enable = true;
     settings = {
-      monitor= ",highrr,auto,1";
+      monitor = ",highrr,auto,1";
 
       exec-once = [
         "hyprctl setcursor Adwaita 24"
@@ -138,45 +138,52 @@
 
       "$mod" = "SUPER";
 
-      bind = let
-        alacritty = lib.getExe pkgs.alacritty;
-        nautilus = lib.getExe pkgs.nautilus;
-        workspaces = ["1" "2" "3" "4"];
-      in [
-        "$mod, T, exec, ${alacritty}"
-        "$mod, F, exec, fullscreen"
-        "$mod, E, exec, ${nautilus}"
-        "ALT, F4, killactive,"
-        "$mod, Q, killactive,"
-        "$mod, L, exit,"
-        "$mod, V, togglefloating,"
-        "$mod, P, pseudo," # dwindle
-        "$mod, Y, togglesplit," # dwindle
-        "CONTROL_SUPER_ALT, S, exec, hyprlock & systemctl suspend"
-        "CONTROL_SUPER_ALT, P, exec, systemctl poweroff"
-        "CONTROL_SUPER_ALT, R, exec, systemctl reboot"
-        "SHIFT_SUPER, M, exec, hyprctl keyword monitor , preferred, auto, 1, mirror, eDP-1"
-        "SHIFT_SUPER, J, exec, hyprctl keyword monitor , preferred, auto, 1"
-        ", PRINT, exec, hyprshot -m region -o ~/Pictures/Screenshots"
+      bind =
+        let
+          alacritty = lib.getExe pkgs.alacritty;
+          nautilus = lib.getExe pkgs.nautilus;
+          workspaces = [
+            "1"
+            "2"
+            "3"
+            "4"
+          ];
+        in
+        [
+          "$mod, T, exec, ${alacritty}"
+          "$mod, F, exec, fullscreen"
+          "$mod, E, exec, ${nautilus}"
+          "ALT, F4, killactive,"
+          "$mod, Q, killactive,"
+          "$mod, L, exit,"
+          "$mod, V, togglefloating,"
+          "$mod, P, pseudo," # dwindle
+          "$mod, Y, togglesplit," # dwindle
+          "CONTROL_SUPER_ALT, S, exec, hyprlock & systemctl suspend"
+          "CONTROL_SUPER_ALT, P, exec, systemctl poweroff"
+          "CONTROL_SUPER_ALT, R, exec, systemctl reboot"
+          "SHIFT_SUPER, M, exec, hyprctl keyword monitor , preferred, auto, 1, mirror, eDP-1"
+          "SHIFT_SUPER, J, exec, hyprctl keyword monitor , preferred, auto, 1"
+          ", PRINT, exec, hyprshot -m region -o ~/Pictures/Screenshots"
 
-        # Move focus with mainMod + arrow keys
-        "$mod, H, movefocus, l"
-        "$mod, J, movefocus, r"
-        "$mod, K, movefocus, u"
-        "$mod, L, movefocus, d"
+          # Move focus with mainMod + arrow keys
+          "$mod, H, movefocus, l"
+          "$mod, J, movefocus, r"
+          "$mod, K, movefocus, u"
+          "$mod, L, movefocus, d"
 
-        # Example special workspace (scratchpad)
-        "$mod, S, togglespecialworkspace, magic"
-        "$mod SHIFT, S, movetoworkspace, special:magic"
+          # Example special workspace (scratchpad)
+          "$mod, S, togglespecialworkspace, magic"
+          "$mod SHIFT, S, movetoworkspace, special:magic"
 
-        # Scroll through existing workspaces with mainMod + scroll
-        "$mod, mouse_down, workspace, e-1"
-        "$mod, mouse_up, workspace, e+1"
-      ]
-      # Switch workspaces with mod + [0-9]
-      ++ (map (n: "$mod, ${n},workspace, ${n}") workspaces)
-      # Move active window to a workspace with mod + SHIFT + [0-9]
-      ++ (map (n: "$mod SHIFT, ${n},movetoworkspace, ${n}") workspaces);
+          # Scroll through existing workspaces with mainMod + scroll
+          "$mod, mouse_down, workspace, e-1"
+          "$mod, mouse_up, workspace, e+1"
+        ]
+        # Switch workspaces with mod + [0-9]
+        ++ (map (n: "$mod, ${n},workspace, ${n}") workspaces)
+        # Move active window to a workspace with mod + SHIFT + [0-9]
+        ++ (map (n: "$mod SHIFT, ${n},movetoworkspace, ${n}") workspaces);
 
       bindr = [
         "SUPER, SUPER_L, exec, rofi -show combi"

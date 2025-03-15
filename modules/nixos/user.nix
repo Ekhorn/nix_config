@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options = {
@@ -9,13 +14,16 @@
       '';
     };
     user.extraGroups = lib.mkOption {
-      default = [ "networkmanager" "wheel" ];
+      default = [
+        "networkmanager"
+        "wheel"
+      ];
       description = ''
         Set the users' extraGroups.
       '';
     };
     user.extraKeys = lib.mkOption {
-      default = [];
+      default = [ ];
       description = ''
         Set the users' extra trusted SSH keys.
       '';
@@ -32,8 +40,8 @@
     users.users.${config.user.username} = {
       extraGroups = config.user.extraGroups;
       isNormalUser = true;
-      openssh.authorizedKeys.keys = config.user.extraKeys ++
-        (lib.strings.splitString "\n" (builtins.readFile ./authorized_keys));
+      openssh.authorizedKeys.keys =
+        config.user.extraKeys ++ (lib.strings.splitString "\n" (builtins.readFile ./authorized_keys));
       shell = config.user.shell;
     };
   };

@@ -11,8 +11,11 @@
         position = "top";
         spacing = 6;
 
-        modules-left = ["hyprland/workspaces" "tray"];
-        modules-center = ["group/local"];
+        modules-left = [
+          "hyprland/workspaces"
+          "tray"
+        ];
+        modules-center = [ "group/local" ];
         modules-right = [
           "group/sound"
           "group/connectivity"
@@ -22,16 +25,19 @@
 
         "hyprland/workspaces" = {
           persistent-workspaces = {
-            "1" = [];
-            "2" = [];
-            "3" = [];
-            "4" = [];
+            "1" = [ ];
+            "2" = [ ];
+            "3" = [ ];
+            "4" = [ ];
           };
         };
 
         "group/local" = {
           orientation = "inherit";
-          modules = ["clock" "custom/weather"];
+          modules = [
+            "clock"
+            "custom/weather"
+          ];
         };
 
         "clock" = {
@@ -54,8 +60,14 @@
           };
           actions = {
             "on-click-right" = "mode";
-            "on-scroll-up" = ["tz_up" "shift_up"];
-            "on-scroll-down" = ["tz_down" "shift_down"];
+            "on-scroll-up" = [
+              "tz_up"
+              "shift_up"
+            ];
+            "on-scroll-down" = [
+              "tz_down"
+              "shift_down"
+            ];
           };
         };
 
@@ -69,7 +81,10 @@
 
         "group/sound" = {
           orientation = "inherit";
-          modules = ["group/audio" "pulseaudio#mic"];
+          modules = [
+            "group/audio"
+            "pulseaudio#mic"
+          ];
         };
 
         "group/audio" = {
@@ -78,7 +93,10 @@
             "transition-duration" = 500;
             "transition-left-to-right" = false;
           };
-          modules = ["pulseaudio" "pulseaudio/slider"];
+          modules = [
+            "pulseaudio"
+            "pulseaudio/slider"
+          ];
         };
 
         "pulseaudio/slider" = {
@@ -109,7 +127,11 @@
 
         "group/connectivity" = {
           orientation = "inherit";
-          modules = ["group/network" "bluetooth" "bluetooth#status"];
+          modules = [
+            "group/network"
+            "bluetooth"
+            "bluetooth#status"
+          ];
         };
 
         "group/network" = {
@@ -118,7 +140,10 @@
             "transition-duration" = 500;
             "transition-left-to-right" = false;
           };
-          modules = ["network" "network#essid"];
+          modules = [
+            "network"
+            "network#essid"
+          ];
         };
 
         "network#essid" = {
@@ -141,9 +166,11 @@
           "format-disabled" = "";
           "format-connected" = "<b></b>";
           "tooltip-format" = "{controller_alias}\t{controller_address}\n\n{num_connections} connected";
-          "tooltip-format-connected" = "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}";
+          "tooltip-format-connected" =
+            "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}";
           "tooltip-format-enumerate-connected" = "{device_alias}\t{device_address}";
-          "tooltip-format-enumerate-connected-battery" = "{device_alias}\t{device_address}\t{device_battery_percentage}%";
+          "tooltip-format-enumerate-connected-battery" =
+            "{device_alias}\t{device_address}\t{device_battery_percentage}%";
           "on-click" = "rofi-bluetooth";
           "on-click-right" = "rfkill toggle bluetooth";
         };
@@ -155,14 +182,20 @@
           "format-connected" = "<b>{num_connections}</b>";
           "format-connected-battery" = "<b>{device_battery_percentage}%</b>";
           "tooltip-format" = "{controller_alias}\t{controller_address}\n\n{num_connections} connected";
-          "tooltip-format-connected" = "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}";
+          "tooltip-format-connected" =
+            "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}";
           "tooltip-format-enumerate-connected" = "{device_alias}\t{device_address}";
-          "tooltip-format-enumerate-connected-battery" = "{device_alias}\t{device_address}\t{device_battery_percentage}%";
+          "tooltip-format-enumerate-connected-battery" =
+            "{device_alias}\t{device_address}\t{device_battery_percentage}%";
         };
 
         "group/hardware" = {
           orientation = "inherit";
-          modules = ["group/disk" "memory" "cpu"];
+          modules = [
+            "group/disk"
+            "memory"
+            "cpu"
+          ];
         };
 
         "cpu" = {
@@ -182,7 +215,10 @@
             "transition-duration" = 300;
             "transition-left-to-right" = true;
           };
-          modules = ["disk#disk1" "disk#disk2"];
+          modules = [
+            "disk#disk1"
+            "disk#disk2"
+          ];
         };
 
         "disk#disk1" = {
@@ -208,7 +244,13 @@
           "format-charging" = "{capacity}% ";
           "format-plugged" = "{capacity}% ";
           "format-alt" = "{time} {icon}";
-          "format-icons" = ["" "" "" "" ""];
+          "format-icons" = [
+            ""
+            ""
+            ""
+            ""
+            ""
+          ];
           tooltip = true;
         };
       };

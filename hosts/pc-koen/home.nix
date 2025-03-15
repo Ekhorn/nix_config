@@ -1,7 +1,12 @@
-{ lib, outputs, pkgs, ... }:
+{
+  lib,
+  outputs,
+  pkgs,
+  ...
+}:
 
 {
-  imports = [] ++ (builtins.attrValues outputs.homeManagerModules);
+  imports = [ ] ++ (builtins.attrValues outputs.homeManagerModules);
 
   home.username = "koen";
 
@@ -33,7 +38,8 @@
   home.sessionVariables = {
   };
 
-  nixpkgs.config.allowUnfreePredicate = pkg:
+  nixpkgs.config.allowUnfreePredicate =
+    pkg:
     builtins.elem (lib.getName pkg) [
       "discord"
       "obsidian"
