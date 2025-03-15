@@ -164,7 +164,7 @@ fileSystems."/mnt/hdd" =
   };
 ```
 
-### NixOS Anyhwere
+### NixOS Anywhere
 
 ```sh
 nix run github:nix-community/nixos-anywhere -- \
@@ -193,4 +193,26 @@ passwd user
 
 ```sh
 nixos-rebuild --target-host user@ip-address --use-remote-sudo switch --flake .#<configuration-name>
+```
+
+### VMs
+
+#### Resize disk
+
+**Host**
+
+```sh
+sudo qemu-img resize /path/to/qemu/<vm-name>.qcow2 +10G
+```
+
+**Guest**
+
+```sh
+lsblk
+sudo parted /dev/vda
+> print
+> resizepart 1 10GB
+> quit
+sudo resize2fs /dev/vda1
+df -h
 ```
