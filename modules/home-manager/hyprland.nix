@@ -185,6 +185,14 @@
         # Move active window to a workspace with mod + SHIFT + [0-9]
         ++ (map (n: "$mod SHIFT, ${n},movetoworkspace, ${n}") workspaces);
 
+      bindl = [
+        ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        ", XF86AudioPlay, exec, playerctl play"
+        ", XF86AudioPause, exec, playerctl play-pause"
+        ", XF86AudioPrev, exec, playerctl previous"
+        ", XF86AudioNext, exec, playerctl next"
+      ];
+
       bindr = [
         "SUPER, SUPER_L, exec, rofi -show combi"
       ];

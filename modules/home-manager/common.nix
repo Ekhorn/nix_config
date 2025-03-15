@@ -52,6 +52,7 @@
     obs-studio
     pciutils
     pinentry
+    playerctl
     podman-compose
     postgresql_17
     protobuf
