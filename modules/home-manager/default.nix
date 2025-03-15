@@ -10,6 +10,7 @@
   hyprland = import ./hyprland.nix;
   hyprlock = import ./hyprlock.nix;
   hyprpaper = import ./hyprpaper.nix;
+  java = import ./java.nix;
   keepassxc = import ./keepassxc.nix;
   rofi = import ./rofi.nix;
   tmux = import ./tmux.nix;
