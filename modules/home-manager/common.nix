@@ -20,6 +20,7 @@
     eog
     fastfetch
     fd
+    file-roller
     firefox
     #(flameshot.override { enableWlrSupport = true; })
     #gcc
