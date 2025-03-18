@@ -12,10 +12,11 @@
   hyprpaper = import ./hyprpaper.nix;
   java = import ./java.nix;
   keepassxc = import ./keepassxc.nix;
+  latex = import ./latex.nix;
   rofi = import ./rofi.nix;
   tmux = import ./tmux.nix;
   vscode = import ./vscode.nix;
   waybar = import ./waybar.nix;
-  zsh = import ./zsh.nix;
   zed = import ./zed.nix;
+  zsh = import ./zsh.nix;
 }

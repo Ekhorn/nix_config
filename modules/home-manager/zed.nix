@@ -8,6 +8,8 @@
       "java"
       "nix"
       "toml"
+      "latex"
+      "ltex"
     ];
     package = pkgs.unstable.zed-editor-fhs;
     userSettings = {
@@ -38,6 +40,35 @@
                 "--quiet"
                 "--"
               ];
+            };
+          };
+        };
+      };
+
+      lsp = {
+        texlab = {
+          settings = {
+            texlab = {
+              build = {
+                onSave = true;
+                forwardSearchAfter = true;
+                executable = "pdflatex";
+                args = [
+                  "-synctex=1"
+                  "-recorder"
+                  "%f"
+                ];
+              };
+              forwardSearch = {
+                executable = "zathura";
+                args = [
+                  "--synctex-forward"
+                  "%l:1:%f"
+                  "-x"
+                  "zed %%{input}:%%{line}"
+                  "%p"
+                ];
+              };
             };
           };
         };
