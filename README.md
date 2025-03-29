@@ -8,6 +8,9 @@ Based on <https://nixos.org/manual/nixos/stable/#sec-installation-manual>
 sudo -i
 ```
 
+<details>
+  <summary>Configure wifi</summary>
+
 ```sh
 sudo systemctl start wpa_supplicant
 ```
@@ -23,6 +26,8 @@ enable_network 0
 OK
 quit
 ```
+
+</details>
 
 **UEFI (GPT)**
 
@@ -45,7 +50,7 @@ mkfs.ext4 /dev/mapper/crypted
 **Formatting**
 
 ```sh
-mkfs.ext4 -L nixos /dev/disk1part2 # Skip when using LUKS
+mkfs.ext4 -L nixos /dev/disk1part1 # Skip when using LUKS
 mkswap -L swap /dev/disk1part2
 mkfs.fat -F 32 -n boot /dev/disk1part3
 ```
@@ -54,7 +59,7 @@ mkfs.fat -F 32 -n boot /dev/disk1part3
 
 ```sh
 mount /dev/disk/by-label/nixos /mnt # No LUKS
-mount /dev/mapper /mnt # LUKS
+mount /dev/mapper/crypted /mnt # LUKS
 mkdir -p /mnt/boot
 mount -o umask=077 /dev/disk/by-label/boot /mnt/boot
 swapon /dev/disk1part2
