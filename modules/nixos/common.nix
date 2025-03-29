@@ -57,6 +57,11 @@
   security.polkit.enable = true;
   security.rtkit.enable = true;
 
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
   services.gnome.gnome-keyring.enable = true;
   services.gvfs.enable = true;
   services.logind.extraConfig = ''
@@ -69,6 +74,7 @@
     pulse.enable = true;
     wireplumber.enable = true;
   };
+  services.printing.enable = true;
   #services.qemuGuest.enable = true;
   #services.spice-vdagentd.enable = true;
   services.syncthing = {
