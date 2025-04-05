@@ -29,7 +29,7 @@
     go
     graphviz
     gradle_8
-    helm
+    kubernetes-helm
     htop
     hyprcursor
     hyprpicker
