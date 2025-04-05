@@ -26,6 +26,25 @@
       # vim_mode = true;
       show_whitespaces = "all";
       soft_wrap = "editor_width";
+      scrollbar = {
+        axes = {
+          horizontal = false;
+        };
+      };
+      project_panel = {
+        scrollbar = {
+          show = "never";
+        };
+      };
+      outline_panel = {
+        button = false;
+      };
+      collaboration_panel = {
+        button = false;
+      };
+      notification_panel = {
+        button = false;
+      };
 
       languages = {
         Nix = {
