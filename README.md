@@ -111,7 +111,7 @@ sudo rm -rf /etc/nixos/*
 Symlink new configuration.
 
 ```sh
-sudo ln -s flake.nix /etc/nixos/flake.nix
+sudo ln -s $(pwd)/flake.nix /etc/nixos/flake.nix
 ```
 
 Lastly, rebuild the nixos configuration and reboot.
