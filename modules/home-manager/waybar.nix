@@ -165,6 +165,7 @@
           "format-off" = " off";
           "format-disabled" = "";
           "format-connected" = "<b></b>";
+          "format-no-controller" = "";
           "tooltip-format" = "{controller_alias}\t{controller_address}\n\n{num_connections} connected";
           "tooltip-format-connected" =
             "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}";
@@ -181,6 +182,7 @@
           "format-disabled" = "";
           "format-connected" = "<b>{num_connections}</b>";
           "format-connected-battery" = "<b>{device_battery_percentage}%</b>";
+          "format-no-controller" = " ??";
           "tooltip-format" = "{controller_alias}\t{controller_address}\n\n{num_connections} connected";
           "tooltip-format-connected" =
             "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}";
