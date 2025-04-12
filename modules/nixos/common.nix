@@ -80,15 +80,15 @@
     configDir = "/home/${config.user.username}/.local/state/syncthing";
   };
 
-  system.autoUpgrade = {
-    enable = true;
-    flake = "/etc/nixos#${config.networking.hostName}";
-    flags = [
-      "--update-input"
-      "stable"
-      "unstable"
-      "home-manager"
-      "rust-overlay"
-    ];
-  };
+  # system.autoUpgrade = {
+  #   enable = true;
+  #   flake = "/etc/nixos#${config.networking.hostName}";
+  #   flags = [
+  #     "--update-input"
+  #     "stable"
+  #     "unstable"
+  #     "home-manager"
+  #     "rust-overlay"
+  #   ];
+  # };
 }
