@@ -4,6 +4,14 @@
   #programs.hyprland.enable = true;
   #programs.hyprland.xwayland.enable = true;
 
+  home.packages = with pkgs; [
+    eog
+    gedit
+    hyprcursor
+    hyprpicker
+    hyprshot
+  ];
+
   xdg.portal = with pkgs; {
     enable = true;
     extraPortals = [

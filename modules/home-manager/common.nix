@@ -13,27 +13,23 @@
     chromium
     clang
     cmake
+    dconf2nix
     deno
     dig
     discord
     dunst
-    eog
     fastfetch
     fd
     file-roller
     firefox
     #(flameshot.override { enableWlrSupport = true; })
     #gcc
-    gedit
     glxinfo
     go
     graphviz
     gradle_8
     kubernetes-helm
     htop
-    hyprcursor
-    hyprpicker
-    hyprshot
     #input-leap
     jdk21_headless
     jetbrains.idea-community

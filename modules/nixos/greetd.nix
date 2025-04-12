@@ -5,6 +5,12 @@ let
   hyprland-session = "${pkgs.hyprland}/share/wayland-sessions";
 in
 {
+  environment.systemPackages = with pkgs; [
+    greetd.tuigreet
+  ];
+
+  security.pam.services.greetd.enableGnomeKeyring = true;
+
   services.greetd = {
     enable = true;
     settings = {

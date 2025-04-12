@@ -15,8 +15,6 @@
     bluez
     gnome-keyring
     gnupg
-    greetd.tuigreet
-    wl-clipboard
   ];
   environment.variables.NODEJS_PATH = "${pkgs.nodePackages_latest.nodejs}/";
 
@@ -53,7 +51,6 @@
     LC_TIME = "nl_NL.UTF-8";
   };
 
-  security.pam.services.greetd.enableGnomeKeyring = true;
   security.polkit.enable = true;
   security.rtkit.enable = true;
 
@@ -81,21 +78,6 @@
     enable = true;
     user = config.user.username;
     configDir = "/home/${config.user.username}/.local/state/syncthing";
-  };
-  # Allow non-root access to update screen backlight brightness
-  services.udev.extraRules = ''
-    ACTION=="add", SUBSYSTEM=="backlight", KERNEL=="intel_backlight",
-    MODE="0666", RUN+="${pkgs.coreutils}/bin/chmod a+w /sys/class/backlight/%k/brightness"
-  '';
-  services.xserver = {
-    enable = true;
-    #desktopManager.gnome.enable = true;
-    displayManager.gdm.enable = true;
-    videoDrivers = [ "nvidia" ];
-    xkb = {
-      layout = "us";
-      variant = "";
-    };
   };
 
   system.autoUpgrade = {

@@ -1,6 +1,10 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
+  environment.systemPackages = with pkgs; [
+    wl-clipboard
+  ];
+
   #environment.sessionVariables.NIXOS_OZONE_WL = "1";
   environment.sessionVariables.GDK_BACKEND = "wayland";
   environment.sessionVariables.MOZ_ENABLE_WAYLAND = "1";
