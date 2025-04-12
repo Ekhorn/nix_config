@@ -72,8 +72,6 @@
     wireplumber.enable = true;
   };
   services.printing.enable = true;
-  #services.qemuGuest.enable = true;
-  #services.spice-vdagentd.enable = true;
   services.syncthing = {
     enable = true;
     user = config.user.username;
