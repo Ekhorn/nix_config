@@ -15,6 +15,7 @@
     bluez
     gnome-keyring
     gnupg
+    parted
   ];
   environment.variables.NODEJS_PATH = "${pkgs.nodePackages_latest.nodejs}/";
 
