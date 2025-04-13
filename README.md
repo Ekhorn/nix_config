@@ -221,3 +221,31 @@ sudo parted /dev/vda
 sudo resize2fs /dev/vda1
 df -h
 ```
+
+#### Troubleshooting
+
+**After updating firmware**
+
+Error: Unable to find 'efi' firmware that is compatible with the current version
+
+Update the firmware path in the VM configuration.
+
+<details>
+  <summary>Find paths</summary>
+
+```sh
+fd secure-code /nix/store/
+/nix/store/ddf1vssb23g4jbdivhfgwi0iaimpz7my-qemu-9.1.3/share/qemu/edk2-x86_64-secure-code.fd
+/nix/store/ddf1vssb23g4jbdivhfgwi0iaimpz7my-qemu-9.1.3/share/qemu/edk2-i386-secure-code.fd
+/nix/store/sq4s9m7n5nj6asjddbbr46wnxp42sxrg-qemu-9.1.2/share/qemu/edk2-x86_64-secure-code.fd
+/nix/store/sq4s9m7n5nj6asjddbbr46wnxp42sxrg-qemu-9.1.2/share/qemu/edk2-i386-secure-code.fd
+fd vars.fd /nix/store
+/nix/store/ddf1vssb23g4jbdivhfgwi0iaimpz7my-qemu-9.1.3/share/qemu/edk2-arm-vars.fd
+/nix/store/ddf1vssb23g4jbdivhfgwi0iaimpz7my-qemu-9.1.3/share/qemu/edk2-riscv-vars.fd
+/nix/store/ddf1vssb23g4jbdivhfgwi0iaimpz7my-qemu-9.1.3/share/qemu/edk2-i386-vars.fd
+/nix/store/sq4s9m7n5nj6asjddbbr46wnxp42sxrg-qemu-9.1.2/share/qemu/edk2-arm-vars.fd
+/nix/store/sq4s9m7n5nj6asjddbbr46wnxp42sxrg-qemu-9.1.2/share/qemu/edk2-riscv-vars.fd
+/nix/store/sq4s9m7n5nj6asjddbbr46wnxp42sxrg-qemu-9.1.2/share/qemu/edk2-i386-vars.fd
+```
+
+</details>
