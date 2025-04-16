@@ -11,7 +11,7 @@
       "latex"
       "ltex"
     ];
-    # package = pkgs.unstable.zed-editor-fhs;
+    package = pkgs.unstable.zed-editor;
     userSettings = {
       hour_format = "hour24";
       auto_update = false;
