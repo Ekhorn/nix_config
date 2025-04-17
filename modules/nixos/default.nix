@@ -8,6 +8,7 @@
   # hyprland = import ./hyprland.nix;
   nvidia = import ./nvidia.nix;
   qemu = import ./qemu.nix;
+  # qmk = import ./qmk.nix;
   rust = import ./rust.nix;
   ssh = import ./ssh.nix;
   user = import ./user.nix;
