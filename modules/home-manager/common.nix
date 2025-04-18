@@ -27,7 +27,6 @@
     glxinfo
     go
     graphviz
-    gradle_8
     kubernetes-helm
     htop
     #input-leap
