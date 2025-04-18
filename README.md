@@ -169,6 +169,24 @@ fileSystems."/mnt/hdd" =
   };
 ```
 
+### Troubleshooting
+
+**Zed editor Java JDTLS oneshot error**
+
+```sh
+rm -r /tmp/jdtls-*
+```
+
+<details>
+  <summary>Figured out through</summary>
+
+```sh
+strace -f -o trace.log zeditor --foreground .
+cat trace.log | rg jdtls
+```
+
+</details>
+
 ### NixOS Anywhere
 
 ```sh
