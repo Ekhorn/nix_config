@@ -2,6 +2,7 @@
   config,
   inputs,
   outputs,
+  overlays,
   pkgs,
   ...
 }:
@@ -32,6 +33,7 @@
   };
 
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.overlays = overlays;
 
   programs.steam.enable = true;
 

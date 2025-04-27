@@ -29,12 +29,13 @@
       stable_x86 = stable.legacyPackages.${system};
       #unstable_x86 = unstable.legacyPackages.${system};
       home-manager = inputs.home-manager.nixosModules.default;
+      overlays = [ (import ./overlays/rust.nix) ];
 
       mkNixos =
         modules:
         stable.lib.nixosSystem {
           inherit modules;
-          specialArgs = { inherit inputs outputs; };
+          specialArgs = { inherit inputs outputs overlays; };
         };
       mkAnywhere =
         modules: system: device:

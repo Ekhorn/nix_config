@@ -10,6 +10,8 @@
     cargo-watch
     cargo-udeps
     cargo-tauri
+    cargo-criterion
+    criterion-table
     sqlx-cli
     trunk
   ];
