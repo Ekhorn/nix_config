@@ -2,6 +2,7 @@
   config,
   inputs,
   outputs,
+  overlays,
   pkgs,
   ...
 }:
@@ -51,6 +52,8 @@
     LC_TELEPHONE = "nl_NL.UTF-8";
     LC_TIME = "nl_NL.UTF-8";
   };
+
+  nixpkgs.overlays = overlays;
 
   security.polkit.enable = true;
   security.rtkit.enable = true;
