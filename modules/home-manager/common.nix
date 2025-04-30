@@ -67,6 +67,7 @@
     wget
     x11_ssh_askpass
     yarn-berry
+    zip
   ];
 
   home.homeDirectory = "/home/${config.home.username}";
