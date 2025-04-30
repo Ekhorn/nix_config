@@ -9,6 +9,7 @@
   home.packages = with pkgs; [
     adwaita-icon-theme
     awscli2
+    barrier
     celluloid
     chromium
     clang
@@ -46,6 +47,7 @@
     nodejs_20
     obsidian
     obs-studio
+    openssl
     pciutils
     pinentry
     playerctl
