@@ -16,8 +16,8 @@
       hour_format = "hour24";
       auto_update = false;
 
-      ui_font_size = 16;
-      buffer_font_size = 16;
+      ui_font_size = 14;
+      buffer_font_size = 14;
       theme = {
         mode = "dark";
         light = "One Light";
@@ -31,11 +31,11 @@
           horizontal = false;
         };
       };
-      project_panel = {
-        scrollbar = {
-          show = "never";
-        };
-      };
+      # project_panel = {
+      #   scrollbar = {
+      #     show = "never";
+      #   };
+      # };
       outline_panel = {
         button = false;
       };
