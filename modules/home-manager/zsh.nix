@@ -16,6 +16,10 @@
       update = "sudo nixos-rebuild switch --recreate-lock-file";
     };
 
+    initExtra = ''
+      dev() { SHELL=$(which zsh) nix develop ~/develop/nix_config#$1 --command zsh }
+    '';
+
     oh-my-zsh = {
       enable = true;
       theme = "robbyrussell";

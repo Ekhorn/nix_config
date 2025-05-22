@@ -57,6 +57,7 @@
           inherit modules pkgs;
           extraSpecialArgs = { inherit inputs outputs; };
         };
+      mkShell = file: pkgs: import file { inherit pkgs; };
     in
     {
       nixosModules = import ./modules/nixos;
@@ -76,6 +77,10 @@
       homeConfigurations = {
         "koen@pc-koen" = mkHome [ ./hosts/pc-koen/home.nix ] stable_x86;
         "koen@laptop-koen" = mkHome [ ./hosts/laptop-koen/home.nix ] stable_x86;
+      };
+
+      devShells.${system} = {
+        playwright = mkShell ./shells/playwright.nix stable_x86;
       };
     };
 }
