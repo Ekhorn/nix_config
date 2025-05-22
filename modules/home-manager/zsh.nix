@@ -17,7 +17,10 @@
     };
 
     initExtra = ''
-      dev() { SHELL=$(which zsh) nix develop ~/develop/nix_config#$1 --command zsh }
+      dev() {
+        # --impure to enable version selection
+        NIXPKGS_COMMIT="$2" SHELL=$(which zsh) nix develop --impure $(readlink -f /etc/nixos/flake.nix)#$1 --command zsh
+      }
     '';
 
     oh-my-zsh = {
