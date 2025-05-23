@@ -21,6 +21,11 @@
     backupFileExtension = "backup";
   };
 
+  networking.firewall.interfaces."wlp5s0".allowedTCPPorts = [
+    5900
+    24800
+  ];
+
   networking.hostName = "pc-koen";
   networking.networkmanager.enable = true;
 
