@@ -16,7 +16,7 @@
       update = "sudo nixos-rebuild switch --recreate-lock-file";
     };
 
-    initExtra = ''
+    initContent = ''
       dev() {
         # --impure to enable version selection
         NIXPKGS_COMMIT="$2" SHELL=$(which zsh) nix develop --impure $(readlink -f /etc/nixos/flake.nix)#$1 --command zsh

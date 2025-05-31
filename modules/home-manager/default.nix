@@ -6,6 +6,7 @@
   dconf = import ./dconf.nix;
   gh = import ./gh.nix;
   git = import ./git.nix;
+  gnome = import ./gnome.nix;
   gtk = import ./gtk.nix;
   # hypridle = import ./hypridle.nix;
   # hyprland = import ./hyprland.nix;
