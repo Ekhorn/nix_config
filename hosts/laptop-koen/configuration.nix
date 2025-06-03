@@ -38,7 +38,7 @@
       "nvidia-settings"
     ];
 
-  system.stateVersion = "24.05";
+  system.stateVersion = "25.05";
 
   time.timeZone = "Europe/Amsterdam";
   # Don't forget to set a password with ‘passwd’.
