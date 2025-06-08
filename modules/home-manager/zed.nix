@@ -12,6 +12,9 @@
       "ltex"
     ];
     package = pkgs.unstable.zed-editor;
+    themes = {
+      dark = ./zed_dark.json;
+    };
     userSettings = {
       hour_format = "hour24";
       auto_update = false;
@@ -21,7 +24,7 @@
       theme = {
         mode = "dark";
         light = "One Light";
-        dark = "One Dark";
+        dark = "Zed Dark";
       };
       # vim_mode = true;
       show_whitespaces = "all";
