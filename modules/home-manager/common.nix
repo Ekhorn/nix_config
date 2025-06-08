@@ -48,6 +48,7 @@
     obsidian
     obs-studio
     openssl
+    pastel
     pciutils
     pinentry
     playerctl
