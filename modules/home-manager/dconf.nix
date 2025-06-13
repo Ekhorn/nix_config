@@ -23,6 +23,7 @@
       color-scheme = "prefer-dark";
       cursor-size = 24;
       cursor-theme = "Adwaita";
+      enable-animations = false;
       gtk-enable-primary-paste = false;
     };
 
