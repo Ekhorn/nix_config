@@ -35,6 +35,7 @@
     jetbrains.idea-community
     jq
     kubectl
+    libreoffice
     lld
     lsof
     gnumake
