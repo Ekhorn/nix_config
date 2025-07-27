@@ -58,6 +58,11 @@
           extraSpecialArgs = { inherit inputs outputs; };
         };
       mkShell = file: pkgs: import file { inherit pkgs; };
+      applyPatches =
+        name: patches:
+        stable.${name}.overrideAttrs (old: {
+          patches = (old.patches or [ ]) ++ patches;
+        });
     in
     {
       nixosModules = import ./modules/nixos;
@@ -81,6 +86,10 @@
 
       devShells.${system} = {
         playwright = mkShell ./shells/playwright.nix stable_x86;
+      };
+
+      packages = {
+        libfprint = applyPatches "libfprint" [ ./patches/goodix-60c2.patch ];
       };
     };
 }

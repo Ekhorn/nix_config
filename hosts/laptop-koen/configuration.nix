@@ -10,7 +10,8 @@
   imports = [
     ./hardware-configuration.nix
     inputs.home-manager.nixosModules.home-manager
-  ] ++ (builtins.attrValues outputs.nixosModules);
+  ]
+  ++ (builtins.attrValues outputs.nixosModules);
 
   hardware.bluetooth.powerOnBoot = false;
 
@@ -39,6 +40,12 @@
     ];
 
   system.stateVersion = "24.05";
+
+  systemd.services.fprintd = {
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig.Type = "simple";
+  };
+  services.fprintd.enable = true;
 
   time.timeZone = "Europe/Amsterdam";
   # Don't forget to set a password with ‘passwd’.
