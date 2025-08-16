@@ -34,7 +34,10 @@
 
     xwayland.enable = true;
     settings = {
-      monitor = ",highrr,auto,1";
+      monitor = [
+        ",highrr,auto,1"
+        "Unknown-1,disable"
+      ];
 
       exec-once = [
         "hyprctl setcursor Adwaita 24"

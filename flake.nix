@@ -138,6 +138,7 @@
       nixosConfigurations = {
         emu = mkNixos ./hosts/emu/configuration.nix ./overlays;
         hetzner = mkAnywhere ./anywhere/hetzner/configuration.nix "/dev/sda";
+        minecraft = mkAnywhere ./anywhere/minecraft/configuration.nix "/dev/sda";
         laptop-koen = mkNixos ./hosts/laptop-koen/configuration.nix ./overlays;
         pc-koen = mkNixos ./hosts/pc-koen/configuration.nix ./overlays;
         pi = mkPi ./hosts/pi/configuration.nix ./overlays;
