@@ -10,7 +10,8 @@
   imports = [
     ./hardware-configuration.nix
     inputs.home-manager.nixosModules.home-manager
-  ] ++ (builtins.attrValues outputs.nixosModules);
+  ]
+  ++ (builtins.attrValues outputs.nixosModules);
 
   hardware.bluetooth.powerOnBoot = true;
 
@@ -22,6 +23,10 @@
   };
 
   networking.hostName = "pc-koen";
+  networking.hosts = {
+    "192.168.1.105" = [ "laptop-koen" ];
+    "192.168.172.62" = [ "laptop-koen" ];
+  };
   networking.networkmanager.enable = true;
 
   nix.settings = {
