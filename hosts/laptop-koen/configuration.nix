@@ -25,6 +25,10 @@
   };
 
   networking.hostName = "laptop-koen";
+  networking.hosts = {
+    "192.168.1.140" = "pc-koen";
+    "192.168.172.61" = "pc-koen";
+  };
   networking.networkmanager.enable = true;
 
   system.stateVersion = "25.05";
