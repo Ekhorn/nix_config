@@ -23,10 +23,6 @@
   };
 
   networking.hostName = "pc-koen";
-  networking.hosts = {
-    "192.168.1.105" = [ "laptop-koen" ];
-    "192.168.172.62" = [ "laptop-koen" ];
-  };
   networking.networkmanager.enable = true;
 
   nix.settings = {
