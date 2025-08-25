@@ -2,6 +2,7 @@
   inputs,
   modulesPath,
   lib,
+  pkgs,
   ...
 }:
 
@@ -16,22 +17,18 @@
 
   environment.systemPackages = map lib.lowPrio [ ];
 
-  services.openssh = {
-    enable = true;
-    ports = [ 22 ];
-    settings = {
-      # PasswordAuthentication = false;
-      # PermitRootLogin = "no";
-      # UsePAM = false;
-      # KbdInteractiveAuthentication = false;
-    };
-  };
+  system.stateVersion = "24.11";
 
   user.enable = true;
-  user.username = "koen";
+  user.username = "spaced";
   user.extraGroups = [
     "wheel"
+    "docker"
   ];
+  user.extraKeys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOpnh3ftRObnt6vht3N6qcJbpzHzzXi/5eE0gr7aT5G4"
+  ];
+  user.shell = pkgs.bash;
 
-  system.stateVersion = "25.05";
+  virtualisation.docker.enable = true;
 }

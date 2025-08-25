@@ -1,7 +1,8 @@
 {
   inputs,
-  modulesPath,
   lib,
+  modulesPath,
+  pkgs,
   ...
 }:
 
@@ -33,6 +34,7 @@
     "wheel"
     "docker"
   ];
+  user.shell = pkgs.bash;
 
   system.stateVersion = "25.05";
 }

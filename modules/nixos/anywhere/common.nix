@@ -16,17 +16,6 @@
   security.sudo.wheelNeedsPassword = true;
   security.pam.sshAgentAuth.enable = true;
 
-  services.openssh = {
-    enable = true;
-    ports = [ 22 ];
-    settings = {
-      PasswordAuthentication = false;
-      PermitRootLogin = "no";
-      UsePAM = false;
-      KbdInteractiveAuthentication = false;
-    };
-  };
-
   users.users = {
     root.openssh.authorizedKeys.keys =
       config.users.users."${config.user.username}".openssh.authorizedKeys.keys;
