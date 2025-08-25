@@ -12,7 +12,12 @@
     (modulesPath + "/profiles/qemu-guest.nix")
     ./hardware-configuration.nix
     inputs.disko.nixosModules.disko
-  ] ++ (builtins.attrValues (import ../../modules/nixos/anywhere));
+  ]
+  ++ (builtins.attrValues (import ../../modules/nixos/anywhere));
+
+  environment.systemPackages = map lib.lowPrio [ ];
+
+  system.stateVersion = "24.11";
 
   user.enable = true;
   user.username = "spaced";
@@ -24,6 +29,4 @@
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOpnh3ftRObnt6vht3N6qcJbpzHzzXi/5eE0gr7aT5G4"
   ];
   user.shell = pkgs.bash;
-
-  system.stateVersion = "24.11";
 }

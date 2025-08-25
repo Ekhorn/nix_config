@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, ... }:
 
 {
   boot.loader.grub = {
@@ -26,10 +26,6 @@
       KbdInteractiveAuthentication = false;
     };
   };
-
-  virtualisation.docker.enable = true;
-
-  environment.systemPackages = map lib.lowPrio [ ];
 
   users.users = {
     root.openssh.authorizedKeys.keys =

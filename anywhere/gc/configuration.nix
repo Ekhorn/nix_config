@@ -12,7 +12,12 @@
     (modulesPath + "/profiles/qemu-guest.nix")
     ./hardware-configuration.nix
     inputs.disko.nixosModules.disko
-  ] ++ (builtins.attrValues (import ../../modules/nixos/anywhere));
+  ]
+  ++ (builtins.attrValues (import ../../modules/nixos/anywhere));
+
+  environment.systemPackages = map lib.lowPrio [ ];
+
+  system.stateVersion = "24.11";
 
   user.enable = true;
   user.username = "spaced";
@@ -25,5 +30,5 @@
   ];
   user.shell = pkgs.bash;
 
-  system.stateVersion = "24.11";
+  virtualisation.docker.enable = true;
 }
