@@ -13,6 +13,8 @@
   ]
   ++ (builtins.attrValues outputs.nixosModules);
 
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
   hardware.bluetooth.powerOnBoot = false;
 
   home-manager.users.${config.user.username} =
@@ -46,6 +48,7 @@
     serviceConfig.Type = "simple";
   };
   services.fprintd.enable = true;
+  services.xserver.videoDrivers = [ ];
 
   time.timeZone = "Europe/Amsterdam";
   # Don't forget to set a password with ‘passwd’.

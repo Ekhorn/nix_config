@@ -42,19 +42,17 @@ The guide describes how to configure your VPS using NixOS. Nix will allow you to
 - You have a VPS with at least 962MiB total RAM (check with `free -h`).
 - You have SSH access to the root user or a passwordless sudo user.
 - You have [Nix Package Manager or NixOS](https://nixos.org/download) installed on your host system.
-- You have copied the default nix configuration files from the `config/nix` directory in GitHub.
+- You have copied the default nix configuration files from the `anywhere/template` directory in GitHub.
 
 ### 1.2. Pre-Install Configuration
 
 #### 1.2.1. Add public SSH key(s) to the nix configuration
 
-In the `configuration.nix` file add your public key(s) from which you want to be able to access the VPS, to both the `root` and `<your>` user under `users.users.<user>.openssh.authorizedKeys.keys`. If you want to use your SSH key on your host run `cat ~/.ssh/*.pub` (on Linux). _We'll disable root access at the end of the guide._
-
-> Important: If you **did not** add your public key to the root user, you will be **locked out** of the VPS and will have to **reset or re-configure the VPS**.
+In the `configuration.nix` file add additional public key(s) from which you want to be able to access the VPS, to `user.extraKeys = [ ];`. If you want to use your SSH key on your host run `cat ~/.ssh/*.pub` (on Linux). _We'll disable root access at the end of the guide._
 
 #### 1.2.2. Choosing the right provider configuration
 
-You must choose the right provider from the `flake.nix` file indicated by `nixosConfigurations.<provider-name>`. If your provider is not within the list make sure to check the current block device name on the VPS using the `lsblk` command, which on AWS e.g. could look the following:
+You must add the new nixos configuration to the `flake.nix` file indicated by `nixosConfigurations.<provider-name>`. To check the current block device name on the VPS use the `lsblk` command, which on AWS e.g. could look the following:
 
 ```sh
 $ lsblk
@@ -100,6 +98,13 @@ nix run github:nix-community/nixos-anywhere -- \
 
 ```
 nix run github:nix-community/nixos-anywhere -- \
+  --generate-hardware-config nixos-generate-config ./hardware-configuration.nix --no-substitute-on-destination \
+  --flake <path to configuration>#<configuration-name> root@<ip address>
+```
+
+```
+nix run github:nix-community/nixos-anywhere -- \
+  --kexec "$(nix build --print-out-paths github:nix-community/nixos-images#packages.aarch64-linux.kexec-installer-nixos-unstable-noninteractive)/nixos-kexec-installer-noninteractive-aarch64-linux.tar.gz" \
   --generate-hardware-config nixos-generate-config ./hardware-configuration.nix --no-substitute-on-destination \
   --flake <path to configuration>#<configuration-name> root@<ip address>
 ```

@@ -71,12 +71,13 @@
       nixosConfigurations = {
         pc-koen = mkNixos [ ./hosts/pc-koen/configuration.nix ];
         laptop-koen = mkNixos [ ./hosts/laptop-koen/configuration.nix ];
-        qemu = mkNixos [ ./hosts/qemu/configuration.nix ];
-        aws = mkAnywhere [ ./anywhere/aws/configuration.nix ] system "/dev/xvda";
-        do = mkAnywhere [ ./anywhere/do/configuration.nix ] system null;
-        gc = mkAnywhere [ ./anywhere/gc/configuration.nix ] system "/dev/sda";
-        hetzner = mkAnywhere [ ./anywhere/hetzner/configuration.nix ] system "/dev/sda";
-        ionos = mkAnywhere [ ./anywhere/ionos/configuration.nix ] system null;
+        qemu = mkNixos [ ./hosts/spaced/qemu/configuration.nix ];
+        hetzner = mkAnywhere [ ./anywhere/hetzner/configuration.nix ] "aarch64-linux" "/dev/sda";
+        "spaced/aws" = mkAnywhere [ ./anywhere/spaced/aws/configuration.nix ] system "/dev/xvda";
+        "spaced/do" = mkAnywhere [ ./anywhere/spaced/do/configuration.nix ] system null;
+        "spaced/gc" = mkAnywhere [ ./anywhere/spaced/gc/configuration.nix ] system "/dev/sda";
+        "spaced/hetzner" = mkAnywhere [ ./anywhere/spaced/hetzner/configuration.nix ] system "/dev/sda";
+        "spaced/ionos" = mkAnywhere [ ./anywhere/spaced/ionos/configuration.nix ] system null;
       };
 
       homeConfigurations = {
