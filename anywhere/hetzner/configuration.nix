@@ -20,10 +20,10 @@
     enable = true;
     ports = [ 22 ];
     settings = {
-      # PasswordAuthentication = false;
-      # PermitRootLogin = "no";
-      # UsePAM = false;
-      # KbdInteractiveAuthentication = false;
+      PasswordAuthentication = false;
+      PermitRootLogin = "no";
+      UsePAM = false;
+      KbdInteractiveAuthentication = false;
     };
   };
 
