@@ -2,6 +2,7 @@
   inputs,
   modulesPath,
   lib,
+  pkgs,
   ...
 }:
 
@@ -10,6 +11,9 @@
     (modulesPath + "/installer/scan/not-detected.nix")
     (modulesPath + "/profiles/qemu-guest.nix")
     ./hardware-configuration.nix
+    ./headscale.nix
+    ./nextcloud.nix
+    ./tailscale.nix
     inputs.disko.nixosModules.disko
   ]
   ++ (builtins.attrValues (import ../../modules/nixos/anywhere));
@@ -31,7 +35,9 @@
   user.username = "koen";
   user.extraGroups = [
     "wheel"
+    "headscale"
   ];
+  user.shell = pkgs.bashInteractive;
 
   system.stateVersion = "25.05";
 }
