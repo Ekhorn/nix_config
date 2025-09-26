@@ -72,7 +72,10 @@
         pc-koen = mkNixos [ ./hosts/pc-koen/configuration.nix ];
         laptop-koen = mkNixos [ ./hosts/laptop-koen/configuration.nix ];
         qemu = mkNixos [ ./hosts/spaced/qemu/configuration.nix ];
-        hetzner = mkAnywhere [ ./anywhere/hetzner/configuration.nix ] "aarch64-linux" "/dev/sda";
+        "main" = mkAnywhere [ ./anywhere/hetzner/configuration.nix ] "aarch64-linux" "/dev/sda";
+        "minecraft" = mkAnywhere [
+          ./anywhere/minecraft/configuration.nix
+        ] "aarch64-linux" "/dev/sda";
         "spaced/aws" = mkAnywhere [ ./anywhere/spaced/aws/configuration.nix ] system "/dev/xvda";
         "spaced/do" = mkAnywhere [ ./anywhere/spaced/do/configuration.nix ] system null;
         "spaced/gc" = mkAnywhere [ ./anywhere/spaced/gc/configuration.nix ] system "/dev/sda";
