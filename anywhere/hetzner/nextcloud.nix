@@ -1,4 +1,8 @@
-{ pkgs, config, ... }:
+{
+  config,
+  pkgs,
+  ...
+}:
 
 let
   domain = "kschellingerhout.nl";
@@ -16,6 +20,7 @@ in
       # https://github.com/NixOS/nixpkgs/blob/master/pkgs/servers/nextcloud/packages/nextcloud-apps.json
       inherit
         calendar
+        spreed
         ;
 
       # xxx = pkgs.fetchNextcloudApp rec {
@@ -32,12 +37,22 @@ in
       trusted_domains = [ "nextcloud.tailnet.${domain}" ];
     };
   };
-  services.nginx.virtualHosts."localhost".listen = [
-    {
-      addr = "100.64.0.5";
-      port = 8080;
-    }
-  ];
+  # services.nginx = lib.mkForce {
+  #   enable = true;
+  services.nginx = {
+    virtualHosts."localhost" = {
+      forceSSL = true;
+      sslCertificate = "/etc/nc-selfsigned.crt";
+      sslCertificateKey = "/etc/nc-selfsigned.key";
+      listen = [
+        {
+          addr = "100.64.0.5";
+          port = 8080;
+          ssl = true;
+        }
+      ];
+    };
+  };
 
   # Ensure systemd service is enabled
   systemd.services.phpfpm-nextcloud.wantedBy = [ "multi-user.target" ];
