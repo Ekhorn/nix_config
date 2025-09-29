@@ -48,7 +48,7 @@
     serviceConfig.Type = "simple";
   };
   services.fprintd.enable = true;
-  services.xserver.videoDrivers = [ ];
+  services.xserver.videoDrivers = lib.mkForce [ ];
 
   time.timeZone = "Europe/Amsterdam";
   # Don't forget to set a password with ‘passwd’.
