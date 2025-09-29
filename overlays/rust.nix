@@ -19,7 +19,6 @@ self: super: {
         rev = version;
         sha256 = sha256;
       };
-      useFetchCargoVendor = true;
 
       meta = with super.lib; {
         inherit description homepage;
