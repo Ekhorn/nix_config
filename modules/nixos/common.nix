@@ -1,6 +1,7 @@
 {
   config,
   inputs,
+  lib,
   outputs,
   overlays,
   pkgs,
@@ -20,16 +21,6 @@
   ];
   environment.variables.NODEJS_PATH = "${pkgs.nodePackages_latest.nodejs}/";
 
-  home-manager.extraSpecialArgs = { inherit inputs outputs; };
-
-  programs.zsh.enable = true;
-  programs.dconf.enable = true;
-  programs.direnv.enable = true;
-  programs.gnupg = {
-    agent.enable = true;
-    agent.pinentryPackage = pkgs.pinentry-gnome3;
-  };
-
   fonts.packages = with pkgs; [
     font-awesome
     noto-fonts
@@ -39,6 +30,8 @@
   hardware.bluetooth.enable = true;
   hardware.graphics.enable = true;
   hardware.graphics.enable32Bit = true;
+
+  home-manager.extraSpecialArgs = { inherit inputs outputs; };
 
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.extraLocaleSettings = {
@@ -53,7 +46,28 @@
     LC_TIME = "nl_NL.UTF-8";
   };
 
+  nix.settings = {
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
+  };
+
+  nixpkgs.config.allowUnfreePredicate =
+    pkg:
+    builtins.elem (lib.getName pkg) [
+      "nvidia-settings"
+      "nvidia-x11"
+    ];
   nixpkgs.overlays = overlays;
+
+  programs.dconf.enable = true;
+  programs.direnv.enable = true;
+  programs.gnupg = {
+    agent.enable = true;
+    agent.pinentryPackage = pkgs.pinentry-gnome3;
+  };
+  programs.zsh.enable = true;
 
   security.polkit.enable = true;
   security.rtkit.enable = true;
@@ -81,16 +95,4 @@
     user = config.user.username;
     configDir = "/home/${config.user.username}/.local/state/syncthing";
   };
-
-  # system.autoUpgrade = {
-  #   enable = true;
-  #   flake = "/etc/nixos#${config.networking.hostName}";
-  #   flags = [
-  #     "--update-input"
-  #     "stable"
-  #     "unstable"
-  #     "home-manager"
-  #     "rust-overlay"
-  #   ];
-  # };
 }

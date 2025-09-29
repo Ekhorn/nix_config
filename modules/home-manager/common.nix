@@ -43,7 +43,7 @@
     neovim
     nil
     nixfmt-rfc-style
-    unstable.package-version-server
+    package-version-server
     nixos-anywhere
     nodejs_20
     obsidian
@@ -65,7 +65,7 @@
     tree-sitter
     unison
     unzip
-    vulnix
+    unstable.vulnix
     wget
     x11_ssh_askpass
     yarn-berry

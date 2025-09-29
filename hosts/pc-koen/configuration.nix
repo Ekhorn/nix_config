@@ -25,15 +25,6 @@
   networking.hostName = "pc-koen";
   networking.networkmanager.enable = true;
 
-  nix.settings = {
-    experimental-features = [
-      "nix-command"
-      "flakes"
-    ];
-  };
-
-  nixpkgs.config.allowUnfree = true;
-
   programs.steam.enable = true;
 
   users.groups.github-runner = { };

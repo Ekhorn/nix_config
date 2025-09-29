@@ -27,21 +27,7 @@
   networking.hostName = "laptop-koen";
   networking.networkmanager.enable = true;
 
-  nix.settings = {
-    experimental-features = [
-      "nix-command"
-      "flakes"
-    ];
-  };
-
-  nixpkgs.config.allowUnfreePredicate =
-    pkg:
-    builtins.elem (lib.getName pkg) [
-      "nvidia-x11"
-      "nvidia-settings"
-    ];
-
-  system.stateVersion = "24.05";
+  system.stateVersion = "25.05";
 
   systemd.services.fprintd = {
     wantedBy = [ "multi-user.target" ];
