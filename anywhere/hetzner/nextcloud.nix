@@ -37,11 +37,11 @@ in
       trusted_domains = [ "nextcloud.tailnet.${domain}" ];
     };
   };
-  # services.nginx = lib.mkForce {
-  #   enable = true;
   services.nginx = {
     virtualHosts."localhost" = {
+      # TODO: apply enableACME: true
       forceSSL = true;
+      # Assuming these are owned by the nginx group
       sslCertificate = "/etc/nc-selfsigned.crt";
       sslCertificateKey = "/etc/nc-selfsigned.key";
       listen = [
