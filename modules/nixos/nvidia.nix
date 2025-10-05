@@ -15,4 +15,10 @@
     nvidiaSettings = true;
     package = config.boot.kernelPackages.nvidiaPackages.production;
   };
+
+  unfree.enable = true;
+  unfree.packages = [
+    "nvidia-settings"
+    "nvidia-x11"
+  ];
 }

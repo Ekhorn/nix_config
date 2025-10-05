@@ -1,5 +1,4 @@
 {
-  lib,
   outputs,
   pkgs,
   ...
@@ -41,15 +40,11 @@
     NIXOS_OZONE_WL = "1";
   };
 
-  nixpkgs.config.allowUnfreePredicate =
-    pkg:
-    builtins.elem (lib.getName pkg) [
-      "discord"
-      "idea-ultimate"
-      "obsidian"
-      "slack"
-      "vscode"
-    ];
-
   programs.home-manager.enable = true;
+
+  unfree.enable = true;
+  unfree.packages = [
+    "idea-ultimate"
+    "slack"
+  ];
 }

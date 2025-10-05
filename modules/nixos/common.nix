@@ -1,7 +1,6 @@
 {
   config,
   inputs,
-  lib,
   outputs,
   overlays,
   pkgs,
@@ -9,6 +8,10 @@
 }:
 
 {
+  imports = [
+    ../shared/unfree.nix
+  ];
+
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.enable = true;
 
@@ -53,12 +56,6 @@
     ];
   };
 
-  nixpkgs.config.allowUnfreePredicate =
-    pkg:
-    builtins.elem (lib.getName pkg) [
-      "nvidia-settings"
-      "nvidia-x11"
-    ];
   nixpkgs.overlays = overlays;
 
   programs.dconf.enable = true;

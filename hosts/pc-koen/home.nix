@@ -1,5 +1,4 @@
 {
-  lib,
   outputs,
   pkgs,
   ...
@@ -37,14 +36,6 @@
 
   home.sessionVariables = {
   };
-
-  nixpkgs.config.allowUnfreePredicate =
-    pkg:
-    builtins.elem (lib.getName pkg) [
-      "discord"
-      "obsidian"
-      "vscode"
-    ];
 
   programs.home-manager.enable = true;
 }

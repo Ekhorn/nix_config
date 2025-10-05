@@ -6,6 +6,10 @@
 }:
 
 {
+  imports = [
+    ../shared/unfree.nix
+  ];
+
   home.packages = with pkgs; [
     adwaita-icon-theme
     awscli2
@@ -80,5 +84,12 @@
         system = prev.system;
       };
     })
+  ];
+
+  unfree.enable = true;
+  unfree.packages = [
+    "discord"
+    "obsidian"
+    "vscode"
   ];
 }

@@ -56,6 +56,13 @@
   system.stateVersion = "25.05";
 
   time.timeZone = "Europe/Amsterdam";
+
+  unfree.enable = true;
+  unfree.packages = [
+    "steam"
+    "steam-unwrapped"
+  ];
+
   # Don't forget to set a password with ‘passwd’.
   user.enable = true;
   user.username = "koen";
