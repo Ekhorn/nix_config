@@ -13,6 +13,8 @@
   ]
   ++ (builtins.attrValues outputs.nixosModules);
 
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
   hardware.bluetooth.powerOnBoot = true;
 
   home-manager.users.${config.user.username} =
