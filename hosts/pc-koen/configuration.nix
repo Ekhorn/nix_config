@@ -19,9 +19,6 @@
     prismlauncher
   ];
 
-  networking.firewall.interfaces."enp6s0".allowedTCPPorts = [ 5900 ];
-  networking.firewall.interfaces."wlp5s0".allowedTCPPorts = [ 5900 ];
-
   hardware.bluetooth.powerOnBoot = true;
 
   home-manager.users.${config.user.username} =
