@@ -19,7 +19,7 @@
     clang
     cmake
     dconf2nix
-    deno
+    unstable.deno
     dig
     discord
     dunst
