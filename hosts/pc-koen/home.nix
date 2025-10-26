@@ -19,6 +19,7 @@
   home.stateVersion = "25.05";
 
   home.packages = with pkgs; [
+    prismlauncher
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
