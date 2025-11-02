@@ -8,6 +8,7 @@
   git = import ./git.nix;
   gnome = import ./gnome.nix;
   gtk = import ./gtk.nix;
+  helix = import ./helix.nix;
   # hypridle = import ./hypridle.nix;
   # hyprland = import ./hyprland.nix;
   # hyprlock = import ./hyprlock.nix;
