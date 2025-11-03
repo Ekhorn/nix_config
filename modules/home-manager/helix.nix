@@ -10,6 +10,7 @@
         insert = "bar";
         select = "underline";
       };
+      soft-wrap.enable = true;
     };
     # themes = {
     #   autumn_night_transparent = {
