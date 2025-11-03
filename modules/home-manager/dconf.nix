@@ -86,6 +86,7 @@
         "status-icons@gnome-shell-extensions.gcampax.github.com"
         "places-menu@gnome-shell-extensions.gcampax.github.com"
         "auto-move-windows@gnome-shell-extensions.gcampax.github.com"
+        "tilingshell@ferrarodomenico.com"
       ];
       welcome-dialog-last-shown-version = "47.2";
     };
@@ -96,6 +97,42 @@
         "firefox.desktop:2"
         "obsidian.desktop:3"
       ];
+    };
+
+    "org/gnome/shell/extensions/tilingshell" = {
+      active-screen-edges = false;
+      edge-tiling-offset = "uint32 1";
+      enable-autotiling = true;
+      enable-blur-selected-tilepreview = false;
+      enable-blur-snap-assistant = false;
+      enable-directional-focus-tiled-only = true;
+      enable-screen-edges-windows-suggestions = false;
+      enable-snap-assistant-windows-suggestions = false;
+      enable-span-multiple-tiles = false;
+      enable-tiling-system-windows-suggestions = false;
+      focus-window-down = [ "<Alt>Down" ];
+      focus-window-left = [ "<Alt>Left" ];
+      focus-window-right = [ "<Alt>Right" ];
+      focus-window-up = [ "<Alt>Up" ];
+      inner-gaps = "uint32 0";
+      last-version-name-installed = "17.0";
+      layouts-json = "[{\"id\":\"Layout 4\",\"tiles\":[{\"x\":0,\"y\":0,\"width\":0.5854166666666667,\"height\":1,\"groups\":[1]},{\"x\":0.5854166666666667,\"y\":0,\"width\":0.41458333333333336,\"height\":0.5,\"groups\":[2,1]},{\"x\":0.5854166666666667,\"y\":0.5,\"width\":0.41458333333333336,\"height\":0.49999999999999994,\"groups\":[2,1]}]}]'
+      outer-gaps=uint32 0
+      overridden-settings=\"{\"org.gnome.mutter.keybindings\":{\"toggle-tiled-right\":\"['<Super>Right']\",\"toggle-tiled-left\":\"['<Super>Left']\"},\"org.gnome.desktop.wm.keybindings\":{\"maximize\":\"['<Super>Up']\",\"unmaximize\":\"['<Super>Down', '<Alt>F5']\"}}";
+      override-window-menu = false;
+      quarter-tiling-threshold = "uint32 25";
+      selected-layouts = [
+        [ "Layout 4" ]
+        [ "Layout 4" ]
+        [ "Layout 4" ]
+        [ "Layout 4" ]
+      ];
+      show-indicator = true;
+      snap-assistant-animation-time = "uint32 0";
+      snap-assistant-threshold = 0;
+      tile-preview-animation-time = "uint32 0";
+      tiling-system-activation-key = [ "1" ];
+      tiling-system-deactivation-key = [ "-1" ];
     };
   };
 }
