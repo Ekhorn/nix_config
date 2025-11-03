@@ -116,16 +116,22 @@
       focus-window-up = [ "<Alt>l" ];
       inner-gaps = "uint32 0";
       last-version-name-installed = "17.0";
-      layouts-json = "[{\"id\":\"Layout 4\",\"tiles\":[{\"x\":0,\"y\":0,\"width\":0.5854166666666667,\"height\":1,\"groups\":[1]},{\"x\":0.5854166666666667,\"y\":0,\"width\":0.41458333333333336,\"height\":0.5,\"groups\":[2,1]},{\"x\":0.5854166666666667,\"y\":0.5,\"width\":0.41458333333333336,\"height\":0.49999999999999994,\"groups\":[2,1]}]}]'
-      outer-gaps=uint32 0
-      overridden-settings=\"{\"org.gnome.mutter.keybindings\":{\"toggle-tiled-right\":\"['<Super>Right']\",\"toggle-tiled-left\":\"['<Super>Left']\"},\"org.gnome.desktop.wm.keybindings\":{\"maximize\":\"['<Super>Up']\",\"unmaximize\":\"['<Super>Down', '<Alt>F5']\"}}";
+      layouts-json = builtins.readFile ./dconf-tiling-shell-layouts.json;
+      overridden-settings = ''
+          {
+          "org.gnome.mutter.keybindings": {
+            "toggle-tiled-right": "['<Super>Right']",
+            "toggle-tiled-left": "['<Super>Left']"
+          },
+          "org.gnome.desktop.wm.keybindings": {
+            "maximize": "['<Super>Up']",
+            "unmaximize": "['<Super>Down', '<Alt>F5']"
+          }
+        }'';
       override-window-menu = false;
       quarter-tiling-threshold = "uint32 25";
       selected-layouts = [
-        [ "Layout 4" ]
-        [ "Layout 4" ]
-        [ "Layout 4" ]
-        [ "Layout 4" ]
+        [ "Default" ]
       ];
       show-indicator = true;
       snap-assistant-animation-time = "uint32 0";
