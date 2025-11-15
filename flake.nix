@@ -3,6 +3,7 @@
   inputs = {
     stable.url = "github:NixOS/nixpkgs/nixos-25.05";
     unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    latest.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "stable";
@@ -18,6 +19,8 @@
     {
       self,
       stable,
+      unstable,
+      latest,
       home-manager,
       disko,
       ...
@@ -27,15 +30,13 @@
 
       system = "x86_64-linux";
       stable_x86 = stable.legacyPackages.${system};
-      #unstable_x86 = unstable.legacyPackages.${system};
       home-manager = inputs.home-manager.nixosModules.default;
-      overlays = [ (import ./overlays/rust.nix) ];
 
       mkNixos =
         modules:
         stable.lib.nixosSystem {
           inherit modules;
-          specialArgs = { inherit inputs outputs overlays; };
+          specialArgs = { inherit inputs outputs; };
         };
       mkAnywhere =
         modules: system: device:
@@ -65,7 +66,15 @@
         });
     in
     {
-      nixosModules = import ./modules/nixos;
+      devShells.${system} = {
+        playwright = mkShell ./shells/playwright.nix stable_x86;
+      };
+
+      homeConfigurations = {
+        "koen@pc-koen" = mkHome [ ./hosts/pc-koen/home.nix ] stable_x86;
+        "koen@laptop-koen" = mkHome [ ./hosts/laptop-koen/home.nix ] stable_x86;
+      };
+
       homeManagerModules = import ./modules/home-manager;
 
       nixosConfigurations = {
@@ -80,14 +89,12 @@
         "spaced/ionos" = mkAnywhere [ ./anywhere/spaced/ionos/configuration.nix ] system null;
       };
 
-      homeConfigurations = {
-        "koen@pc-koen" = mkHome [ ./hosts/pc-koen/home.nix ] stable_x86;
-        "koen@laptop-koen" = mkHome [ ./hosts/laptop-koen/home.nix ] stable_x86;
-      };
+      nixosModules = import ./modules/nixos;
 
-      devShells.${system} = {
-        playwright = mkShell ./shells/playwright.nix stable_x86;
-      };
+      overlays = [
+        (import ./overlays/pkgs.nix { inherit inputs; })
+        (import ./overlays/rust.nix)
+      ];
 
       packages = {
         libfprint = applyPatches "libfprint" [ ./patches/goodix-60c2.patch ];

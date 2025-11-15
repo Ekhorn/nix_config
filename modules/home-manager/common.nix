@@ -1,6 +1,6 @@
 {
   config,
-  inputs,
+  outputs,
   pkgs,
   ...
 }:
@@ -15,18 +15,18 @@
     awscli2
     barrier
     celluloid
-    chromium
+    latest.chromium
     clang
     cmake
     dconf2nix
     unstable.deno
     dig
-    discord
+    latest.discord
     dunst
     fastfetch
     fd
     file-roller
-    firefox
+    latest.firefox
     #(flameshot.override { enableWlrSupport = true; })
     #gcc
     glxinfo
@@ -65,7 +65,7 @@
     seahorse
     spice-vdagent
     sqlite
-    thunderbird
+    latest.thunderbird
     tree-sitter
     unison
     unzip
@@ -78,13 +78,7 @@
 
   home.homeDirectory = "/home/${config.home.username}";
 
-  nixpkgs.overlays = [
-    (final: prev: {
-      unstable = import inputs.unstable {
-        system = prev.system;
-      };
-    })
-  ];
+  nixpkgs.overlays = outputs.overlays;
 
   unfree.enable = true;
   unfree.packages = [

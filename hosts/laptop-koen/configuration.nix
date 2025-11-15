@@ -17,11 +17,9 @@
 
   hardware.bluetooth.powerOnBoot = false;
 
-  home-manager.users.${config.user.username} =
-    import ../../hosts/${config.networking.hostName}/home.nix;
-
   home-manager = {
     backupFileExtension = "backup";
+    users.${config.user.username} = import ../../hosts/${config.networking.hostName}/home.nix;
   };
 
   networking.hostName = "laptop-koen";

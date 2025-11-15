@@ -2,7 +2,6 @@
   config,
   inputs,
   outputs,
-  overlays,
   pkgs,
   ...
 }:
@@ -56,7 +55,7 @@
     ];
   };
 
-  nixpkgs.overlays = overlays;
+  nixpkgs.overlays = outputs.overlays;
 
   programs.dconf.enable = true;
   programs.direnv.enable = true;
