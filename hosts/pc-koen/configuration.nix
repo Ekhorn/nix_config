@@ -54,6 +54,16 @@
   };
 
   system.stateVersion = "25.05";
+  system.autoUpgrade = {
+    enable = true;
+    flake = inputs.self.outPath;
+    flags = [
+      "-L" # print build logs
+      "--update-input"
+      "latest"
+    ];
+    dates = "06:00";
+  };
 
   time.timeZone = "Europe/Amsterdam";
 
