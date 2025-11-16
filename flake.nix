@@ -33,29 +33,28 @@
       home-manager = inputs.home-manager.nixosModules.default;
 
       mkNixos =
-        modules:
+        configuration:
         stable.lib.nixosSystem {
-          inherit modules;
+          modules = [ configuration ];
           specialArgs = { inherit inputs outputs; };
         };
       mkAnywhere =
-        modules: system: device:
-        let
-          mods = modules ++ [
+        configuration: system: device:
+        stable.lib.nixosSystem {
+          inherit system;
+          modules = [
+            configuration
             {
               disko.devices.disk.main.device = if device != null then device else "/dev/vda";
             }
           ];
-        in
-        stable.lib.nixosSystem {
-          inherit system;
-          modules = mods;
           specialArgs = { inherit inputs outputs; };
         };
       mkHome =
-        modules: pkgs:
+        configuration: pkgs:
         home-manager.lib.homeManagerConfiguration {
-          inherit modules pkgs;
+          inherit pkgs;
+          modules = [ configuration ];
           extraSpecialArgs = { inherit inputs outputs; };
         };
       mkShell = file: pkgs: import file { inherit pkgs; };
@@ -71,22 +70,22 @@
       };
 
       homeConfigurations = {
-        "koen@pc-koen" = mkHome [ ./hosts/pc-koen/home.nix ] stable_x86;
-        "koen@laptop-koen" = mkHome [ ./hosts/laptop-koen/home.nix ] stable_x86;
+        "koen@pc-koen" = mkHome ./hosts/pc-koen/home.nix stable_x86;
+        "koen@laptop-koen" = mkHome ./hosts/laptop-koen/home.nix stable_x86;
       };
 
       homeManagerModules = import ./modules/home-manager;
 
       nixosConfigurations = {
-        pc-koen = mkNixos [ ./hosts/pc-koen/configuration.nix ];
-        laptop-koen = mkNixos [ ./hosts/laptop-koen/configuration.nix ];
-        qemu = mkNixos [ ./hosts/spaced/qemu/configuration.nix ];
-        hetzner = mkAnywhere [ ./anywhere/hetzner/configuration.nix ] "aarch64-linux" "/dev/sda";
-        "spaced/aws" = mkAnywhere [ ./anywhere/spaced/aws/configuration.nix ] system "/dev/xvda";
-        "spaced/do" = mkAnywhere [ ./anywhere/spaced/do/configuration.nix ] system null;
-        "spaced/gc" = mkAnywhere [ ./anywhere/spaced/gc/configuration.nix ] system "/dev/sda";
-        "spaced/hetzner" = mkAnywhere [ ./anywhere/spaced/hetzner/configuration.nix ] system "/dev/sda";
-        "spaced/ionos" = mkAnywhere [ ./anywhere/spaced/ionos/configuration.nix ] system null;
+        pc-koen = mkNixos ./hosts/pc-koen/configuration.nix;
+        laptop-koen = mkNixos ./hosts/laptop-koen/configuration.nix;
+        qemu = mkNixos ./hosts/spaced/qemu/configuration.nix;
+        hetzner = mkAnywhere ./anywhere/hetzner/configuration.nix "aarch64-linux" "/dev/sda";
+        "spaced/aws" = mkAnywhere ./anywhere/spaced/aws/configuration.nix system "/dev/xvda";
+        "spaced/do" = mkAnywhere ./anywhere/spaced/do/configuration.nix system null;
+        "spaced/gc" = mkAnywhere ./anywhere/spaced/gc/configuration.nix system "/dev/sda";
+        "spaced/hetzner" = mkAnywhere ./anywhere/spaced/hetzner/configuration.nix system "/dev/sda";
+        "spaced/ionos" = mkAnywhere ./anywhere/spaced/ionos/configuration.nix system null;
       };
 
       nixosModules = import ./modules/nixos;
