@@ -5,12 +5,14 @@
     enable = true;
     settings = {
       theme = "dark_plus";
-      editor.cursor-shape = {
-        normal = "block";
-        insert = "bar";
-        select = "underline";
+      editor = {
+        cursor-shape = {
+          normal = "block";
+          insert = "bar";
+          select = "underline";
+        };
+        soft-wrap.enable = true;
       };
-      soft-wrap.enable = true;
     };
     # themes = {
     #   autumn_night_transparent = {
