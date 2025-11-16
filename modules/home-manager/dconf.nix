@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, ... }:
 
 {
   dconf.settings = {
@@ -101,7 +101,7 @@
 
     "org/gnome/shell/extensions/tilingshell" = {
       active-screen-edges = false;
-      edge-tiling-offset = "uint32 1";
+      edge-tiling-offset = 0;
       enable-autotiling = true;
       enable-blur-selected-tilepreview = false;
       enable-blur-snap-assistant = false;
@@ -111,14 +111,23 @@
       enable-span-multiple-tiles = false;
       enable-tiling-system-windows-suggestions = false;
       focus-window-down = [ "<Alt>j" ];
-      focus-window-left = [ "<Alt>k" ];
-      focus-window-right = [ "<Alt>h" ];
-      focus-window-up = [ "<Alt>l" ];
-      inner-gaps = "uint32 0";
+      focus-window-left = [ "<Alt>h" ];
+      focus-window-right = [ "<Alt>l" ];
+      focus-window-up = [ "<Alt>k" ];
+      inner-gaps = lib.hm.gvariant.mkUint32 0;
       last-version-name-installed = "17.0";
-      layouts-json = builtins.readFile ./dconf-tiling-shell-layouts.json;
+      layouts-json = ''
+        [{
+          "id":"Default",
+          "tiles":[
+             {"x":0,"y":0,"width":0.67,"height":1,"groups":[1]},
+             {"x":0.67,"y":0,"width":0.33,"height":0.5,"groups":[2,1]},
+             {"x":0.67,"y":0.5,"width":0.33,"height":0.5,"groups":[2,1]}
+          ]
+        }]'';
+      outer-gaps = lib.hm.gvariant.mkUint32 0;
       overridden-settings = ''
-          {
+        {
           "org.gnome.mutter.keybindings": {
             "toggle-tiled-right": "['<Super>Right']",
             "toggle-tiled-left": "['<Super>Left']"
@@ -129,15 +138,14 @@
           }
         }'';
       override-window-menu = false;
-      quarter-tiling-threshold = "uint32 25";
-      selected-layouts = [
-        [ "Default" ]
-      ];
+      quarter-tiling-threshold = 0;
+      selected-layouts = [ [ "Default" ] ];
       show-indicator = true;
-      snap-assistant-animation-time = "uint32 0";
+      snap-assistant-animation-time = 0;
       snap-assistant-threshold = 0;
-      tile-preview-animation-time = "uint32 0";
-      tiling-system-activation-key = [ "1" ];
+      span-multiple-tiles-activation-key = [ "-1" ];
+      tile-preview-animation-time = 0;
+      tiling-system-activation-key = [ "2" ];
       tiling-system-deactivation-key = [ "-1" ];
     };
   };
