@@ -26,7 +26,7 @@
   fonts.packages = with pkgs; [
     font-awesome
     noto-fonts
-    ubuntu_font_family
+    ubuntu-classic
   ];
 
   hardware.bluetooth.enable = true;
@@ -75,9 +75,9 @@
   };
   services.gnome.gnome-keyring.enable = true;
   services.gvfs.enable = true;
-  services.logind.extraConfig = ''
-    HandlePowerKey=ignore
-  '';
+  services.logind.settings.Login = {
+    HandlePowerKey = "ignore";
+  };
   services.pipewire = {
     enable = true;
     alsa.enable = true;

@@ -1,10 +1,10 @@
 { pkgs, ... }:
 
 {
+  services.desktopManager.gnome.enable = true;
+  services.displayManager.gdm.enable = true;
   services.xserver = {
     enable = true;
-    desktopManager.gnome.enable = true;
-    displayManager.gdm.enable = true;
     videoDrivers = [ "nvidia" ];
     xkb = {
       layout = "us";
@@ -21,6 +21,6 @@
     # gnome-photos
     gnome-terminal
     gnome-tour
-    totem # video player
+    # video player
   ];
 }

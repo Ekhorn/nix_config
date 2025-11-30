@@ -13,13 +13,13 @@
   home.packages = with pkgs; [
     adwaita-icon-theme
     awscli2
-    barrier
     celluloid
     latest.chromium
     clang
     cmake
     dconf2nix
     unstable.deno
+    deskflow
     dig
     latest.discord
     dunst
@@ -29,7 +29,7 @@
     latest.firefox
     #(flameshot.override { enableWlrSupport = true; })
     #gcc
-    glxinfo
+    mesa-demos
     go
     graphviz
     kubernetes-helm
@@ -55,7 +55,7 @@
     openssl
     pastel
     pciutils
-    pinentry
+    pinentry-gnome3
     playerctl
     podman-compose
     postgresql_17

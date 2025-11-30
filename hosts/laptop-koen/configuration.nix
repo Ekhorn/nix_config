@@ -25,7 +25,7 @@
   networking.hostName = "laptop-koen";
   networking.networkmanager.enable = true;
 
-  system.stateVersion = "25.05";
+  system.stateVersion = "25.11";
   system.autoUpgrade = {
     enable = true;
     flake = inputs.self.outPath;
