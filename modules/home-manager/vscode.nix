@@ -28,7 +28,7 @@
   ];
 
   programs.vscode = {
-    enable = true;
+    enable = false;
     profiles.default = {
       extensions = with pkgs.vscode-extensions; [
         bradlc.vscode-tailwindcss
