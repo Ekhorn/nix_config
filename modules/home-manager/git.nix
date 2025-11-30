@@ -24,7 +24,7 @@
     signing.signByDefault = true;
 
     extraConfig = {
-      core.editor = "nvim";
+      core.editor = "hx";
       credential.helper = "store";
       format.commitMessageColumns = 72;
       init.defaultBranch = "main";
