@@ -13,7 +13,6 @@
   home.packages = with pkgs; [
     adwaita-icon-theme
     awscli2
-    celluloid
     latest.chromium
     clang
     cmake
