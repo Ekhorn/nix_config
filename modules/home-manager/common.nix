@@ -48,7 +48,7 @@
     nixfmt-rfc-style
     package-version-server
     nixos-anywhere
-    nodejs_20
+    nodejs_24
     obsidian
     obs-studio
     openssl
