@@ -52,6 +52,13 @@
       "/data/runner_workspace"
     ];
   };
+  services.ollama = {
+    enable = true;
+    acceleration = "vulkan";
+    host = "0.0.0.0";
+    models = "/mnt/games/llms/ollama/models";
+    loadModels = [ ];
+  };
 
   system.stateVersion = "25.11";
   system.autoUpgrade = {
@@ -71,6 +78,10 @@
   unfree.packages = [
     "steam"
     "steam-unwrapped"
+    # "cuda_cudart"
+    # "cuda_nvcc"
+    # "cuda_cccl"
+    # "libcublas"
   ];
 
   # Don't forget to set a password with ‘passwd’.
