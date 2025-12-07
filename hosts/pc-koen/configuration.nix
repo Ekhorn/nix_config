@@ -33,6 +33,7 @@
     group = "github-runner";
     extraGroups = [ "docker" ];
   };
+
   services.github-runners.spaced.enable = true;
   services.github-runners.spaced.user = "github-runner";
   services.github-runners.spaced.url = "https://github.com/Ekhorn/spaced";
@@ -56,7 +57,7 @@
     enable = true;
     acceleration = "vulkan";
     host = "0.0.0.0";
-    models = "/mnt/nvme/llms/ollama/models";
+    models = "/mnt/nvme/ai/ollama/models";
     loadModels = [ ];
   };
 
