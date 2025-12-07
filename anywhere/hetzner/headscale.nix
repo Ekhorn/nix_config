@@ -12,7 +12,10 @@ in
     settings = {
       server_url = "https://headscale.${domain}:443";
       tls_letsencrypt_hostname = "headscale.${domain}";
-      dns.base_domain = "tailnet.${domain}";
+      dns = {
+        base_domain = "tailnet.${domain}";
+        override_local_dns = false;
+      };
       log.level = "debug";
     };
   };
