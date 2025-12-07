@@ -15,23 +15,32 @@
   ];
 
   boot.initrd.availableKernelModules = [
+    "nvme"
     "xhci_pci"
     "ahci"
-    "nvme"
     "usbhid"
     "usb_storage"
     "sd_mod"
   ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
+  boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/92900111-1c42-496d-ae97-eb49f5f97f9a";
+    device = "/dev/disk/by-uuid/7d3b086f-06f5-4ce9-8167-376a7062852b";
     fsType = "ext4";
   };
 
-  fileSystems."/mnt/games" = {
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/AFC0-528D";
+    fsType = "vfat";
+    options = [
+      "fmask=0077"
+      "dmask=0077"
+    ];
+  };
+
+  fileSystems."/mnt/nvme" = {
     device = "/dev/disk/by-uuid/40e191d6-882e-4363-9e24-b2e79a778181";
     fsType = "ext4";
   };
@@ -41,24 +50,8 @@
     fsType = "ext4";
   };
 
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/4582-91C3";
-    fsType = "vfat";
-    options = [
-      "fmask=0077"
-      "dmask=0077"
-    ];
-  };
-
   swapDevices = [ ];
 
-  # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
-  # (the default) this is the recommended approach. When using systemd-networkd it's
-  # still possible to use this option, but it's recommended to use it in conjunction
-  # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
-  networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.enp3s0.useDHCP = lib.mkDefault true;
-
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

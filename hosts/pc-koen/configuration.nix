@@ -56,7 +56,7 @@
     enable = true;
     acceleration = "vulkan";
     host = "0.0.0.0";
-    models = "/mnt/games/llms/ollama/models";
+    models = "/mnt/nvme/llms/ollama/models";
     loadModels = [ ];
   };
 
