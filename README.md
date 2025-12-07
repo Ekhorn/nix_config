@@ -138,6 +138,12 @@ cat ~/.ssh/id_*.pub >> modules/nixos/authorized_keys
 git commit -m "conf: add authorized public key" --no-gpg-sign
 ```
 
+Or when reusing a key.
+
+```sh
+ssh-add .ssh/id_*
+```
+
 Then copy GPG from other system, you may need to reboot the system.
 
 ```sh
