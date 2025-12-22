@@ -1,26 +1,42 @@
-{ ... }:
+{ config, pkgs, ... }:
 
 {
   programs.tmux = {
     enable = true;
-    escapeTime = 0;
+    baseIndex = 1;
     extraConfig = ''
-      set -g default-terminal "screen-255color"
+      set -s escape-time 10
+      set -sg repeat-time 600
 
-      set -sg escape-time 0
+      set -g base-index 1
+      set -g pane-base-index 1
+      set-window-option -g pane-base-index 1
+      set-option -g renumber-windows on
 
-      set -g prefix C-a
-      unbind C-b
-      bind-key C-a send-prefix
+      set-option -g status-interval 5
+      set-option -g automatic-rename on
+      set-option -g automatic-rename-format '#{b:pane_current_path}'
+
+      set -g @continuum-restore 'on'
+      set -g @continuum-save-interval '1'
+      set -g @continuum-boot 'on'
+      set -g @resurrect-dir "${config.home.homeDirectory}/.tmux/resurrect"
+
+      bind r source-file ${config.home.homeDirectory}/.config/tmux/tmux.conf
 
       unbind %
-      bind | split-window -h
+      bind i split-window -h -c "#{pane_current_path}"
 
       unbind '"'
-      bind - split-window -v
+      bind - split-window -v -c "#{pane_current_path}"
 
-      unbind r
-      bind r source-file ~/.tmux.conf
+      unbind c
+      bind t new-window -c "#{pane_current_path}"
+
+      bind -n M-h select-pane -L
+      bind -n M-j select-pane -D
+      bind -n M-k select-pane -U
+      bind -n M-l select-pane -R
 
       bind -r h resize-pane -L 5
       bind -r j resize-pane -D 5
@@ -31,26 +47,17 @@
 
       # set -g mouse on
 
-      set-window-option -g mode-keys vi
-
       bind-key -T copy-mode-vi 'v' send -X begin-selection
       bind-key -T copy-mode-vi 'y' send -X copy-selection
 
       unbind -T copy-mode-vi MouseDragEnd1Pane
-
-      # tpm plugin
-      set -g @plugin 'tmux-plugins/tpm'
-
-      # list of tmux plugins
-      set -g @plugin 'christoomey/vim-tmux-navigator'
-      set -g @plugin 'tmux-plugins/tmux-resurrect' # persist tmux sessions after computer restart
-      set -g @plugin 'tmux-plugins/tmux-continuum' # automatically saves sessions for you every 15 minutes
-
-      set -g @resurrect-capture-pane-contents 'on'
-      set -g @continuum-restore 'on'
-
-      # Initialize TMUX plugin manager
-      run '~/.tmux/plugins/tpm/tpm'
     '';
+    keyMode = "vi";
+    plugins = with pkgs; [
+      tmuxPlugins.resurrect
+      tmuxPlugins.continuum
+    ];
+    shell = "${pkgs.zsh}/bin/zsh";
+    shortcut = "Space";
   };
 }

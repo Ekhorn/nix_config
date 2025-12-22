@@ -8,7 +8,7 @@
       { package = status-icons; }
       # { package = places-menu; }
       { package = auto-move-windows; }
-      { package = tiling-shell; }
+      # { package = tiling-shell; }
     ];
   };
 }

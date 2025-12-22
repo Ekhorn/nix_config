@@ -15,6 +15,8 @@
       update = "sudo nixos-rebuild switch --recreate-lock-file";
       switch = "sudo nixos-rebuild switch";
       test = "sudo nixos-rebuild test";
+      # tmux
+      ta = "tmux attach";
     };
 
     initContent = ''
@@ -43,15 +45,12 @@
         "deno"
         "direnv"
         "docker"
-        "doctl"
+        # "doctl"
         "gh"
-        "git"
         "kubectl"
         "podman"
         "rust"
         "ssh"
-        "sudo"
-        "tmux"
       ];
     };
   };
