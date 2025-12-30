@@ -1,4 +1,4 @@
-self: super: {
+final: prev: {
   mkRustCrate =
     {
       pname,
@@ -11,16 +11,16 @@ self: super: {
       homepage,
       mainProgram ? pname,
     }:
-    super.rustPlatform.buildRustPackage rec {
+    prev.rustPlatform.buildRustPackage rec {
       inherit pname version cargoHash;
 
-      src = super.fetchFromGitHub {
+      src = prev.fetchFromGitHub {
         inherit owner repo;
         rev = version;
         sha256 = sha256;
       };
 
-      meta = with super.lib; {
+      meta = with prev.lib; {
         inherit description homepage;
         mainProgram = mainProgram;
         license = with licenses; [
@@ -30,7 +30,7 @@ self: super: {
       };
     };
 
-  criterion-table = self.mkRustCrate {
+  criterion-table = final.mkRustCrate {
     pname = "criterion-table";
     version = "master";
     owner = "Ekhorn";
