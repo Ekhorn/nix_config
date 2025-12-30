@@ -12,7 +12,7 @@ let
         # v1.52.0
         url = "https://github.com/NixOS/nixpkgs/archive/e462a75ad44682b4e8df740e33fca4f048e8aa11.tar.gz";
       };
-  playwright-driver = (import src { inherit (pkgs) system; }).playwright-driver;
+  playwright-driver = (import src { inherit pkgs; }).playwright-driver;
 in
 pkgs.mkShell {
   nativeBuildInputs = [ playwright-driver ];

@@ -1,16 +1,12 @@
 { inputs, ... }:
 
-final: prev:
-let
-  inherit (prev) system;
-in
-{
+final: prev: {
   unstable = import inputs.unstable {
-    inherit system;
+    system = prev.stdenv.hostPlatform.system;
     config = prev.config;
   };
   latest = import inputs.latest {
-    inherit system;
+    system = prev.stdenv.hostPlatform.system;
     config = prev.config;
   };
 }
