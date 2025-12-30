@@ -24,6 +24,7 @@
 
   networking.hostName = "pc-koen";
   networking.networkmanager.enable = true;
+  networking.firewall.interfaces.enp6s0.allowedTCPPorts = [ 42420 ];
 
   programs.steam.enable = true;
 

@@ -20,6 +20,7 @@
 
   home.packages = with pkgs; [
     prismlauncher
+    unstable.vintagestory
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
@@ -39,4 +40,9 @@
   };
 
   programs.home-manager.enable = true;
+
+  unfree.enable = true;
+  unfree.packages = [
+    "vintagestory"
+  ];
 }
