@@ -53,7 +53,7 @@
       mkHome =
         configuration: pkgs:
         home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
+          # inherit pkgs; # Already "applied" with `home-manager.useGlobalPkgs = true;`
           modules = [ configuration ];
           extraSpecialArgs = { inherit inputs outputs; };
         };

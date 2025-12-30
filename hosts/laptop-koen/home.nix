@@ -40,9 +40,4 @@
   };
 
   programs.home-manager.enable = true;
-
-  unfree.enable = true;
-  unfree.packages = [
-    "slack"
-  ];
 }

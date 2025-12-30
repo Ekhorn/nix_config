@@ -1,15 +1,10 @@
 {
   config,
-  outputs,
   pkgs,
   ...
 }:
 
 {
-  imports = [
-    ../shared/unfree.nix
-  ];
-
   home.packages = with pkgs; [
     adwaita-icon-theme
     awscli2
@@ -77,13 +72,10 @@
 
   home.homeDirectory = "/home/${config.home.username}";
 
-  nixpkgs.overlays = outputs.overlays;
-
-  unfree.enable = true;
-  unfree.packages = [
-    "discord"
-    "idea"
-    "obsidian"
-    "vscode"
-  ];
+  # Disabled due to `home-manager.useGlobalPkgs = true;`.
+  # imports = [
+  #   ../shared/unfree.nix
+  # ];
+  # The `nixpkgs.overlays` option is already defined in nixos modules.
+  # nixpkgs.overlays = outputs.overlays;
 }

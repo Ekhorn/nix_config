@@ -19,6 +19,7 @@
 
   home-manager = {
     backupFileExtension = "backup";
+    useGlobalPkgs = true;
     users.${config.user.username} = import ../../hosts/${config.networking.hostName}/home.nix;
   };
 
@@ -80,6 +81,7 @@
   unfree.packages = [
     "steam"
     "steam-unwrapped"
+    "vintagestory"
     # "cuda_cudart"
     # "cuda_nvcc"
     # "cuda_cccl"

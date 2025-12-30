@@ -19,6 +19,7 @@
 
   home-manager = {
     backupFileExtension = "backup";
+    useGlobalPkgs = true;
     users.${config.user.username} = import ../../hosts/${config.networking.hostName}/home.nix;
   };
 
@@ -45,6 +46,12 @@
   services.xserver.videoDrivers = lib.mkForce [ ];
 
   time.timeZone = "Europe/Amsterdam";
+
+  unfree.enable = true;
+  unfree.packages = [
+    "slack"
+  ];
+
   # Don't forget to set a password with ‘passwd’.
   user.enable = true;
   user.username = "koen";

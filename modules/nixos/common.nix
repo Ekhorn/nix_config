@@ -91,4 +91,12 @@
     user = config.user.username;
     configDir = "/home/${config.user.username}/.local/state/syncthing";
   };
+
+  unfree.enable = true;
+  unfree.packages = [
+    "discord"
+    "idea"
+    "obsidian"
+    "vscode"
+  ];
 }
