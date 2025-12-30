@@ -28,7 +28,6 @@
     graphviz
     kubernetes-helm
     htop
-    #input-leap
     jdk21_headless
     jetbrains.idea
     jq
