@@ -35,7 +35,7 @@
     htop
     #input-leap
     jdk21_headless
-    jetbrains.idea-community
+    jetbrains.idea
     jq
     kubectl
     libreoffice
@@ -82,6 +82,7 @@
   unfree.enable = true;
   unfree.packages = [
     "discord"
+    "idea"
     "obsidian"
     "vscode"
   ];

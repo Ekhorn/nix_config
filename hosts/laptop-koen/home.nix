@@ -20,7 +20,6 @@
 
   home.packages = with pkgs; [
     slack
-    jetbrains.idea-ultimate
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
@@ -44,7 +43,6 @@
 
   unfree.enable = true;
   unfree.packages = [
-    "idea-ultimate"
     "slack"
   ];
 }
