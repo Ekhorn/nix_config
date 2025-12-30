@@ -7,7 +7,7 @@
 
 {
   options = {
-    user.enable = lib.mkEnableOption "Enable user module.";
+    user.enable = lib.mkEnableOption "Enable user option.";
     user.username = lib.mkOption {
       description = ''
         Set the users' username.
