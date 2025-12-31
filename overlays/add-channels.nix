@@ -2,11 +2,11 @@
 
 final: prev: {
   unstable = import inputs.unstable {
-    system = prev.stdenv.hostPlatform.system;
-    config = prev.config;
+    system = final.stdenv.hostPlatform.system;
+    config = final.config;
   };
   latest = import inputs.latest {
-    system = prev.stdenv.hostPlatform.system;
-    config = prev.config;
+    system = final.stdenv.hostPlatform.system;
+    config = final.config;
   };
 }

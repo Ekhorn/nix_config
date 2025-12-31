@@ -55,7 +55,7 @@
     ];
   };
 
-  nixpkgs.overlays = outputs.overlays;
+  nixpkgs.overlays = [ outputs.overlays.channels ];
 
   programs.dconf.enable = true;
   programs.direnv.enable = true;

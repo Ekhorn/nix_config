@@ -97,10 +97,7 @@
 
       nixosModules = import ./modules/nixos;
 
-      overlays = [
-        (import ./overlays/add-channels.nix { inherit inputs; })
-        (import ./overlays/rust.nix)
-      ];
+      overlays = import ./overlays { inherit inputs; };
 
       packages = {
         libfprint = applyPatches "libfprint" [ ./patches/goodix-60c2.patch ];
