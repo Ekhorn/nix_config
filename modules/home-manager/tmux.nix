@@ -17,11 +17,6 @@
       set-option -g automatic-rename on
       set-option -g automatic-rename-format '#{b:pane_current_path}'
 
-      set -g @continuum-restore 'on'
-      set -g @continuum-save-interval '1'
-      set -g @continuum-boot 'on'
-      set -g @resurrect-dir "${config.home.homeDirectory}/.tmux/resurrect"
-
       bind r source-file ${config.home.homeDirectory}/.config/tmux/tmux.conf
 
       unbind %
@@ -54,8 +49,21 @@
     '';
     keyMode = "vi";
     plugins = with pkgs; [
-      tmuxPlugins.resurrect
-      tmuxPlugins.continuum
+      {
+        plugin = tmuxPlugins.resurrect;
+        extraConfig = ''
+          set -g @resurrect-capture-pane-contents 'on'
+          set -g @resurrect-dir "${config.home.homeDirectory}/.tmux/resurrect"
+        '';
+      }
+      {
+        plugin = tmuxPlugins.continuum;
+        extraConfig = ''
+          set -g @continuum-restore 'on'
+          set -g @continuum-boot 'on'
+          set -g @continuum-save-interval '1'
+        '';
+      }
     ];
     shell = "${pkgs.zsh}/bin/zsh";
     shortcut = "Space";
