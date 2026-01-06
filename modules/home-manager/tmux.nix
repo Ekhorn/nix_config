@@ -28,10 +28,10 @@
       unbind c
       bind t new-window -c "#{pane_current_path}"
 
-      bind -n M-h select-pane -L
-      bind -n M-j select-pane -D
-      bind -n M-k select-pane -U
-      bind -n M-l select-pane -R
+      bind -n C-h select-pane -L
+      bind -n C-j select-pane -D
+      bind -n C-k select-pane -U
+      bind -n C-l select-pane -R
 
       bind -r h resize-pane -L 5
       bind -r j resize-pane -D 5
