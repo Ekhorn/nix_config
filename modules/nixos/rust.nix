@@ -1,14 +1,12 @@
 {
   pkgs,
   inputs,
-  outputs,
   ...
 }:
 
 {
   nixpkgs.overlays = [
     inputs.rust-overlay.overlays.default
-    outputs.overlays.criterion-table
   ];
 
   environment.systemPackages = with pkgs; [

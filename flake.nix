@@ -28,6 +28,8 @@
     let
       inherit (self) outputs;
 
+      home-manager = inputs.home-manager.nixosModules.default;
+
       # Also consider nixpkgs.lib.systems.flakeExposed
       # see https://github.com/NixOS/nixpkgs/blob/5d65a618c663db71662a434a3d5887f2ee7f0a1f/lib/systems/flake-systems.nix
       # or see https://github.com/numtide/flake-utils/blob/11707dc2f618dd54ca8739b309ec4fc024de578b/allSystems.nix
@@ -35,14 +37,8 @@
         "x86_64-linux"
         "aarch64-linux"
       ];
-      home-manager = inputs.home-manager.nixosModules.default;
 
-      mkNixos =
-        configuration:
-        stable.lib.nixosSystem {
-          modules = [ configuration ];
-          specialArgs = { inherit inputs outputs; };
-        };
+      forAllSystems = function: stable.lib.genAttrs systems function;
       mkAnywhere =
         configuration: device:
         stable.lib.nixosSystem {
@@ -61,15 +57,20 @@
           modules = [ configuration ];
           extraSpecialArgs = { inherit inputs outputs; };
         };
+      mkNixos =
+        configuration: overlays:
+        stable.lib.nixosSystem {
+          modules = [
+            configuration
+            {
+              nixpkgs.overlays = import overlays { inherit inputs; };
+            }
+          ];
+          specialArgs = { inherit inputs outputs; };
+        };
       mkShell =
         file: pkgs: system:
         import file { pkgs = pkgs.legacyPackages.${system}; };
-      applyPatches =
-        name: patches:
-        stable.${name}.overrideAttrs (old: {
-          patches = (old.patches or [ ]) ++ patches;
-        });
-      forAllSystems = function: stable.lib.genAttrs systems function;
     in
     {
       devShells = forAllSystems (system: {
@@ -84,9 +85,9 @@
       homeManagerModules = import ./modules/home-manager;
 
       nixosConfigurations = {
-        pc-koen = mkNixos ./hosts/pc-koen/configuration.nix;
-        laptop-koen = mkNixos ./hosts/laptop-koen/configuration.nix;
-        qemu = mkNixos ./hosts/spaced/qemu/configuration.nix;
+        pc-koen = mkNixos ./hosts/pc-koen/configuration.nix ./overlays;
+        laptop-koen = mkNixos ./hosts/laptop-koen/configuration.nix ./overlays;
+        qemu = mkNixos ./hosts/spaced/qemu/configuration.nix [ ];
         hetzner = mkAnywhere ./anywhere/hetzner/configuration.nix "/dev/sda";
         "spaced/aws" = mkAnywhere ./anywhere/spaced/aws/configuration.nix "/dev/xvda";
         "spaced/do" = mkAnywhere ./anywhere/spaced/do/configuration.nix null;
@@ -96,11 +97,5 @@
       };
 
       nixosModules = import ./modules/nixos;
-
-      overlays = import ./overlays { inherit inputs; };
-
-      packages = {
-        libfprint = applyPatches "libfprint" [ ./patches/goodix-60c2.patch ];
-      };
     };
 }
