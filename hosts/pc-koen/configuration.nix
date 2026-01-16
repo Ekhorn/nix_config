@@ -10,6 +10,8 @@
   imports = [
     ./hardware-configuration.nix
     inputs.home-manager.nixosModules.home-manager
+    inputs.nix-flatpak.nixosModules.nix-flatpak
+    ./flatpak.nix
   ]
   ++ (builtins.attrValues outputs.nixosModules);
 
@@ -36,7 +38,8 @@
     extraGroups = [ "docker" ];
   };
 
-  services.github-runners.spaced.enable = true;
+  services.flatpak.enable = true;
+  services.github-runners.spaced.enable = false;
   services.github-runners.spaced.user = "github-runner";
   services.github-runners.spaced.url = "https://github.com/Ekhorn/spaced";
   services.github-runners.spaced.tokenFile = "/etc/gh_token";

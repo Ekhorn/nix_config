@@ -13,6 +13,7 @@
       inputs.nixpkgs.follows = "stable";
     };
     rust-overlay.url = "github:oxalica/rust-overlay";
+    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.7.0";
   };
 
   outputs =
