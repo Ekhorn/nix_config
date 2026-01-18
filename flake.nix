@@ -31,15 +31,18 @@
 
       home-manager = inputs.home-manager.nixosModules.default;
 
-      # Also consider nixpkgs.lib.systems.flakeExposed
-      # see https://github.com/NixOS/nixpkgs/blob/5d65a618c663db71662a434a3d5887f2ee7f0a1f/lib/systems/flake-systems.nix
-      # or see https://github.com/numtide/flake-utils/blob/11707dc2f618dd54ca8739b309ec4fc024de578b/allSystems.nix
-      systems = [
-        "x86_64-linux"
-        "aarch64-linux"
-      ];
+      forAllSystems =
+        let
+          # Also consider nixpkgs.lib.systems.flakeExposed
+          # see https://github.com/NixOS/nixpkgs/blob/5d65a618c663db71662a434a3d5887f2ee7f0a1f/lib/systems/flake-systems.nix
+          # or see https://github.com/numtide/flake-utils/blob/11707dc2f618dd54ca8739b309ec4fc024de578b/allSystems.nix
+          systems = [
+            "x86_64-linux"
+            "aarch64-linux"
+          ];
+        in
+        f: stable.lib.genAttrs systems (system: f (import stable { inherit system; }));
 
-      forAllSystems = function: stable.lib.genAttrs systems function;
       mkAnywhere =
         configuration: device:
         stable.lib.nixosSystem {
@@ -71,13 +74,11 @@
           ];
           specialArgs = { inherit inputs outputs overlays; };
         };
-      mkShell =
-        file: pkgs: system:
-        import file { pkgs = pkgs.legacyPackages.${system}; };
+      mkShell = file: pkgs: import file { inherit pkgs; };
     in
     {
-      devShells = forAllSystems (system: {
-        playwright = mkShell ./shells/playwright.nix stable system;
+      devShells = forAllSystems (pkgs: {
+        playwright = mkShell ./shells/playwright.nix pkgs;
       });
 
       homeConfigurations = {
@@ -101,10 +102,9 @@
 
       nixosModules = import ./modules/nixos;
 
-      packages = forAllSystems (system: {
-        wc-language-server = import ./packages/wc-language-server.nix {
-          pkgs = stable.legacyPackages.${system};
-        };
+      packages = forAllSystems (pkgs: {
+        criterion-table = import ./packages/criterion-table.nix { inherit pkgs; };
+        wc-language-server = import ./packages/wc-language-server.nix { inherit pkgs; };
       });
     };
 }
