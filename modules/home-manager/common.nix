@@ -71,6 +71,9 @@
 
   home.homeDirectory = "/home/${config.home.username}";
 
+  home.sessionVariables = {
+    EDITOR = "hx";
+  };
   # Disabled due to `home-manager.useGlobalPkgs = true;`.
   # imports = [
   #   ../shared/unfree.nix
