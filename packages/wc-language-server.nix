@@ -27,12 +27,12 @@ pkgs.stdenv.mkDerivation (finalAttrs: {
   buildPhase = ''
     cd packages/language-server/
     node scripts/build-single-file.mjs
-    bun build dist/wc-language-server.bundle.cjs --compile --outfile bin/wc-language-server
-    chmod +x bin/wc-language-server
+    # bun build dist/wc-language-server.bundle.cjs --compile --outfile bin/wc-language-server
+    # chmod +x bin/wc-language-server
   '';
 
   installPhase = ''
     mkdir -p $out/bin
-    cp -r bin/* $out/bin/
+    cp -r dist/* $out/bin/
   '';
 })

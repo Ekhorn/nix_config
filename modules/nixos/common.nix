@@ -69,6 +69,12 @@
     agent.enable = true;
     agent.pinentryPackage = pkgs.pinentry-gnome3;
   };
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [
+      glibc
+    ];
+  };
   programs.zsh.enable = true;
 
   security.polkit.enable = true;
