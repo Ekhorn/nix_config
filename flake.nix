@@ -64,14 +64,12 @@
           modules = [
             configuration
             {
-              nixpkgs.overlays = import overlays { inherit inputs; };
-              # Let 'nixos-version --json' know about the Git revision
-              # of this flake.
+              # Let 'nixos-version --json' know about the Git revision of this flake.
               # Ref https://www.tweag.io/blog/2020-07-31-nixos-flakes/#hermetic-evaluation
               system.configurationRevision = stable.lib.mkIf (self ? rev) self.rev;
             }
           ];
-          specialArgs = { inherit inputs outputs; };
+          specialArgs = { inherit inputs outputs overlays; };
         };
       mkShell =
         file: pkgs: system:
@@ -102,5 +100,11 @@
       };
 
       nixosModules = import ./modules/nixos;
+
+      packages = forAllSystems (system: {
+        wc-language-server = import ./packages/wc-language-server.nix {
+          pkgs = stable.legacyPackages.${system};
+        };
+      });
     };
 }

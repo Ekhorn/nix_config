@@ -2,6 +2,7 @@
   config,
   inputs,
   outputs,
+  overlays,
   pkgs,
   ...
 }:
@@ -54,6 +55,13 @@
       "flakes"
     ];
   };
+
+  nixpkgs.overlays = import overlays { inherit inputs; } ++ [
+    (
+      final: prev:
+      prev.lib.mapAttrs (_name: pkg: pkg) outputs.packages.${config.nixpkgs.hostPlatform.system}
+    )
+  ];
 
   programs.dconf.enable = true;
   programs.direnv.enable = true;

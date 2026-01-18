@@ -63,6 +63,7 @@
     unison
     unzip
     unstable.vulnix
+    wc-language-server
     wget
     x11_ssh_askpass
     yarn-berry

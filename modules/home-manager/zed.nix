@@ -10,6 +10,7 @@
       "toml"
       "latex"
       "ltex"
+      "wc-language-server"
     ];
     package = pkgs.unstable.zed-editor;
     themes = {
