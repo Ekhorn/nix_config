@@ -5,6 +5,7 @@
     enable = true;
     baseIndex = 1;
     extraConfig = ''
+      set -s exit-empty off
       set -s escape-time 10
       set -sg repeat-time 600
 
@@ -37,31 +38,27 @@
       bind -r j resize-pane -D 5
       bind -r k resize-pane -U 5
       bind -r l resize-pane -R 5
-
       bind -r m resize-pane -Z
-
-      # set -g mouse on
-
-      bind-key -T copy-mode-vi 'v' send -X begin-selection
-      bind-key -T copy-mode-vi 'y' send -X copy-selection
-
-      unbind -T copy-mode-vi MouseDragEnd1Pane
     '';
     keyMode = "vi";
     plugins = with pkgs; [
       {
         plugin = tmuxPlugins.resurrect;
-        extraConfig = ''
-          set -g @resurrect-capture-pane-contents 'on'
-          set -g @resurrect-dir "${config.home.homeDirectory}/.tmux/resurrect"
-        '';
+        extraConfig =
+          let
+            dir = "${config.home.homeDirectory}/.tmux/resurrect";
+          in
+          ''
+            set -g @resurrect-capture-pane-contents 'on'
+            set -g @resurrect-dir "${dir}"
+            set -g @resurrect-hook-post-save-all 'sed -i "s|/nix/store/[^/]*/bin/||g" ${dir}/last'
+          '';
       }
       {
         plugin = tmuxPlugins.continuum;
         extraConfig = ''
-          set -g @continuum-restore 'on'
-          set -g @continuum-boot 'on'
-          set -g @continuum-save-interval '1'
+          # set -g @continuum-restore 'on'
+          set -g @continuum-save-interval '5'
         '';
       }
     ];

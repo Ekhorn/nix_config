@@ -12,6 +12,7 @@
   rust = import ./rust.nix;
   ssh = import ./ssh.nix;
   tailscale = import ./tailscale.nix;
+  tmux = import ./tmux.nix;
   user = import ./user.nix;
   # wayland = import ./wayland.nix;
 }
