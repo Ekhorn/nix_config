@@ -1,6 +1,7 @@
 {
   # The following modules MUST be specific, and NOT general like "security" or
   # "services", only "common" is allowed.
+  alacritty = import ./alacritty.nix;
   common = import ./common.nix;
   editorconfig = import ./editorconfig.nix;
   dconf = import ./dconf.nix;
