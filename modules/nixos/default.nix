@@ -1,6 +1,7 @@
 {
   # The following modules MUST be specific, and NOT general like "security" or
   # "services", only "common" is allowed.
+  build-vm = import ./build-vm.nix;
   common = import ./common.nix;
   docker = import ./docker.nix;
   gnome = import ./gnome.nix;
