@@ -43,6 +43,9 @@
     serviceConfig.Type = "simple";
   };
   services.fprintd.enable = true;
+  services.usbguard = {
+    enable = true;
+  };
   services.xserver.videoDrivers = lib.mkForce [ ];
 
   time.timeZone = "Europe/Amsterdam";
