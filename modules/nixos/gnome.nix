@@ -13,7 +13,7 @@
   };
 
   environment.gnome.excludePackages = with pkgs; [
-    epiphany # web browser
+    # epiphany # web browser
     evince # document viewer
     geary # email reader
     # gnome-characters
