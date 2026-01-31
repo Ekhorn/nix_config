@@ -1,2 +1,4 @@
 result
+*.csv
 *.qcow2
+*.sqlite

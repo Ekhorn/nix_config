@@ -62,7 +62,7 @@
     tree-sitter
     unison
     unzip
-    unstable.vulnix
+    sbomnix
     wget
     x11_ssh_askpass
     yarn-berry
