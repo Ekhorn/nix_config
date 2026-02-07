@@ -8,7 +8,7 @@ in
   # default qemu: options are set here https://github.com/NixOS/nixpkgs/blob/nixos-25.11/nixos/lib/qemu-common.nix
   virtualisation.vmVariant = {
     virtualisation = {
-      memorySize = 2048; # 8192;
+      memorySize = 4096; # 2048; # 8192;
       cores = 4;
     };
     virtualisation.qemu.options = [
