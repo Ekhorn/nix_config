@@ -16,7 +16,7 @@ in
       "-device virtio-rng-pci,rng=rng0"
       "-display gtk,gl=on,grab-on-hover=on,show-cursor=on,zoom-to-fit=on"
       "-enable-kvm"
-      "-machine pc,accel=kvm"
+      "-machine q35,accel=kvm"
       "-object rng-random,id=rng0,filename=/dev/urandom"
       "-vga virtio"
       # "-nographic"
