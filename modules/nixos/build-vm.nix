@@ -13,6 +13,7 @@ in
     };
     virtualisation.qemu.options = [
       "-cpu host"
+      "-device virtio-balloon"
       "-device virtio-rng-pci,rng=rng0"
       "-device virtio-vga-gl"
       "-display gtk,gl=on,grab-on-hover=on,show-cursor=on,zoom-to-fit=on"
