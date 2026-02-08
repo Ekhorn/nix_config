@@ -14,11 +14,11 @@ in
     virtualisation.qemu.options = [
       "-cpu host"
       "-device virtio-rng-pci,rng=rng0"
+      "-device virtio-vga-gl"
       "-display gtk,gl=on,grab-on-hover=on,show-cursor=on,zoom-to-fit=on"
       "-enable-kvm"
       "-machine q35,accel=kvm"
       "-object rng-random,id=rng0,filename=/dev/urandom"
-      "-vga virtio"
       # "-nographic"
     ];
 
