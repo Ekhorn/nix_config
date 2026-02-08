@@ -39,6 +39,10 @@
       switch-to-workspace-4 = [ "<Super>4" ];
     };
 
+    "org/gnome/mutter" = {
+      dynamic-workspaces = false;
+    };
+
     "org/gnome/settings-daemon/plugins/media-keys" = {
       custom-keybindings = [
         "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
