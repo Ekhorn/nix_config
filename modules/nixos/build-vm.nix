@@ -40,7 +40,11 @@ in
     home-manager.users.vmtest.home.username = lib.mkVMOverride user;
 
     # Non-essential overwrites
+    services.avahi.enable = lib.mkVMOverride false;
     services.flatpak.enable = lib.mkVMOverride false; # Slow boot times as apps are installing
     services.ollama.enable = lib.mkVMOverride false;
+    services.printing.enable = lib.mkVMOverride false;
+
+    system.autoUpgrade.enable = lib.mkVMOverride false;
   };
 }
