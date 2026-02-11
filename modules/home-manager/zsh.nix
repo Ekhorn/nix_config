@@ -20,6 +20,9 @@
     };
 
     initContent = ''
+      build-vm() {
+        (cd "$\{$(readlink -f /etc/nixos/flake.nix)%/*\}" && nix build .#vm && ./result/bin/run-$(hostname)-vm)
+      }
       dev() {
         # --impure to enable version selection
         NIXPKGS_COMMIT="$2" SHELL=$(which zsh) nix develop --impure $(readlink -f /etc/nixos/flake.nix)#$1 --command zsh

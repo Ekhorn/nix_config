@@ -102,5 +102,9 @@
       };
 
       nixosModules = import ./modules/nixos;
+
+      packages = forAllSystems (system: {
+        vm = self.nixosConfigurations.pc-koen.config.system.build.vm;
+      });
     };
 }
