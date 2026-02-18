@@ -59,11 +59,12 @@
     ];
   };
   services.ollama = {
-    enable = true;
     acceleration = "vulkan";
+    enable = true;
     host = "0.0.0.0";
-    models = "/mnt/nvme/ai/ollama/models";
     loadModels = [ ];
+    models = "/mnt/nvme/ai/ollama/models";
+    package = pkgs.unstable.ollama;
   };
 
   system.stateVersion = "25.11";
