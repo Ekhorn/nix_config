@@ -28,6 +28,14 @@
       unbind c
       bind t new-window -c "#{pane_current_path}"
 
+      # Layout cycling controls
+      unbind Space
+      unbind M-1 # even-horizontal
+      unbind M-2 # even-vertical
+      unbind M-3 # main-horizontal
+      unbind M-4 # main-vertical
+      unbind M-5 # tiled
+
       bind -n C-h select-pane -L
       bind -n C-j select-pane -D
       bind -n C-k select-pane -U
