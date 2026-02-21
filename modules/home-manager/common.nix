@@ -55,6 +55,7 @@
     protobuf
     python3
     ripgrep
+    sbomnix
     seahorse
     spice-vdagent
     sqlite
@@ -62,7 +63,7 @@
     tree-sitter
     unison
     unzip
-    sbomnix
+    visualvm
     wget
     x11_ssh_askpass
     yarn-berry
