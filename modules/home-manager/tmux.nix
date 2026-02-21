@@ -45,8 +45,12 @@
       bind -r j resize-pane -D 5
       bind -r k resize-pane -U 5
       bind -r l resize-pane -R 5
-
       bind -r m resize-pane -Z
+
+      bind -r H swap-pane -d -t '{left-of}'
+      bind -r J swap-pane -d -t '{down-of}'
+      bind -r K swap-pane -d -t '{up-of}'
+      bind -r L swap-pane -d -t '{right-of}'
 
       # set -g mouse on
 
