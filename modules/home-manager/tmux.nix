@@ -1,5 +1,16 @@
-{ config, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
+let
+  # Define the keys that disrupt your layout here
+  disruptiveKeys = [ "Space" ] ++ (map (n: "M-${toString n}") (lib.range 1 7));
+  # Generate the unbind commands
+  unbindLayouts = lib.concatMapStringsSep "\n" (key: "unbind ${key}") disruptiveKeys;
+in
 {
   programs.tmux = {
     enable = true;
@@ -29,12 +40,7 @@
       bind t new-window -c "#{pane_current_path}"
 
       # Layout cycling controls
-      unbind Space
-      unbind M-1 # even-horizontal
-      unbind M-2 # even-vertical
-      unbind M-3 # main-horizontal
-      unbind M-4 # main-vertical
-      unbind M-5 # tiled
+      ${unbindLayouts}
 
       bind -n C-h select-pane -L
       bind -n C-j select-pane -D
