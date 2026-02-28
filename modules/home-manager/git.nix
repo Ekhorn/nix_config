@@ -3,6 +3,7 @@
 {
   programs.git = {
     enable = true;
+    lfs.enable = true;
     settings = {
       alias = {
         amend = "commit --amend --no-edit";
