@@ -25,6 +25,7 @@
     #(flameshot.override { enableWlrSupport = true; })
     #gcc
     mesa-demos
+    gimp
     go
     graphviz
     kubernetes-helm
