@@ -8,6 +8,7 @@
   home.packages = with pkgs; [
     adwaita-icon-theme
     awscli2
+    bc
     latest.chromium
     clang
     cmake
