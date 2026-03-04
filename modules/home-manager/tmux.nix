@@ -71,7 +71,7 @@ in
         plugin = tmuxPlugins.resurrect;
         extraConfig = ''
           set -g @resurrect-capture-pane-contents 'on'
-          set -g @resurrect-dir "${config.home.homeDirectory}/.tmux/resurrect"
+          set -g @resurrect-dir "~/.local/share/tmux/resurrect"
         '';
       }
       {
