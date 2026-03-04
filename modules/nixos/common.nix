@@ -17,7 +17,6 @@
   environment.systemPackages = with pkgs; [
     alacritty
     bluez
-    gnome-keyring
     gnupg
     parted
   ];
@@ -63,6 +62,7 @@
   };
   programs.zsh.enable = true;
 
+  # security.pam.services.login.enableGnomeKeyring = true;
   security.polkit.enable = true;
   security.rtkit.enable = true;
 
@@ -71,7 +71,7 @@
     nssmdns4 = true;
     openFirewall = true;
   };
-  services.gnome.gnome-keyring.enable = true;
+  services.gnome.gcr-ssh-agent.enable = true;
   services.gvfs.enable = true;
   services.logind.settings.Login = {
     HandlePowerKey = "ignore";

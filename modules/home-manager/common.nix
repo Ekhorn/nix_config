@@ -67,7 +67,6 @@
     unzip
     visualvm
     wget
-    x11_ssh_askpass
     yarn-berry
     zip
   ];

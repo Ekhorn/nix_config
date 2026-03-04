@@ -1,13 +1,6 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, ... }:
 
 {
-  environment.variables.SSH_ASKPASS = lib.mkForce "${pkgs.x11_ssh_askpass}/libexec/x11-ssh-askpass";
-
   services.openssh = {
     enable = true;
     ports = [ 22 ];
