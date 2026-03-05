@@ -39,7 +39,7 @@
     lsof
     gnumake
     nautilus
-    neovim
+    # neovim
     nil
     nixfmt-rfc-style
     package-version-server

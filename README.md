@@ -165,7 +165,7 @@ lsblk -f -o NAME,UUID,FSTYPE,SIZE
 Set drive to mount
 
 ```sh
-nvim hosts/new-host/hardware-configuration.nix
+hx hosts/new-host/hardware-configuration.nix
 ```
 
 ```nix
