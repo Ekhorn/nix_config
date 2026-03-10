@@ -21,7 +21,7 @@
 
     initContent = ''
       build-vm() {
-        (cd "''${$(readlink -f /etc/nixos/flake.nix)%/*}" && nix build .#vm && ./result/bin/run-$(hostname)-vm)
+        (cd "''${$(readlink -f /etc/nixos/flake.nix)%/*}" && nix build .#$1 && ./result/bin/run-$1-vm)
       }
       dev() {
         # --impure to enable version selection

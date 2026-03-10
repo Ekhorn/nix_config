@@ -39,7 +39,7 @@
         "aarch64-linux"
       ];
 
-      forAllSystems = function: stable.lib.genAttrs systems function;
+      forAllSystems = stable.lib.genAttrs systems;
       mkAnywhere =
         configuration: device:
         stable.lib.nixosSystem {
@@ -92,7 +92,7 @@
       nixosConfigurations = {
         pc-koen = mkNixos ./hosts/pc-koen/configuration.nix ./overlays;
         laptop-koen = mkNixos ./hosts/laptop-koen/configuration.nix ./overlays;
-        qemu = mkNixos ./hosts/spaced/qemu/configuration.nix [ ];
+        qemu = mkNixos ./hosts/qemu/configuration.nix [ ];
         hetzner = mkAnywhere ./anywhere/hetzner/configuration.nix "/dev/sda";
         "spaced/aws" = mkAnywhere ./anywhere/spaced/aws/configuration.nix "/dev/xvda";
         "spaced/do" = mkAnywhere ./anywhere/spaced/do/configuration.nix null;
@@ -103,8 +103,8 @@
 
       nixosModules = import ./modules/nixos;
 
-      packages = forAllSystems (system: {
-        vm = self.nixosConfigurations.pc-koen.config.system.build.vm;
-      });
+      packages = forAllSystems (
+        system: builtins.mapAttrs (host: cfg: cfg.config.system.build.vm) self.nixosConfigurations
+      );
     };
 }
