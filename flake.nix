@@ -31,15 +31,9 @@
 
       home-manager = inputs.home-manager.nixosModules.default;
 
-      # Also consider nixpkgs.lib.systems.flakeExposed
+      # Using nixpkgs.lib.systems.flakeExposed systems,
       # see https://github.com/NixOS/nixpkgs/blob/5d65a618c663db71662a434a3d5887f2ee7f0a1f/lib/systems/flake-systems.nix
-      # or see https://github.com/numtide/flake-utils/blob/11707dc2f618dd54ca8739b309ec4fc024de578b/allSystems.nix
-      systems = [
-        "x86_64-linux"
-        "aarch64-linux"
-      ];
-
-      forAllSystems = stable.lib.genAttrs systems;
+      forAllSystems = f: builtins.mapAttrs f stable.legacyPackages;
       mkAnywhere =
         configuration: device:
         stable.lib.nixosSystem {
@@ -65,22 +59,21 @@
             configuration
             {
               nixpkgs.overlays = import overlays { inherit inputs; };
-              # Let 'nixos-version --json' know about the Git revision
-              # of this flake.
+              # Let 'nixos-version --json' know about the Git revision of this flake.
               # Ref https://www.tweag.io/blog/2020-07-31-nixos-flakes/#hermetic-evaluation
               system.configurationRevision = stable.lib.mkIf (self ? rev) self.rev;
             }
           ];
           specialArgs = { inherit inputs outputs; };
         };
-      mkShell =
-        file: pkgs: system:
-        import file { pkgs = pkgs.legacyPackages.${system}; };
+      mkShell = file: pkgs: import file { inherit pkgs; };
     in
     {
-      devShells = forAllSystems (system: {
-        playwright = mkShell ./shells/playwright.nix stable system;
-      });
+      devShells = forAllSystems (
+        system: pkgs: {
+          playwright = mkShell ./shells/playwright.nix pkgs;
+        }
+      );
 
       homeConfigurations = {
         "koen@pc-koen" = mkHome ./hosts/pc-koen/home.nix;
@@ -104,7 +97,7 @@
       nixosModules = import ./modules/nixos;
 
       packages = forAllSystems (
-        system: builtins.mapAttrs (host: cfg: cfg.config.system.build.vm) self.nixosConfigurations
+        system: pkgs: builtins.mapAttrs (host: cfg: cfg.config.system.build.vm) self.nixosConfigurations
       );
     };
 }
