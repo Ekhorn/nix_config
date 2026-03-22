@@ -96,8 +96,9 @@
   user.enable = true;
   user.username = "koen";
   user.extraGroups = [
-    "wheel"
-    "networkmanager"
+    "dialout"
     "docker"
+    "networkmanager"
+    "wheel"
   ];
 }
