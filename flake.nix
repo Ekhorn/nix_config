@@ -12,7 +12,10 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "stable";
     };
-    rust-overlay.url = "github:oxalica/rust-overlay";
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "unstable";
+    };
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.7.0";
   };
 
