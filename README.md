@@ -34,9 +34,8 @@ quit
 ```sh
 parted /dev/disk1 -- mklabel gpt
 parted /dev/disk1 -- mkpart root ext4 512MB -8GB
-parted /dev/disk1 -- mkpart swap linux-swap -8GB 100%
 parted /dev/disk1 -- mkpart ESP fat32 1MB 512MB
-parted /dev/disk1 -- set 3 esp on
+parted /dev/disk1 -- set 2 esp on
 ```
 
 **(Optional) LUKS Setup**
@@ -51,8 +50,7 @@ mkfs.ext4 /dev/mapper/crypted
 
 ```sh
 mkfs.ext4 -L nixos /dev/disk1part1 # Skip when using LUKS
-mkswap -L swap /dev/disk1part2
-mkfs.fat -F 32 -n boot /dev/disk1part3
+mkfs.fat -F 32 -n boot /dev/disk1part2
 ```
 
 **Installing**
@@ -62,7 +60,6 @@ mount /dev/disk/by-label/nixos /mnt # No LUKS
 mount /dev/mapper/crypted /mnt # LUKS
 mkdir -p /mnt/boot
 mount -o umask=077 /dev/disk/by-label/boot /mnt/boot
-swapon /dev/disk1part2
 ```
 
 ```sh
@@ -173,6 +170,18 @@ fileSystems."/mnt/hdd" =
   { device = "/dev/disk/by-uuid/uuid";
     fsType = "ext4";
   };
+```
+
+### Adding a swap file
+
+Add the following to your `hardware-configuration.nix`.
+
+```nix
+  swapDevices = [
+    {
+      device = "/var/lib/swapfile";
+      size = 64 * 1024; # 64GB
+    }
 ```
 
 ### Troubleshooting
