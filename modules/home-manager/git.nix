@@ -13,7 +13,6 @@
             [ -e \"$repo/$file\" ] && { cmd=\"\${file%[-_]*}\"; cmd=\"\${cmd,,}\"; git \${cmd//_/-} --continue; break; }
           done;
           }; f";
-        clean = "clean -fdX"; # Remove only ignored files and directories
         clear = "clean -fd"; # Remove untracked files and directories
         ls = "log --stat --pretty=format:'%C(yellow)%h%Creset %Cgreen%cr%Creset %Cblue%an%Creset%C(auto)%d%Creset %s'";
         lsd = "!git log --stat --pretty=format:'%C(yellow)%h%Creset %Cgreen%cr%Creset %Cblue%an%Creset%C(auto)%d%Creset %s' $(git merge-base origin HEAD)..HEAD";
