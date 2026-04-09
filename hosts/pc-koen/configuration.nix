@@ -64,7 +64,7 @@
     host = "0.0.0.0";
     loadModels = [ ];
     models = "/mnt/nvme/ai/ollama/models";
-    package = pkgs.unstable.ollama;
+    package = pkgs.latest.ollama;
   };
 
   system.stateVersion = "25.11";
