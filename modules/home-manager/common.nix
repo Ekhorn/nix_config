@@ -65,6 +65,7 @@
     tree-sitter
     unison
     unzip
+    virtui
     visualvm
     wget
     yarn-berry
