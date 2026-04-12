@@ -88,7 +88,7 @@
       nixosConfigurations = {
         pc-koen = mkNixos ./hosts/pc-koen/configuration.nix ./overlays;
         laptop-koen = mkNixos ./hosts/laptop-koen/configuration.nix ./overlays;
-        qemu = mkNixos ./hosts/qemu/configuration.nix [ ];
+        emu = mkNixos ./hosts/emu/configuration.nix ./overlays;
         hetzner = mkAnywhere ./anywhere/hetzner/configuration.nix "/dev/sda";
         "spaced/aws" = mkAnywhere ./anywhere/spaced/aws/configuration.nix "/dev/xvda";
         "spaced/do" = mkAnywhere ./anywhere/spaced/do/configuration.nix null;

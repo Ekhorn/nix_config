@@ -1,6 +1,7 @@
 {
   config,
-  lib,
+  inputs,
+  outputs,
   pkgs,
   ...
 }:
@@ -12,8 +13,9 @@ in
 {
   imports = [
     ./hardware-configuration.nix
-    ./home.nix
-  ];
+    inputs.home-manager.nixosModules.home-manager
+  ]
+  ++ (builtins.attrValues outputs.nixosModules);
 
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.enable = true;
@@ -34,7 +36,13 @@ in
   environment.variables.XDG_CURRENT_DESKTOP = "Hyprland";
   environment.variables.XDG_SESSION_DESKTOP = "Hyprland";
 
-  networking.hostName = "nixos";
+  home-manager = {
+    backupFileExtension = "backup";
+    useGlobalPkgs = true;
+    users.${config.user.username} = import ../../hosts/${config.networking.hostName}/home.nix;
+  };
+
+  networking.hostName = "emu";
 
   nix.settings = {
     experimental-features = [
@@ -62,28 +70,26 @@ in
   # };
   services.qemuGuest.enable = true;
   services.spice-vdagentd.enable = true; # enable copy and paste between host and guest
-  services.xserver = {
-    enable = true;
-    desktopManager.gnome.enable = true;
-    displayManager.gdm.enable = true;
-    videoDrivers = [ ];
-    xkb = {
-      layout = "us";
-      variant = "";
-    };
-  };
+  # services.xserver = {
+  #   enable = true;
+  #   desktopManager.gnome.enable = true;
+  #   displayManager.gdm.enable = true;
+  #   videoDrivers = [ ];
+  #   xkb = {
+  #     layout = "us";
+  #     variant = "";
+  #   };
+  # };
 
   system.stateVersion = "24.11";
 
   time.timeZone = "Europe/Amsterdam";
 
-  users.users.emu = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" ];
-    packages = with pkgs; [
-      git
-    ];
-  };
+  user.enable = true;
+  user.username = "emu";
+  user.extraGroups = [
+    "wheel"
+  ];
 
   xdg.icons.enable = true;
 }
