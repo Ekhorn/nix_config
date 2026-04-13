@@ -7,6 +7,7 @@
   gnome = import ./gnome.nix;
   # greetd = import ./greetd.nix;
   # hyprland = import ./hyprland.nix;
+  nix-ld = import ./nix-ld.nix;
   nvidia = import ./nvidia.nix;
   qemu = import ./qemu.nix;
   # qmk = import ./qmk.nix;
