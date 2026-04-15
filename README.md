@@ -139,6 +139,8 @@ Or when reusing a key.
 
 ```sh
 ssh-add .ssh/id_*
+nix shell nixpkgs#libsecret
+secret-tool store --label="Unlock password for id_*" unique ssh-store:$HOME/.ssh/id_*
 ```
 
 Then copy GPG from other system, you may need to reboot the system.
