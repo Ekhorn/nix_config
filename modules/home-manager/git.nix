@@ -12,11 +12,12 @@
           for file in rebase-merge rebase-apply MERGE_HEAD CHERRY_PICK_HEAD REVERT_HEAD AM_HEAD; do
             [ -e \"$repo/$file\" ] && { cmd=\"\${file%[-_]*}\"; cmd=\"\${cmd,,}\"; git \${cmd//_/-} --continue; break; }
           done;
-          }; f";
+        }; f";
         clear = "clean -fd"; # Remove untracked files and directories
         ls = "log --stat --pretty=format:'%C(yellow)%h%Creset %Cgreen%cr%Creset %Cblue%an%Creset%C(auto)%d%Creset %s'";
         lsd = "!git log --stat --pretty=format:'%C(yellow)%h%Creset %Cgreen%cr%Creset %Cblue%an%Creset%C(auto)%d%Creset %s' $(git merge-base origin HEAD)..HEAD";
         sum = "!git diff --oneline --stat $(git merge-base origin HEAD)..HEAD";
+        count = "!echo \" \$(git rev-list --count $(git merge-base origin HEAD)..HEAD) commits\"";
       };
       core.editor = "hx";
       credential.helper = "store";
