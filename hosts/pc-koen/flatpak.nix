@@ -12,7 +12,7 @@
   services.flatpak.packages = [
     rec {
       appId = "com.hypixel.HytaleLauncher";
-      sha256 = "sha256-GRkA9piBoPoCLoxM5zZTIv7ocdIClvsavGnjah0JJME=";
+      sha256 = "sha256-ZlsBaIqa0GaTci7QkRnwfcAByS4CL5osXba2p0gE+CQ=";
       bundle = "${pkgs.fetchurl {
         url = "https://launcher.hytale.com/builds/release/linux/amd64/hytale-launcher-latest.flatpak";
         inherit sha256;
