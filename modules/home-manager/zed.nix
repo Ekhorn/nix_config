@@ -112,6 +112,18 @@
         model_parameters = [ ];
       };
       language_models = {
+        anthropic = {
+          api_url = "https://api.anthropic.com/v1";
+          available_models = [
+            {
+              name = "claude-opus-4-5-20251101";
+              display_name = "Claude 4.5 Opus";
+              max_tokens = 200000;
+              max_output_tokens = 4096;
+              max_completion_tokens = 200000;
+            }
+          ];
+        };
         openai_compatible = {
           "Mammouth AI" = {
             api_url = "https://api.mammouth.ai/v1";
