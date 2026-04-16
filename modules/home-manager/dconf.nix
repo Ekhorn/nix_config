@@ -1,6 +1,30 @@
 { lib, ... }:
 
 {
+  xdg.configFile = {
+    "autostart/firefox.desktop".text = ''
+      [Desktop Entry]
+      Type=Application
+      Name=Firefox
+      Exec=firefox
+      X-GNOME-Autostart-enabled=true
+    '';
+    "autostart/alacritty.desktop".text = ''
+      [Desktop Entry]
+      Type=Application
+      Name=Alacritty
+      Exec=alacritty
+      X-GNOME-Autostart-enabled=true
+    '';
+    "autostart/obsidian.desktop".text = ''
+      [Desktop Entry]
+      Type=Application
+      Name=Obsidian
+      Exec=obsidian
+      X-GNOME-Autostart-enabled=true
+    '';
+  };
+
   dconf.settings = {
     "org/gnome/desktop/interface" = {
       color-scheme = "prefer-dark";
