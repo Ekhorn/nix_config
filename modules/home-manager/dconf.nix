@@ -56,6 +56,7 @@
     };
 
     "org/gnome/shell" = {
+      favorite-apps = [ ];
       disabled-extensions = [
         "workspace-indicator@gnome-shell-extensions.gcampax.github.com"
         "windowsNavigator@gnome-shell-extensions.gcampax.github.com"
