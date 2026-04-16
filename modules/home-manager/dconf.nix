@@ -32,6 +32,9 @@
       cursor-theme = "Adwaita";
       enable-animations = false;
       gtk-enable-primary-paste = false;
+      clock-show-seconds = true;
+      show-weekdate = true; # must be before clock-show-weekday
+      clock-show-weekday = true;
     };
 
     "org/gnome/shell/keybindings" = {
