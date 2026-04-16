@@ -100,30 +100,24 @@
 
       agent = {
         default_model = {
-          provider = "Mammouth AI";
-          model = "claude-haiku-4-5";
+          provider = "google";
+          model = "gemini-3.1-pro-preview";
+          enable_thinking = true;
         };
         favorite_models = [
           {
+            provider = "google";
+            model = "gemini-3.1-pro-preview";
+            enable_thinking = true;
+          }
+          {
             provider = "Mammouth AI";
-            model = "claude-haiku-4-5";
+            model = "claude-sonnet-4-5";
           }
         ];
         model_parameters = [ ];
       };
       language_models = {
-        anthropic = {
-          api_url = "https://api.anthropic.com/v1";
-          available_models = [
-            {
-              name = "claude-opus-4-5-20251101";
-              display_name = "Claude 4.5 Opus";
-              max_tokens = 200000;
-              max_output_tokens = 4096;
-              max_completion_tokens = 200000;
-            }
-          ];
-        };
         openai_compatible = {
           "Mammouth AI" = {
             api_url = "https://api.mammouth.ai/v1";
