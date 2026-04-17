@@ -13,9 +13,11 @@
     ./hardware-configuration.nix
     inputs.disko.nixosModules.disko
   ]
-  ++ (builtins.attrValues (import ../../modules/nixos/anywhere));
+  ++ (builtins.attrValues (import ../../../modules/nixos/anywhere));
 
   environment.systemPackages = map lib.lowPrio [ ];
+
+  networking.hostName = "spaced-do";
 
   # do not use DHCP, as DigitalOcean provisions IPs using cloud-init
   networking.useDHCP = lib.mkForce false;

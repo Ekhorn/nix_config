@@ -90,11 +90,11 @@
         laptop-koen = mkNixos ./hosts/laptop-koen/configuration.nix ./overlays;
         emu = mkNixos ./hosts/emu/configuration.nix ./overlays;
         hetzner = mkAnywhere ./anywhere/hetzner/configuration.nix "/dev/sda";
-        "spaced/aws" = mkAnywhere ./anywhere/spaced/aws/configuration.nix "/dev/xvda";
-        "spaced/do" = mkAnywhere ./anywhere/spaced/do/configuration.nix null;
-        "spaced/gc" = mkAnywhere ./anywhere/spaced/gc/configuration.nix "/dev/sda";
-        "spaced/hetzner" = mkAnywhere ./anywhere/spaced/hetzner/configuration.nix "/dev/sda";
-        "spaced/ionos" = mkAnywhere ./anywhere/spaced/ionos/configuration.nix null;
+        spaced-aws = mkAnywhere ./anywhere/spaced/aws/configuration.nix "/dev/xvda";
+        spaced-do = mkAnywhere ./anywhere/spaced/do/configuration.nix null;
+        spaced-gc = mkAnywhere ./anywhere/spaced/gc/configuration.nix "/dev/sda";
+        spaced-hetzner = mkAnywhere ./anywhere/spaced/hetzner/configuration.nix "/dev/sda";
+        spaced-ionos = mkAnywhere ./anywhere/spaced/ionos/configuration.nix null;
       };
 
       nixosModules = import ./modules/nixos;
