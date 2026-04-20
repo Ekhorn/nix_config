@@ -20,6 +20,7 @@
 
   home.packages = with pkgs; [
     prismlauncher
+    slack
     unstable.vintagestory
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
