@@ -6,10 +6,11 @@
     extensions = [
       "groovy"
       "java"
-      "nix"
-      "toml"
       "latex"
       "ltex"
+      "mdx"
+      "nix"
+      "toml"
     ];
     package = pkgs.unstable.zed-editor;
     themes = {
