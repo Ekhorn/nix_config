@@ -17,6 +17,7 @@
       inputs.nixpkgs.follows = "unstable";
     };
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.7.0";
+    nixos-hardware.url = "github:NixOS/nixos-hardware/72674a6b5599e844c045ae7449ba91f803d44ebc";
   };
 
   outputs =
@@ -69,6 +70,14 @@
           ];
           specialArgs = { inherit inputs outputs; };
         };
+      mkPi =
+        configuration: overlays:
+        mkNixos {
+          imports = [
+            configuration
+            inputs.nixos-hardware.nixosModules.raspberry-pi-4
+          ];
+        } overlays;
       mkShell = file: pkgs: import file { inherit pkgs; };
     in
     {
@@ -79,17 +88,18 @@
       );
 
       homeConfigurations = {
-        "koen@pc-koen" = mkHome ./hosts/pc-koen/home.nix;
         "koen@laptop-koen" = mkHome ./hosts/laptop-koen/home.nix;
+        "koen@pc-koen" = mkHome ./hosts/pc-koen/home.nix;
       };
 
       homeManagerModules = import ./modules/home-manager;
 
       nixosConfigurations = {
-        pc-koen = mkNixos ./hosts/pc-koen/configuration.nix ./overlays;
-        laptop-koen = mkNixos ./hosts/laptop-koen/configuration.nix ./overlays;
         emu = mkNixos ./hosts/emu/configuration.nix ./overlays;
         hetzner = mkAnywhere ./anywhere/hetzner/configuration.nix "/dev/sda";
+        laptop-koen = mkNixos ./hosts/laptop-koen/configuration.nix ./overlays;
+        pc-koen = mkNixos ./hosts/pc-koen/configuration.nix ./overlays;
+        pi = mkPi ./hosts/pi/configuration.nix ./overlays;
         spaced-aws = mkAnywhere ./anywhere/spaced/aws/configuration.nix "/dev/xvda";
         spaced-do = mkAnywhere ./anywhere/spaced/do/configuration.nix null;
         spaced-gc = mkAnywhere ./anywhere/spaced/gc/configuration.nix "/dev/sda";

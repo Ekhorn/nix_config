@@ -204,6 +204,21 @@ cat trace.log | rg jdtls
 
 </details>
 
+### Deploying to a remote host
+
+```sh
+nixos-rebuild --target-host host --sudo switch --flake .#host --ask-sudo-password
+```
+
+#### Troubleshooting
+
+If remote builds aren't working you can always copy the config to the remote
+and build on the remote (potentially at the cost of a slower build).
+
+```sh
+sudo nixos-rebuild switch --flake .#host
+```
+
 ### NixOS Anywhere
 
 ```sh
