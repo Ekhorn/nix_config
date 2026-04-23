@@ -25,6 +25,10 @@
   environment.systemPackages = with pkgs; [
     deskflow
     freerdp # RDP protocol plugin for Remmina
+    keepassxc
+    libraspberrypi
+    onboard
+    raspberrypi-eeprom
     remmina # GUI remote desktop client
   ];
 
