@@ -39,6 +39,7 @@
   };
 
   services.flatpak.enable = true;
+  services.gnome.gnome-remote-desktop.enable = true;
   services.github-runners.spaced.enable = false;
   services.github-runners.spaced.user = "github-runner";
   services.github-runners.spaced.url = "https://github.com/Ekhorn/spaced";
