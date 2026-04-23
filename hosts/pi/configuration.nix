@@ -12,6 +12,10 @@
     ../../modules/nixos/user.nix
   ];
 
+  # Resolves color inversion issue
+  boot.kernelPackages = pkgs.linuxPackages_6_1;
+  # Allocate enough memory for multiple screens
+  boot.kernelParams = [ "cma=256M" ];
   # Use the extlinux boot loader. (NixOS wants to enable GRUB by default)
   boot.loader.grub.enable = false;
   # Enables the generation of /boot/extlinux/extlinux.conf
@@ -36,8 +40,15 @@
     # video player
   ];
 
+  environment.sessionVariables = {
+    # Forces GTK4 apps to use the stable OpenGL renderer
+    GSK_RENDERER = "gl";
+  };
+
+  hardware.graphics.enable = true;
   hardware.raspberry-pi."4" = {
-    touch-ft5406.enable = true;
+    fkms-3d.enable = false; # Configured kms in the firmware
+    touch-ft5406.enable = false; # Configured in the firmware
   };
 
   networking.hostName = "pi";
