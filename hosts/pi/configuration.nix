@@ -57,7 +57,17 @@
   # Graphical environment for the thin client
   # (Avoiding the existing gnome.nix module because it forces the nvidia driver)
   services.displayManager.lightdm.enable = true;
-  services.desktopManager.gnome.enable = true;
+  services.desktopManager.gnome = {
+    enable = true;
+    extraGSettingsOverrides = ''
+      [org.gnome.desktop.screensaver]
+      lock-enabled=false
+
+      [org.gnome.settings-daemon.plugins.power]
+      sleep-inactive-ac-timeout=0
+      sleep-inactive-battery-timeout=0
+    '';
+  };
 
   services.xserver = {
     enable = true;
