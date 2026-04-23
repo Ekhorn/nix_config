@@ -17,6 +17,7 @@
       test = "sudo nixos-rebuild test";
       # tmux
       ta = "tmux attach";
+      zed = "zeditor";
     };
 
     initContent = ''
