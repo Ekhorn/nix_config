@@ -60,7 +60,7 @@
 
   # Graphical environment for the thin client
   # (Avoiding the existing gnome.nix module because it forces the nvidia driver)
-  services.displayManager.lightdm.enable = true;
+  services.displayManager.gdm.enable = true;
   services.desktopManager.gnome = {
     enable = true;
     extraGSettingsOverrides = ''
