@@ -15,7 +15,7 @@
   # Resolves color inversion issue
   boot.kernelPackages = pkgs.linuxPackages_6_1;
   # Allocate enough memory for multiple screens
-  boot.kernelParams = [ "cma=256M" ];
+  boot.kernelParams = [ "cma=384M" ]; # 512M is too much. 256M is too little?
   # Use the extlinux boot loader. (NixOS wants to enable GRUB by default)
   boot.loader.grub.enable = false;
   # Enables the generation of /boot/extlinux/extlinux.conf
