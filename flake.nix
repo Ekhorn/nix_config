@@ -81,6 +81,15 @@
       mkShell = file: pkgs: import file { inherit pkgs; };
     in
     {
+      apps = forAllSystems (
+        system: pkgs: {
+          dev-box = {
+            type = "app";
+            program = "${self.packages.${system}.dev-box}/bin/dev-box";
+          };
+        }
+      );
+
       devShells = forAllSystems (
         system: pkgs: {
           playwright = mkShell ./shells/playwright.nix pkgs;
@@ -110,7 +119,11 @@
       nixosModules = import ./modules/nixos;
 
       packages = forAllSystems (
-        system: pkgs: builtins.mapAttrs (host: cfg: cfg.config.system.build.vm) self.nixosConfigurations
+        system: pkgs:
+        (builtins.mapAttrs (host: cfg: cfg.config.system.build.vm) self.nixosConfigurations)
+        // {
+          dev-box = import ./packages/dev-box.nix { inherit pkgs; };
+        }
       );
     };
 }
