@@ -15,9 +15,9 @@
       update = "sudo nixos-rebuild switch --recreate-lock-file";
       switch = "sudo nixos-rebuild switch";
       test = "sudo nixos-rebuild test";
-      # tmux
       ta = "tmux attach";
       zed = "zeditor";
+      dbd = "dev-box-diff";
     };
 
     initContent = ''
@@ -38,6 +38,9 @@
           sudo nix-collect-garbage --delete-older-than "$1"
           "$user_profiles_garbage" --delete-older-than "$1"
         fi
+      }
+      dev-box-diff() {
+        docker exec -tw /root dev-box sh -c 'git --no-pager -C $(cat .last_dir) diff "$@"' -- "$@" | less
       }
     '';
 
