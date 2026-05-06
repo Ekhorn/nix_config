@@ -114,6 +114,7 @@
         spaced-gc = mkAnywhere ./anywhere/spaced/gc/configuration.nix "/dev/sda";
         spaced-hetzner = mkAnywhere ./anywhere/spaced/hetzner/configuration.nix "/dev/sda";
         spaced-ionos = mkAnywhere ./anywhere/spaced/ionos/configuration.nix null;
+        toshiba = mkNixos ./hosts/toshiba/configuration.nix ./overlays;
       };
 
       nixosModules = import ./modules/nixos;
