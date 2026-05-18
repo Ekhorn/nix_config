@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, ... }:
 
 let
   gitOp =
@@ -17,14 +17,13 @@ in
     settings = {
       alias = {
         amend = "commit --amend --no-edit";
-        continue = gitOp "continue";
-        abort = gitOp "abort";
         clear = "clean -fd"; # Remove untracked files and directories
         ls = "log --stat --pretty=format:'%C(yellow)%h%Creset %Cgreen%cr%Creset %Cblue%an%Creset%C(auto)%d%Creset %s'";
         lsd = "!git log --stat --pretty=format:'%C(yellow)%h%Creset %Cgreen%cr%Creset %Cblue%an%Creset%C(auto)%d%Creset %s' $(git merge-base origin HEAD)..HEAD";
         sum = "!git diff --oneline --stat $(git merge-base origin HEAD)..HEAD";
         count = "!echo \" \$(git rev-list --count $(git merge-base origin HEAD)..HEAD) commits\"";
-      };
+      }
+      // (lib.genAttrs [ "abort" "continue" "quit" ] gitOp);
       core.editor = "hx";
       credential.helper = "store";
       format.commitMessageColumns = 72;
