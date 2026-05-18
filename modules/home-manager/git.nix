@@ -17,7 +17,7 @@ in
     settings = {
       alias = {
         amend = "commit --amend --no-edit";
-        clear = "clean -fd"; # Remove untracked files and directories
+        clear = "!git restore . && git clean -fd";
         ls = "log --stat --pretty=format:'%C(yellow)%h%Creset %Cgreen%cr%Creset %Cblue%an%Creset%C(auto)%d%Creset %s'";
         lsd = "!git log --stat --pretty=format:'%C(yellow)%h%Creset %Cgreen%cr%Creset %Cblue%an%Creset%C(auto)%d%Creset %s' $(git merge-base origin HEAD)..HEAD";
         sum = "!git diff --oneline --stat $(git merge-base origin HEAD)..HEAD";
