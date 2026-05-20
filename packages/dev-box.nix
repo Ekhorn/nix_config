@@ -15,16 +15,14 @@ let
     tag = "latest";
     contents = with pkgs; [
       bashInteractive
-      coreutils
-      gitMinimal
-      openssh
-      gnugrep
-      nix
+      busybox # coreutils, gnugrep, gzip
       cacert
-      nix-ld
-      gzip
-      ripgrep
       fd
+      gitMinimal
+      nix
+      nix-ld
+      openssh
+      ripgrep
     ];
     config = {
       Cmd = [
