@@ -40,7 +40,11 @@
         fi
       }
       dev-box-diff() {
-        docker exec -tw /root dev-box sh -c 'git --no-pager -C $(cat .last_dir) diff "$@"' -- "$@" | less
+        if [ -t 1 ]; then
+          docker exec -tw /root dev-box sh -c 'git --no-pager -C $(cat .last_dir) diff --color=always "$@"' -- "$@" | less -R
+        else
+          docker exec -w /root dev-box sh -c 'git --no-pager -C $(cat .last_dir) diff --color=never "$@"' -- "$@"
+        fi
       }
     '';
 
