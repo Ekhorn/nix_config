@@ -46,6 +46,20 @@
           docker exec -w /root dev-box sh -c 'git --no-pager -C $(cat .last_dir) diff --color=never "$@"' -- "$@"
         fi
       }
+      gradle() {
+        local git_root
+        if git_root=$(git rev-parse --show-toplevel 2>/dev/null); then
+          if [[ -x "$git_root/gradlew" ]]; then
+            echo "Using repo gradlew ($git_root/gradlew)"
+            "$git_root/gradlew" "$@"
+            return
+          fi
+        fi
+        # Fallback: Use the system-wide gradle command if not in a repo
+        # or if gradlew doesn't exist.
+        # 'command' prevents an infinite loop of calling this function.
+        command gradle "$@"
+      }
     '';
 
     oh-my-zsh = {
