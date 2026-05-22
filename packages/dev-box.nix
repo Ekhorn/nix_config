@@ -29,7 +29,8 @@ let
         "${pkgs.bashInteractive}/bin/bash"
         "-c"
         ''
-          mkdir -p /usr/bin /bin /etc/ssh /run/sshd /var/empty /root/.ssh
+          mkdir -p /usr/bin /bin /etc/ssh /run/sshd /var/empty /root/.ssh /etc/nix
+          echo "experimental-features = nix-command flakes" > /etc/nix/nix.conf
 
           # Symlink everything including rg and fd
           for p in ${pkgs.coreutils} ${pkgs.gzip} ${pkgs.openssh} ${pkgs.gitMinimal} ${pkgs.bashInteractive} ${pkgs.ripgrep} ${pkgs.fd}; do
