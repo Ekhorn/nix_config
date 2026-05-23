@@ -16,7 +16,7 @@ let
     contents = with pkgs; [
       bashInteractive
       busybox # coreutils, gnugrep, gzip
-      cacert
+      dockerTools.caCertificates
       fd
       gitMinimal
       nix
@@ -75,7 +75,6 @@ let
         "NIX_LD=${pkgs.nix-ld}/bin/nix-ld"
         "NIX_LD_LIBRARY_PATH=${pkgs.lib.makeLibraryPath zed-deps}"
         "PATH=/usr/bin:/bin"
-        "SSL_CERT_FILE=${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
         "HOME=/root"
       ];
     };
