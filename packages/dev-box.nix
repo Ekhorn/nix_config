@@ -10,6 +10,15 @@ let
     libgcc
   ];
 
+  nixbldUserNames = builtins.concatStringsSep "," (
+    map (n: "nixbld${toString n}") (pkgs.lib.range 1 10)
+  );
+  nixbldUsers = builtins.concatStringsSep "\n" (
+    map (n: "nixbld${toString n}:x:${toString (30000 + n)}:30000:${toString n}:/var/empty:/bin/sh") (
+      pkgs.lib.range 1 10
+    )
+  );
+
   dev-box-image = pkgs.dockerTools.buildLayeredImage {
     name = "dev-box";
     tag = "latest";
@@ -23,6 +32,19 @@ let
       nix-ld
       openssh
       ripgrep
+      (writeTextDir "etc/group" ''
+        root:x:0:
+        sshd:x:100:
+        nixbld:x:30000:${nixbldUserNames}
+      '')
+      (writeTextDir "etc/passwd" ''
+        root:x:0:0:root:/root:/bin/bash
+        sshd:x:100:100:SSH Daemon:/var/empty:/bin/nologin
+        ${nixbldUsers}
+      '')
+      (writeTextDir "etc/shadow" ''
+        root::19000:0:99999:7:::
+      '')
     ];
     config = {
       Cmd = [
@@ -31,23 +53,6 @@ let
         ''
           mkdir -p /usr/bin /bin /etc/ssh /run/sshd /var/empty /root/.ssh /etc/nix
           echo "experimental-features = nix-command flakes" > /etc/nix/nix.conf
-
-          # Symlink everything including rg and fd
-          for p in ${pkgs.coreutils} ${pkgs.gzip} ${pkgs.openssh} ${pkgs.gitMinimal} ${pkgs.bashInteractive} ${pkgs.ripgrep} ${pkgs.fd}; do
-            for bin in $p/bin/*; do
-              ln -sf "$bin" /usr/bin/
-              ln -sf "$bin" /bin/
-            done
-          done
-
-          if [ ! -f /etc/passwd ]; then
-            # Set the home directory to /root
-            echo "root:x:0:0:root:/root:/bin/bash" > /etc/passwd
-            echo "root::19000:0:99999:7:::" > /etc/shadow
-            echo "sshd:x:100:100:SSH Daemon:/var/empty:/bin/nologin" >> /etc/passwd
-            echo "root:x:0:" > /etc/group
-            echo "sshd:x:100:" >> /etc/group
-          fi
 
           chmod 700 /var/empty
 
@@ -74,7 +79,6 @@ let
       Env = [
         "NIX_LD=${pkgs.nix-ld}/bin/nix-ld"
         "NIX_LD_LIBRARY_PATH=${pkgs.lib.makeLibraryPath zed-deps}"
-        "PATH=/usr/bin:/bin"
         "HOME=/root"
       ];
     };
