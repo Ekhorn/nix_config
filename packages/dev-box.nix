@@ -6,7 +6,6 @@ let
     zlib
     openssl
     curl
-    # icu
     libgcc
   ];
 
@@ -24,7 +23,7 @@ let
     tag = "latest";
     contents = with pkgs; [
       bashInteractive
-      busybox # coreutils, gnugrep, gzip
+      busybox
       dockerTools.caCertificates
       fd
       gitMinimal
@@ -45,18 +44,19 @@ let
       (writeTextDir "etc/shadow" ''
         root::19000:0:99999:7:::
       '')
+      (writeTextDir "etc/nix/nix.conf" ''
+        experimental-features = nix-command flakes
+      '')
     ];
     config = {
       Cmd = [
         "${pkgs.bashInteractive}/bin/bash"
         "-c"
         ''
-          mkdir -p /usr/bin /bin /etc/ssh /run/sshd /var/empty /root/.ssh /etc/nix
-          echo "experimental-features = nix-command flakes" > /etc/nix/nix.conf
+          mkdir -m 1777 -p /tmp
+          mkdir -p /usr /etc/ssh /var/empty /root/.ssh
+          ln -s /bin /usr/bin
 
-          chmod 700 /var/empty
-
-          mkdir -p /root/.ssh
           if [ ! -f /root/.ssh/ssh_host_ed25519_key ]; then
             ${pkgs.openssh}/bin/ssh-keygen -t ed25519 -f /root/.ssh/ssh_host_ed25519_key -N "" -q
           fi
@@ -69,8 +69,7 @@ let
             PasswordAuthentication yes
             AuthenticationMethods none
             Subsystem sftp ${pkgs.openssh}/libexec/sftp-server
-            # Ensure we start in /root
-            ChrootDirectory none
+            ChrootDirectory none # Ensure we start in /root
           EOF
 
           exec ${pkgs.openssh}/bin/sshd -D -e
