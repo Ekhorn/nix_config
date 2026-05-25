@@ -97,6 +97,7 @@ let
             AuthenticationMethods none
             Subsystem sftp ${pkgs.openssh}/libexec/sftp-server
             ChrootDirectory none # Ensure we start in /root
+            SetEnv NIXPKGS_ALLOW_UNFREE=1
           EOF
 
           exec ${pkgs.openssh}/bin/sshd -D -e
