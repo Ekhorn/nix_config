@@ -18,39 +18,66 @@ let
     )
   );
 
+  groups = pkgs.writeTextDir "etc/group" ''
+    root:x:0:
+    sshd:x:100:
+    nixbld:x:30000:${nixbldUserNames}
+  '';
+  users = pkgs.writeTextDir "etc/passwd" ''
+    root:x:0:0:root:/root:/bin/zsh
+    sshd:x:100:100:SSH Daemon:/var/empty:/bin/nologin
+    ${nixbldUsers}
+  '';
+  passwd = pkgs.writeTextDir "etc/shadow" ''
+    root::19000:0:99999:7:::
+  '';
+
+  zshrc = pkgs.writeTextDir "etc/zshrc" ''
+    export ZSH="${pkgs.oh-my-zsh}/share/oh-my-zsh"
+
+    # Oh-my-zsh tries to write to $ZSH/cache. We must redirect it to a writable location.
+    export ZSH_CACHE_DIR="/tmp/oh-my-zsh-cache"
+    mkdir -p "$ZSH_CACHE_DIR"
+
+    plugins=(git direnv)
+    ZSH_THEME="robbyrussell"
+    source $ZSH/oh-my-zsh.sh
+
+    setopt autocd
+    autoload -U compinit && compinit
+    source ${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+    source ${pkgs.zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+  '';
+
+  nix_conf = pkgs.writeTextDir "etc/nix/nix.conf" ''
+    experimental-features = nix-command flakes
+  '';
+
   dev-box-image = pkgs.dockerTools.buildLayeredImage {
     name = "dev-box";
     tag = "latest";
-    contents = with pkgs; [
-      bashInteractive
-      busybox
-      dockerTools.caCertificates
-      fd
-      gitMinimal
-      nix
-      nix-ld
-      openssh
-      ripgrep
-      (writeTextDir "etc/group" ''
-        root:x:0:
-        sshd:x:100:
-        nixbld:x:30000:${nixbldUserNames}
-      '')
-      (writeTextDir "etc/passwd" ''
-        root:x:0:0:root:/root:/bin/bash
-        sshd:x:100:100:SSH Daemon:/var/empty:/bin/nologin
-        ${nixbldUsers}
-      '')
-      (writeTextDir "etc/shadow" ''
-        root::19000:0:99999:7:::
-      '')
-      (writeTextDir "etc/nix/nix.conf" ''
-        experimental-features = nix-command flakes
-      '')
+    contents = [
+      pkgs.busybox
+      pkgs.dockerTools.caCertificates
+      pkgs.fd
+      pkgs.gitMinimal
+      pkgs.nix
+      pkgs.nix-ld
+      pkgs.openssh
+      pkgs.ripgrep
+      pkgs.zsh
+      pkgs.oh-my-zsh
+      pkgs.direnv
+      # Configurations
+      groups
+      users
+      passwd
+      zshrc
+      nix_conf
     ];
     config = {
       Cmd = [
-        "${pkgs.bashInteractive}/bin/bash"
+        "${pkgs.zsh}/bin/zsh"
         "-c"
         ''
           mkdir -m 1777 -p /tmp
