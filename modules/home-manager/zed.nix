@@ -13,7 +13,7 @@
       "nix"
       "toml"
     ];
-    package = pkgs.unstable.zed-editor;
+    package = pkgs.latest.zed-editor;
     themes = {
       dark = ./zed_dark.json;
     };
