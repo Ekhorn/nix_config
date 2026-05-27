@@ -19,6 +19,7 @@
     };
     userSettings = {
       auto_update = false;
+      format_on_save = "off";
 
       ui_font_size = 14;
       buffer_font_size = 14;
