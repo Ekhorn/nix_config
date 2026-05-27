@@ -18,7 +18,6 @@
       dark = ./zed_dark.json;
     };
     userSettings = {
-      hour_format = "hour24";
       auto_update = false;
 
       ui_font_size = 14;
