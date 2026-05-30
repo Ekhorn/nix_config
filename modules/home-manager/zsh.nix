@@ -8,6 +8,7 @@
     autosuggestion.enable = true;
     dotDir = "${config.home.homeDirectory}/.config/zsh";
     enableCompletion = true;
+    history.ignoreSpace = false;
     syntaxHighlighting.enable = true;
 
     shellAliases = {
