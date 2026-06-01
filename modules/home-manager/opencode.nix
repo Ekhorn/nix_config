@@ -38,6 +38,8 @@
           };
         };
       };
+    };
+    tui = {
       theme = "opencode";
     };
   };

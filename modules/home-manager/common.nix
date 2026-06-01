@@ -41,10 +41,10 @@
     nautilus
     # neovim
     nil
-    nixfmt-rfc-style
+    nixfmt
     package-version-server
     nixos-anywhere
-    nodejs_24
+    nodejs
     obsidian
     obs-studio
     openssl

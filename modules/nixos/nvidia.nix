@@ -13,11 +13,12 @@
     powerManagement.finegrained = false;
     open = false;
     nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.production;
+    package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
   };
 
   unfree.enable = true;
   unfree.packages = [
+    "nvidia-kernel-modules"
     "nvidia-settings"
     "nvidia-x11"
   ];

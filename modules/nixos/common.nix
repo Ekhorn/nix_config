@@ -20,7 +20,7 @@
     gnupg
     parted
   ];
-  environment.variables.NODEJS_PATH = "${pkgs.nodePackages_latest.nodejs}/";
+  environment.variables.NODEJS_PATH = "${pkgs.nodejs}/";
 
   fonts.packages = with pkgs; [
     font-awesome

@@ -47,7 +47,7 @@
   services.github-runners.spaced.ephemeral = false;
   services.github-runners.spaced.workDir = "/data/runner_workspace";
   services.github-runners.spaced.extraPackages = with pkgs; [
-    nodejs_20
+    nodejs_24
     config.virtualisation.docker.package
     ccache
     jq
@@ -60,12 +60,11 @@
     ];
   };
   services.ollama = {
-    acceleration = "vulkan";
     enable = true;
     host = "0.0.0.0";
     loadModels = [ ];
     models = "/mnt/nvme/ai/ollama/models";
-    package = pkgs.latest.ollama;
+    package = pkgs.latest.ollama-vulkan;
   };
 
   system.stateVersion = "25.11";
