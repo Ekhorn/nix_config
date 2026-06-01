@@ -11,7 +11,7 @@ in
   services.nextcloud = {
     enable = true;
     configureRedis = true;
-    package = pkgs.nextcloud31;
+    package = pkgs.nextcloud33;
     hostName = "localhost";
     database.createLocally = true;
     https = false;
