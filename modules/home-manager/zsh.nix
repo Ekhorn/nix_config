@@ -26,8 +26,7 @@
         (cd "''${$(readlink -f /etc/nixos/flake.nix)%/*}" && nix build .#$1 && ./result/bin/run-$1-vm)
       }
       dev() {
-        # --impure to enable version selection
-        NIXPKGS_COMMIT="$2" SHELL=$(which zsh) nix develop --impure $(readlink -f /etc/nixos/flake.nix)#$1 --command zsh
+        SHELL=$(which zsh) nix develop $(readlink -f /etc/nixos/flake.nix)#$1 --command zsh
       }
       clean() {
         # https://github.com/NixOS/nix/issues/8508#issuecomment-2808614321

@@ -1,18 +1,16 @@
-{ pkgs }:
+{
+  pkgs ? import <nixpkgs> { },
+  commit ? "e462a75ad44682b4e8df740e33fca4f048e8aa11", # fallback to v1.52.0
+  sha256 ? "sha256:1q4h9z3fkrz4bzi66d6p9b865rj5hd7y4krnpg48f7pagyxvvn02", # fallback to v1.52.0
+}:
 
 let
-  commmit = builtins.getEnv "NIXPKGS_COMMIT";
-  src =
-    if commmit != "" then
-      fetchTarball {
-        url = "https://github.com/NixOS/nixpkgs/archive/${commmit}.tar.gz";
-      }
-    else
-      fetchTarball {
-        # v1.52.0
-        url = "https://github.com/NixOS/nixpkgs/archive/e462a75ad44682b4e8df740e33fca4f048e8aa11.tar.gz";
-      };
-  playwright-driver = (import src { inherit pkgs; }).playwright-driver;
+  src = fetchTarball {
+    url = "https://github.com/NixOS/nixpkgs/archive/${commit}.tar.gz";
+    inherit sha256;
+    # sha256 = ""; # Use to get SHA256
+  };
+  playwright-driver = (import src { system = pkgs.stdenv.hostPlatform.system; }).playwright-driver;
 in
 pkgs.mkShell {
   nativeBuildInputs = [ playwright-driver ];

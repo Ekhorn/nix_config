@@ -93,6 +93,7 @@
       devShells = forAllSystems (
         system: pkgs: {
           playwright = mkShell ./shells/playwright.nix pkgs;
+          openremote = mkShell ./shells/openremote.nix pkgs;
         }
       );
 
