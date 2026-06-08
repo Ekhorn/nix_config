@@ -22,6 +22,7 @@
   home-manager = {
     backupFileExtension = "backup";
     useGlobalPkgs = true;
+    useUserPackages = true;
     users.${config.user.username} = import ../../hosts/${config.networking.hostName}/home.nix;
   };
 
