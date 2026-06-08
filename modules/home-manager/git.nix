@@ -9,6 +9,7 @@ let
         [ -e \"$repo/$file\" ] && { cmd=\"\${file%[-_]*}\"; cmd=\"\${cmd,,}\"; git \${cmd//_/-} --${action}; break; } \
       done; \
     }; f";
+  merge-base = "git merge-base origin HEAD";
 in
 {
   programs.git = {
@@ -19,9 +20,9 @@ in
         amend = "commit --amend --no-edit";
         clear = "!git restore . && git clean -fd";
         ls = "log --stat --pretty=format:'%C(yellow)%h%Creset %Cgreen%cr%Creset %Cblue%an%Creset%C(auto)%d%Creset %s'";
-        lsd = "!git log --stat --pretty=format:'%C(yellow)%h%Creset %Cgreen%cr%Creset %Cblue%an%Creset%C(auto)%d%Creset %s' $(git merge-base origin HEAD)..HEAD";
-        sum = "!git diff --oneline --stat $(git merge-base origin HEAD)..HEAD";
-        count = "!echo \" \$(git rev-list --count $(git merge-base origin HEAD)..HEAD) commits\"";
+        lsd = "!git log --stat --pretty=format:'%C(yellow)%h%Creset %Cgreen%cr%Creset %Cblue%an%Creset%C(auto)%d%Creset %s' $(${merge-base})..HEAD";
+        sum = "!git diff --oneline --stat $(${merge-base})..HEAD";
+        count = "!f() { base=\${1:-$(${merge-base})}; echo \" $(git rev-list --count $base..HEAD) commits\"; }; f";
       }
       // (lib.genAttrs [ "abort" "continue" "quit" ] gitOp);
       core.editor = "hx";
