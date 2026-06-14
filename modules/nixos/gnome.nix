@@ -16,13 +16,16 @@
 
   environment.gnome.excludePackages = with pkgs; [
     # epiphany # web browser
-    evince # document viewer
-    geary # email reader
     # gnome-characters
+    gnome-console
+    gnome-contacts
+    gnome-connections
+    gnome-maps
     gnome-music
-    # gnome-photos
+    gnome-logs
     gnome-terminal
     gnome-tour
-    # video player
+    papers # document viewer
+    yelp # help
   ];
 }
