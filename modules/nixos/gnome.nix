@@ -19,10 +19,13 @@
     evince # document viewer
     geary # email reader
     # gnome-characters
+    # gnome-console
+    gnome-contacts
+    gnome-connections
+    gnome-maps
     gnome-music
     # gnome-photos
     gnome-terminal
     gnome-tour
-    # video player
   ];
 }
