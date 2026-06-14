@@ -56,6 +56,7 @@
     postgresql_17
     protobuf
     python3
+    remmina
     ripgrep
     sbomnix
     seahorse
