@@ -82,7 +82,8 @@
     in
     {
       apps = forAllSystems (
-        system: pkgs: {
+        system: pkgs:
+        pkgs.lib.optionalAttrs pkgs.stdenv.isLinux {
           dev-box = {
             type = "app";
             program = "${self.packages.${system}.dev-box}/bin/dev-box";
@@ -123,7 +124,7 @@
       packages = forAllSystems (
         system: pkgs:
         (builtins.mapAttrs (host: cfg: cfg.config.system.build.vm) self.nixosConfigurations)
-        // {
+        // pkgs.lib.optionalAttrs pkgs.stdenv.isLinux {
           dev-box = import ./packages/dev-box.nix { inherit pkgs; };
         }
       );
