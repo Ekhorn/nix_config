@@ -25,16 +25,6 @@
     # '')
   ];
 
-  home.file = {
-    ".unison/default.prf".text = ''
-      root=/home/koen/Desktop/
-      root=ssh://koen@pc-koen//home/koen/Desktop/
-
-      ignore = Name ?*
-      ignorenot = Name koen.kdbx
-    '';
-  };
-
   home.sessionVariables = {
     NIXOS_OZONE_WL = "1";
   };

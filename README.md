@@ -123,7 +123,6 @@ reboot
 Update password manager.
 
 ```sh
-unison
 keepassxc ~/Desktop/$USER.kdbx
 ```
 

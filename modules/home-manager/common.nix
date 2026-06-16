@@ -64,7 +64,6 @@
     sqlite
     latest.thunderbird
     tree-sitter
-    unison
     unzip
     virtui
     visualvm
