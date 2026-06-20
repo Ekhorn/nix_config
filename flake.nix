@@ -91,12 +91,23 @@
         }
       );
 
-      devShells = forAllSystems (
-        system: pkgs: {
-          playwright = mkShell ./shells/playwright.nix pkgs;
-          openremote = mkShell ./shells/openremote.nix pkgs;
-        }
-      );
+      devShells =
+        let
+          unsupported = [
+            "armv6l-linux"
+            "armv7l-linux"
+            "i686-linux"
+            "powerpc64le-linux"
+            "riscv64-linux"
+            "x86_64-freebsd"
+          ];
+        in
+        builtins.removeAttrs (forAllSystems (
+          system: pkgs: {
+            playwright = mkShell ./shells/playwright.nix pkgs;
+            openremote = mkShell ./shells/openremote.nix pkgs;
+          }
+        )) unsupported;
 
       homeConfigurations = {
         "koen@laptop-koen" = mkHome ./hosts/laptop-koen/home.nix;
