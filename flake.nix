@@ -16,6 +16,10 @@
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "unstable";
     };
+    microvm = {
+      url = "github:microvm-nix/microvm.nix";
+      inputs.nixpkgs.follows = "stable";
+    };
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.7.0";
     nixos-hardware.url = "github:NixOS/nixos-hardware/72674a6b5599e844c045ae7449ba91f803d44ebc";
   };
@@ -28,6 +32,7 @@
       latest,
       home-manager,
       disko,
+      microvm,
       ...
     }@inputs:
     let
@@ -38,6 +43,18 @@
       # Using nixpkgs.lib.systems.flakeExposed systems,
       # see https://github.com/NixOS/nixpkgs/blob/5d65a618c663db71662a434a3d5887f2ee7f0a1f/lib/systems/flake-systems.nix
       forAllSystems = f: builtins.mapAttrs f stable.legacyPackages;
+      unsupported_systems = [
+        # Tier 3
+        "armv6l-linux"
+        "armv7l-linux"
+        "i686-linux"
+        # Tier 6
+        "powerpc64le-linux"
+        # Unknown
+        "riscv64-linux"
+      ];
+      isUnsupported = system: builtins.any (s: system == s) unsupported_systems;
+
       mkAnywhere =
         configuration: device:
         stable.lib.nixosSystem {
@@ -89,25 +106,21 @@
             program = "${self.packages.${system}.dev-box}/bin/dev-box";
           };
         }
+        // pkgs.lib.optionalAttrs (pkgs.stdenv.isLinux && !isUnsupported system) {
+          dev-vm = {
+            type = "app";
+            program = "${self.packages.${system}.dev-vm}/bin/dev-vm";
+          };
+        }
       );
 
-      devShells =
-        let
-          unsupported = [
-            "armv6l-linux"
-            "armv7l-linux"
-            "i686-linux"
-            "powerpc64le-linux"
-            "riscv64-linux"
-            "x86_64-freebsd"
-          ];
-        in
-        builtins.removeAttrs (forAllSystems (
-          system: pkgs: {
-            playwright = mkShell ./shells/playwright.nix pkgs;
-            openremote = mkShell ./shells/openremote.nix pkgs;
-          }
-        )) unsupported;
+      devShells = forAllSystems (
+        system: pkgs:
+        pkgs.lib.optionalAttrs (!isUnsupported system && system != "x86_64-freebsd") {
+          playwright = mkShell ./shells/playwright.nix pkgs;
+          openremote = mkShell ./shells/openremote.nix pkgs;
+        }
+      );
 
       homeConfigurations = {
         "koen@laptop-koen" = mkHome ./hosts/laptop-koen/home.nix;
@@ -137,6 +150,12 @@
         (builtins.mapAttrs (host: cfg: cfg.config.system.build.vm) self.nixosConfigurations)
         // pkgs.lib.optionalAttrs pkgs.stdenv.isLinux {
           dev-box = import ./packages/dev-box.nix { inherit pkgs; };
+        }
+        // pkgs.lib.optionalAttrs (pkgs.stdenv.isLinux && !isUnsupported system) {
+          dev-vm = import ./packages/dev-vm.nix {
+            inherit pkgs system microvm;
+            nixosSystem = stable.lib.nixosSystem;
+          };
         }
       );
     };

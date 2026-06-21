@@ -1,4 +1,5 @@
 result
 *.csv
+*.img
 *.qcow2
 *.sqlite
