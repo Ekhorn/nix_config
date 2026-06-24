@@ -3,8 +3,8 @@
 }:
 
 let
-  commit = "145b67bd0bd4e075f981c1c2b81155d9e2982de2"; # 1.57.0
-  sha256 = "sha256:152qwxacs6lw1dskn21985qly8ipjzwpsvicy7inzh3hhma603gg";
+  commit = "7cc8a6b08a51d3fd23b9c4fd2493e7e888e88507"; # 1.59.1
+  sha256 = "sha256:0i62ss2y3bv5jc9dwydvrnc3dl5x0hpg2q4i5plj6h7d5x9wlard";
   playwrightShell = import ./playwright.nix { inherit pkgs commit sha256; };
 in
 pkgs.mkShell {
