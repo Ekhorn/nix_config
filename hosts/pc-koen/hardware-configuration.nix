@@ -50,10 +50,10 @@
     fsType = "ext4";
   };
 
-  fileSystems."/mnt/old" = {
-    device = "/dev/disk/by-uuid/7d3b086f-06f5-4ce9-8167-376a7062852b";
-    fsType = "ext4";
-  };
+  # fileSystems."/mnt/old" = {
+  #  device = "/dev/disk/by-uuid/7d3b086f-06f5-4ce9-8167-376a7062852b";
+  #  fsType = "ext4";
+  # };
 
   swapDevices = [
     {

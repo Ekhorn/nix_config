@@ -187,6 +187,14 @@ Add the following to your `hardware-configuration.nix`.
 
 ### Troubleshooting
 
+**Reformatting drive while still in hardware-config**
+
+```sh
+cat /etc/fstab # Expected paths
+tune2fs -U <UUID> /dev/sdX
+reboot
+```
+
 **Zed editor Java JDTLS oneshot error**
 
 ```sh
