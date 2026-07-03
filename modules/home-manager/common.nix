@@ -65,6 +65,7 @@
     latest.thunderbird
     tree-sitter
     unzip
+    vhs
     virtui
     visualvm
     wget
