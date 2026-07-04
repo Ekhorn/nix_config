@@ -100,19 +100,8 @@
 
       agent = {
         default_model = {
-          provider = "google";
-          model = "gemini-3-flash-preview";
         };
         favorite_models = [
-          {
-            provider = "google";
-            model = "gemini-3-flash-preview";
-          }
-          {
-            provider = "google";
-            model = "gemini-3.1-pro-preview";
-            enable_thinking = true;
-          }
         ];
       };
     };
