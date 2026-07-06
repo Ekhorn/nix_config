@@ -34,7 +34,7 @@ let
             {
               mountPoint = "/nix/store-writable";
               image = "nix-store-writable.img";
-              size = 2048;
+              size = 10240; # 10GB
             }
           ];
           shares = [
