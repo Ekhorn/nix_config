@@ -1,4 +1,9 @@
-{ pkgs, system, microvm, nixosSystem }:
+{
+  pkgs,
+  system,
+  microvm,
+  nixosSystem,
+}:
 
 let
   zed-deps = with pkgs; [
@@ -9,19 +14,19 @@ let
     libgcc
   ];
 
-  my-microvm = nixosSystem {
+  dev-vm = nixosSystem {
     inherit system;
     modules = [
       microvm.nixosModules.microvm
       {
-        networking.hostName = "dev-box";
+        networking.hostName = "dev-vm";
 
         microvm = {
           hypervisor = "qemu";
           volumes = [
             {
               mountPoint = "/root";
-              image = "dev-box-root.img";
+              image = "dev-vm-root.img";
               size = 10240; # 10GB
             }
           ];
@@ -41,7 +46,11 @@ let
             }
           ];
           forwardPorts = [
-            { from = "host"; host.port = 2222; guest.port = 22; }
+            {
+              from = "host";
+              host.port = 2222;
+              guest.port = 22;
+            }
           ];
         };
 
@@ -79,7 +88,10 @@ let
           enable = true;
           ohMyZsh = {
             enable = true;
-            plugins = [ "git" "direnv" ];
+            plugins = [
+              "git"
+              "direnv"
+            ];
             theme = "robbyrussell";
           };
           interactiveShellInit = ''
@@ -94,7 +106,10 @@ let
           hashedPassword = ""; # empty password to unlock the account
         };
 
-        nix.settings.experimental-features = [ "nix-command" "flakes" ];
+        nix.settings.experimental-features = [
+          "nix-command"
+          "flakes"
+        ];
         nix.settings.sandbox = false;
 
         system.stateVersion = "26.05";
@@ -102,10 +117,10 @@ let
     ];
   };
 
-  runner = my-microvm.config.microvm.declaredRunner;
+  runner = dev-vm.config.microvm.declaredRunner;
 
-  dev-box-script = pkgs.writeShellScriptBin "dev-box" ''
-    VOL_IMAGE="dev-box-root.img"
+  dev-vm-script = pkgs.writeShellScriptBin "dev-vm" ''
+    VOL_IMAGE="dev-vm-root.img"
     REPO_URL=""
     CLEAN_FIRST=false
 
@@ -153,6 +168,6 @@ let
   '';
 in
 pkgs.symlinkJoin {
-  name = "dev-box-package";
-  paths = [ dev-box-script ];
+  name = "dev-vm-package";
+  paths = [ dev-vm-script ];
 }
