@@ -29,6 +29,11 @@ let
               image = "dev-vm-root.img";
               size = 10240; # 10GB
             }
+            {
+              mountPoint = "/nix/store-writable";
+              image = "nix-store-writable.img";
+              size = 2048;
+            }
           ];
           shares = [
             {
@@ -106,11 +111,13 @@ let
           hashedPassword = ""; # empty password to unlock the account
         };
 
-        nix.settings.experimental-features = [
-          "nix-command"
-          "flakes"
-        ];
-        nix.settings.sandbox = false;
+        nix.settings = {
+          experimental-features = [
+            "nix-command"
+            "flakes"
+          ];
+          store = "/nix/store-writable";
+        };
 
         system.stateVersion = "26.05";
       }
