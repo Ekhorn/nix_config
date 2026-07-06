@@ -23,6 +23,8 @@ let
 
         microvm = {
           hypervisor = "qemu";
+          mem = 8192; # 8GB
+          vcpu = 4;
           volumes = [
             {
               mountPoint = "/root";
