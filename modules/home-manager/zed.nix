@@ -47,9 +47,6 @@
       collaboration_panel = {
         button = false;
       };
-      notification_panel = {
-        button = false;
-      };
 
       languages = {
         Nix = {
