@@ -24,7 +24,7 @@
 
     initContent =
       let
-        guestDiffCmd = colorize: ''git --no-pager -C "$(cat .last_dir)" diff --color=${colorize}"$@"'';
+        guestDiffCmd = colorize: ''git --no-pager -C "$(cat .last_dir)" diff --color=${colorize}'';
       in
       ''
         build-vm() {
@@ -46,18 +46,18 @@
         }
         dev-box-diff() {
           if [ -t 1 ]; then
-            docker exec -tw /root dev-box sh -c '${guestDiffCmd "always"}' -- "$@" | less -R
+            docker exec -tw /root dev-box sh -c '${guestDiffCmd "always"} "$@"' -- "$@" | less -R
           else
-            docker exec -w /root dev-box sh -c '${guestDiffCmd "never"}' -- "$@"
+            docker exec -w /root dev-box sh -c '${guestDiffCmd "never"} "$@"' -- "$@"
           fi
         }
         dev-vm-diff() {
           if [ -t 1 ]; then
             ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR \
-                -p 2222 root@localhost '${guestDiffCmd "always"}' -- "$@" | less -R
+                -p 2222 root@localhost '${guestDiffCmd "always"}' "$@" | less -R
           else
             ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR \
-                -p 2222 root@localhost '${guestDiffCmd "never"}' -- "$@"
+                -p 2222 root@localhost '${guestDiffCmd "never"}' "$@"
           fi
         }
         gradle() {
