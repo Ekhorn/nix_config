@@ -19,7 +19,6 @@
       ta = "tmux attach";
       zed = "zeditor";
       dbd = "dev-box-diff";
-      dvd = "dev-vm-diff";
     };
 
     initContent =
@@ -45,13 +44,6 @@
           fi
         }
         dev-box-diff() {
-          if [ -t 1 ]; then
-            docker exec -tw /root dev-box sh -c '${guestDiffCmd "always"} "$@"' -- "$@" | less -R
-          else
-            docker exec -w /root dev-box sh -c '${guestDiffCmd "never"} "$@"' -- "$@"
-          fi
-        }
-        dev-vm-diff() {
           if [ -t 1 ]; then
             ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR \
                 -p 2222 root@localhost '${guestDiffCmd "always"}' "$@" | less -R
