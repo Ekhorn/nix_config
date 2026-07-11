@@ -99,7 +99,6 @@
   user.username = "koen";
   user.extraGroups = [
     "dialout"
-    "docker"
     "networkmanager"
     "wheel"
   ];
