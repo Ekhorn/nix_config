@@ -76,8 +76,18 @@ let
         programs.nix-ld.enable = true;
         programs.nix-ld.libraries = zed-deps;
 
+        systemd.tmpfiles.rules = [
+          "d /root/.ssh 0700 root root - -"
+        ];
+
         services.openssh = {
           enable = true;
+          hostKeys = [
+            {
+              type = "ed25519";
+              path = "/root/.ssh/ssh_host_ed25519_key";
+            }
+          ];
           settings = {
             PermitRootLogin = "yes";
             PermitEmptyPasswords = "yes";
