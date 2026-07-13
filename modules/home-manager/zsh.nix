@@ -1,5 +1,8 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 
+let
+  omz_theme = import ../shared/omz-theme.nix pkgs;
+in
 {
   programs.zsh = {
     enable = true;
@@ -70,7 +73,8 @@
 
     oh-my-zsh = {
       enable = true;
-      theme = "robbyrussell";
+      theme = "robbyrussell+";
+      custom = "${omz_theme}";
       plugins = [
         "colored-man-pages"
         "deno"

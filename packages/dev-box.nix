@@ -1,6 +1,8 @@
 { pkgs }:
 
 let
+  omz_theme = import ../modules/shared/omz-theme.nix pkgs;
+
   zed-deps = with pkgs; [
     stdenv.cc.cc
     zlib
@@ -34,13 +36,14 @@ let
 
   zshrc = pkgs.writeTextDir "etc/zshrc" ''
     export ZSH="${pkgs.oh-my-zsh}/share/oh-my-zsh"
+    export ZSH_CUSTOM="${omz_theme}"
 
     # Oh-my-zsh tries to write to $ZSH/cache. We must redirect it to a writable location.
     export ZSH_CACHE_DIR="/tmp/oh-my-zsh-cache"
     mkdir -p "$ZSH_CACHE_DIR"
 
     plugins=(git direnv)
-    ZSH_THEME="robbyrussell"
+    ZSH_THEME="robbyrussell+"
     source $ZSH/oh-my-zsh.sh
 
     setopt autocd
@@ -68,6 +71,7 @@ let
       pkgs.zsh
       pkgs.oh-my-zsh
       pkgs.direnv
+      omz_theme
       # Configurations
       groups
       users
@@ -137,7 +141,7 @@ let
     docker load < "$IMAGE_PATH" > /dev/null
     docker volume create $VOL_NAME > /dev/null
 
-    docker run -d --name dev-box -p 2222:2222 -v $VOL_NAME:/root dev-box:latest > /dev/null
+    docker run -d --name dev-box -h dev-box -p 2222:2222 -v $VOL_NAME:/root dev-box:latest > /dev/null
 
     if [ -n "$REPO_URL" ]; then
       # Wait for container to be ready

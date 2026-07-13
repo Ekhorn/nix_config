@@ -6,6 +6,8 @@
 }:
 
 let
+  omz_theme = import ../modules/shared/omz-theme.nix pkgs;
+
   zed-deps = with pkgs; [
     stdenv.cc.cc
     zlib
@@ -69,7 +71,6 @@ let
           nix-ld
           ripgrep
           zsh
-          oh-my-zsh
           direnv
         ];
 
@@ -105,11 +106,12 @@ let
           enable = true;
           ohMyZsh = {
             enable = true;
+            theme = "robbyrussell+";
+            custom = "${omz_theme}";
             plugins = [
               "git"
               "direnv"
             ];
-            theme = "robbyrussell";
           };
           interactiveShellInit = ''
             export ZSH_CACHE_DIR="/tmp/oh-my-zsh-cache"
