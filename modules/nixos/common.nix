@@ -23,7 +23,7 @@
   environment.variables.NODEJS_PATH = "${pkgs.nodejs}/";
 
   fonts.packages = with pkgs; [
-    font-awesome
+    nerd-fonts.symbols-only
     noto-fonts
     ubuntu-classic
   ];
