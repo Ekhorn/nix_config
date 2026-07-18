@@ -41,7 +41,6 @@
     nautilus
     # neovim
     nil
-    nixfmt
     package-version-server
     nixos-anywhere
     nodejs

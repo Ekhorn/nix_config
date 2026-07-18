@@ -60,4 +60,5 @@ jobs:
         with:
           fetch-depth: 1
       - uses: cachix/install-nix-action@8aa03977d8d733052d78f4e008a241fd1dbf36b3 # v31.10.6
+      - run: nix fmt -- --check .
       - run: nix flake check --all-systems

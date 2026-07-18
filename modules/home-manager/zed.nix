@@ -56,7 +56,7 @@
           ];
           formatter = {
             external = {
-              command = "nixfmt";
+              command = "${pkgs.nixfmt-rs}/bin/nixfmt";
               arguments = [
                 "--quiet"
                 "--"

@@ -114,6 +114,8 @@
         }
       );
 
+      formatter = forAllSystems (system: pkgs: pkgs.nixfmt-rs);
+
       devShells = forAllSystems (
         system: pkgs:
         pkgs.lib.optionalAttrs (!isUnsupported system && system != "x86_64-freebsd") {
