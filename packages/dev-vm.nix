@@ -31,12 +31,12 @@ let
             {
               mountPoint = "/root";
               image = "dev-vm-root.img";
-              size = 10240; # 10GB
+              size = 20480; # 20GB
             }
             {
               mountPoint = "/nix/store-writable";
               image = "nix-store-writable.img";
-              size = 10240; # 10GB
+              size = 20480; # 20GB
             }
           ];
           shares = [
@@ -123,6 +123,18 @@ let
         users.users.root = {
           shell = pkgs.zsh;
           hashedPassword = ""; # empty password to unlock the account
+        };
+
+        # Rootful docker. The microvm gives root full kernel capabilities
+        # (cgroups, iptables, /sys/fs/cgroup) so the standard daemon works.
+        # The VM's `/` is an in-RAM rootfs (~4G, volatile), so we must point
+        # docker's data-root at the persistent writable /root volume
+        # (dev-vm-root.img, 10GB) — otherwise every image pull fills RAM
+        # and is lost on reboot.
+        virtualisation.docker = {
+          enable = true;
+          storageDriver = "overlay2";
+          daemon.settings.data-root = "/root/docker-data";
         };
 
         nix.settings = {
