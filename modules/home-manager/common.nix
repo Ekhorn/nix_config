@@ -36,6 +36,7 @@
     kubectl
     libreoffice
     lld
+    lm_sensors
     lsof
     gnumake
     nautilus
