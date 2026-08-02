@@ -9,7 +9,6 @@
     adwaita-icon-theme
     awscli2
     bc
-    btop
     latest.chromium
     clang
     cmake
