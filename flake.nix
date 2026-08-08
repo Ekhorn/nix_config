@@ -71,7 +71,6 @@
         home-manager.lib.homeManagerConfiguration {
           # inherit pkgs; # Already "applied" with `home-manager.useGlobalPkgs = true;`
           modules = [ configuration ];
-          extraSpecialArgs = { inherit inputs outputs; };
         };
       mkNixos =
         configuration: overlays:
@@ -85,7 +84,10 @@
               system.configurationRevision = stable.lib.mkIf (self ? rev) self.rev;
             }
           ];
-          specialArgs = { inherit inputs outputs; };
+          specialArgs = {
+            util = import ./lib/util.nix { inherit (stable) lib; };
+            inherit inputs outputs;
+          };
         };
       mkPi =
         configuration: overlays:

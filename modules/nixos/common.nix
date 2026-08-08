@@ -3,6 +3,7 @@
   inputs,
   outputs,
   pkgs,
+  util,
   ...
 }:
 
@@ -32,7 +33,7 @@
   hardware.graphics.enable = true;
   hardware.graphics.enable32Bit = true;
 
-  home-manager.extraSpecialArgs = { inherit inputs outputs; };
+  home-manager.extraSpecialArgs = { inherit inputs outputs util; };
 
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.extraLocaleSettings = {
