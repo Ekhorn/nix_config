@@ -1,4 +1,4 @@
-{ pkgs, util, ... }:
+{ pkgs, ... }:
 
 {
   programs.zed-editor = {
@@ -95,57 +95,12 @@
         };
       };
 
-      language_models =
-        let
-          ollama =
-            {
-              supports ? [ ],
-              ...
-            }@extras:
-            (builtins.removeAttrs extras [ "supports" ])
-            // util.attrFromList {
-              prefix = "supports_";
-              features = supports;
-              value = true;
-            };
-        in
-        {
-          ollama = {
-            api_url = "http://192.168.223.107:11434";
-            auto_discover = false;
-            available_models = map ollama [
-              {
-                name = "qwen3.6:35b";
-                max_tokens = 262144;
-                supports = [
-                  "tools"
-                  "thinking"
-                ];
-              }
-              {
-                name = "qwen3.6:27b";
-                max_tokens = 262144;
-                supports = [
-                  "tools"
-                  "thinking"
-                ];
-              }
-              {
-                name = "qwen3-coder:30b";
-                max_tokens = 262144;
-                supports = [ "tools" ];
-              }
-              {
-                name = "gpt-oss:20b";
-                max_tokens = 131072;
-                supports = [
-                  "tools"
-                  "thinking"
-                ];
-              }
-            ];
-          };
+      language_models = {
+        ollama = {
+          api_url = "http://192.168.223.107:11434";
+          auto_discover = true;
         };
+      };
 
       agent = {
         default_model = {
