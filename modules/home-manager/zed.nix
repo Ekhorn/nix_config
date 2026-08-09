@@ -3,7 +3,7 @@
 {
   programs.zed-editor = {
     enable = true;
-    mutableUserSettings = false;
+    mutableUserSettings = true;
     extensions = [
       "groovy"
       "java"
@@ -28,7 +28,6 @@
         light = "One Light";
         dark = "Zed Dark";
       };
-      # vim_mode = true;
       show_whitespaces = "all";
       soft_wrap = "editor_width";
       scrollbar = {
@@ -36,11 +35,6 @@
           horizontal = false;
         };
       };
-      # project_panel = {
-      #   scrollbar = {
-      #     show = "never";
-      #   };
-      # };
       outline_panel = {
         button = false;
       };
