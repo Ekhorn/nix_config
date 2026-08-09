@@ -67,6 +67,14 @@
     models = "/mnt/nvme/ai/ollama/models";
     package = pkgs.latest.ollama-vulkan;
   };
+  services.caddy = {
+    enable = true;
+    virtualHosts.":11435" = {
+      extraConfig = ''
+        reverse_proxy http://192.168.223.107:11434
+      '';
+    };
+  };
 
   system.stateVersion = "25.11";
   system.autoUpgrade = {

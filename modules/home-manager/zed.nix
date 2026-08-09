@@ -97,7 +97,7 @@
 
       language_models = {
         ollama = {
-          api_url = "http://192.168.223.107:11434";
+          api_url = "http://pc-koen:11435";
           auto_discover = true;
         };
       };
