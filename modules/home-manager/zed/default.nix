@@ -15,8 +15,10 @@
     ];
     package = pkgs.latest.zed-editor;
     themes = {
-      dark = ./zed_dark.json;
+      dark = ./theme.json;
     };
+    mutableUserKeymaps = false; # setting to true is unreliable
+    userKeymaps = import ./keymap.nix;
     userSettings = {
       auto_update = false;
       format_on_save = "off";
@@ -40,6 +42,21 @@
       };
       collaboration_panel = {
         button = false;
+      };
+      language_models = {
+        ollama = {
+          api_url = "http://pc-koen:11435";
+          auto_discover = true;
+        };
+      };
+
+      agent = {
+        default_model = {
+          provider = "ollama";
+          model = "qwen3.6:27b";
+        };
+        favorite_models = [
+        ];
       };
 
       languages = {
@@ -89,21 +106,6 @@
         };
       };
 
-      language_models = {
-        ollama = {
-          api_url = "http://pc-koen:11435";
-          auto_discover = true;
-        };
-      };
-
-      agent = {
-        default_model = {
-          provider = "ollama";
-          model = "qwen3.6:27b";
-        };
-        favorite_models = [
-        ];
-      };
     };
   };
 }

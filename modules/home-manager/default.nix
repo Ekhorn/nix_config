@@ -23,6 +23,6 @@
   tmux = import ./tmux.nix;
   vscode = import ./vscode.nix;
   # waybar = import ./waybar.nix;
-  zed = import ./zed.nix;
+  zed = import ./zed;
   zsh = import ./zsh.nix;
 }
