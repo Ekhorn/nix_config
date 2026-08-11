@@ -103,9 +103,9 @@
         "deleted": null,
         "deleted.background": null,
         "deleted.border": null,
-        "error": "#d16969",
-        "error.background": "#d1696926",
-        "error.border": "#d16969",
+        "error": "#ff1212",
+        "error.background": "#ff121226",
+        "error.border": "#ff1212",
         "hidden": null,
         "hidden.background": null,
         "hidden.border": null,
@@ -115,9 +115,9 @@
         "ignored": "#808080",
         "ignored.background": null,
         "ignored.border": null,
-        "info": "#5c78e2ff",
-        "info.background": "#5c78e226",
-        "info.border": "#5c78e2ff",
+        "info": "#75beff",
+        "info.background": "#75beff26",
+        "info.border": "#75beff",
         "modified": "#d7ba7d",
         "modified.background": null,
         "modified.border": null,
@@ -133,6 +133,7 @@
         "unreachable": null,
         "unreachable.background": null,
         "unreachable.border": null,
+        "vim.helix_jump_label.foreground": "#e1b06d",
         "warning": "#d7ba7d",
         "warning.background": "#d7ba7d26",
         "warning.border": "#d7ba7d",
@@ -149,17 +150,17 @@
             "font_weight": null
           },
           "comment": {
-            "color": "#505050",
+            "color": "#6a9955",
             "font_style": null,
             "font_weight": null
           },
           "comment.doc": {
-            "color": "#505050",
+            "color": "#6a9955",
             "font_style": null,
             "font_weight": null
           },
           "constant": {
-            "color": "#569cd6",
+            "color": "#4fc1ff",
             "font_style": null,
             "font_weight": null
           },
@@ -199,7 +200,7 @@
             "font_weight": null
           },
           "punctuation": {
-            "color": "#808080",
+            "color": "#d4d4d4",
             "font_style": null,
             "font_weight": null
           },
