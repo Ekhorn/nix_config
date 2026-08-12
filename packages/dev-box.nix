@@ -56,6 +56,8 @@ let
     experimental-features = nix-command flakes
   '';
 
+  git = "${pkgs.gitMinimal}/bin/git";
+
   dev-box-image = pkgs.dockerTools.buildLayeredImage {
     name = "dev-box";
     tag = "latest";
@@ -118,16 +120,18 @@ let
   dev-box-script = pkgs.writeShellScriptBin "dev-box" ''
     IMAGE_PATH="${dev-box-image}"
     VOL_NAME="dev-box-data"
-    REPO_URL=""
     CLEAN_FIRST=false
 
     for arg in "$@"; do
       case $arg in
         --clean) CLEAN_FIRST=true ;;
-        http*) REPO_URL="$arg" ;;
         *) ;;
       esac
     done
+
+    # Resolve the host git repository (if any) before touching docker.
+    # Inside one: the project lives in the container at /root/<repo dir name>.
+    git_root=$(${git} rev-parse --show-toplevel 2>/dev/null) || git_root=""
 
     if [ "$CLEAN_FIRST" = true ]; then
       docker rm -f dev-box 2>/dev/null || true
@@ -143,25 +147,37 @@ let
 
     docker run -d --name dev-box -h dev-box -p 2222:2222 -v $VOL_NAME:/root dev-box:latest > /dev/null
 
-    if [ -n "$REPO_URL" ]; then
-      # Wait for container to be ready
-      while ! docker exec dev-box true 2>/dev/null; do sleep 0.1; done
-      REPO_NAME=$(basename "$REPO_URL" .git)
-      TARGET_DIR="/root/$REPO_NAME"
-      docker exec dev-box sh -c "
-        if [ ! -d \"$TARGET_DIR\" ]; then
-          git clone \"$REPO_URL\" \"$TARGET_DIR\"
-        fi
-        echo \"$TARGET_DIR\" > /root/.last_dir
-      "
+    # Wait for container to be ready
+    while ! docker exec dev-box true 2>/dev/null; do sleep 0.1; done
+
+    if [ -z "$git_root" ]; then
+      echo "Not inside a git repository; not opening zed."
+      exit 0
+    fi
+
+    project_name=$(basename "$git_root")
+    box_project_dir="/root/$project_name"
+
+    if ! docker exec dev-box test -d "$box_project_dir"; then
+      repo_url=$(${git} -C "$git_root" remote get-url origin 2>/dev/null) || repo_url=""
+      if [ -n "$repo_url" ]; then
+        docker exec dev-box git clone "$repo_url" "$box_project_dir" || echo "Clone failed; will open /root instead." >&2
+      else
+        echo "No 'origin' remote for $git_root; cannot clone into the container." >&2
+      fi
     fi
 
     sleep 1 # Wait for SSH to be ready
 
-    TARGET_DIR=$(docker exec dev-box cat /root/.last_dir || echo /root)
-    ZED_CMD=$(command -v zeditor)
-    if [ -n "$ZED_CMD" ]; then
-      "$ZED_CMD" "ssh://root@localhost:2222$TARGET_DIR"
+    if ! docker exec dev-box test -d "$box_project_dir"; then
+      box_project_dir="/root"
+    fi
+
+    zed_cmd=$(command -v zeditor) || zed_cmd=""
+    if [ -n "$zed_cmd" ]; then
+      "$zed_cmd" "ssh://root@localhost:2222$box_project_dir" >/dev/null 2>&1 &
+    else
+      echo "zeditor not found in PATH." >&2
     fi
   '';
 in

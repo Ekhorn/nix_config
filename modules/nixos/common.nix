@@ -15,12 +15,15 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.enable = true;
 
-  environment.systemPackages = with pkgs; [
-    alacritty
-    bluez
-    gnupg
-    parted
-  ];
+  environment.systemPackages =
+    with pkgs;
+    [
+      alacritty
+      bluez
+      gnupg
+      parted
+    ]
+    ++ [ outputs.packages.${pkgs.stdenv.hostPlatform.system}.dev-vm ];
   environment.variables.NODEJS_PATH = "${pkgs.nodejs}/";
 
   fonts.packages = with pkgs; [

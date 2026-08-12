@@ -152,52 +152,143 @@ let
 
   runner = dev-vm.config.microvm.declaredRunner;
 
+  git = "${pkgs.gitMinimal}/bin/git";
+  ssh = "${pkgs.openssh}/bin/ssh";
+  sshKeygen = "${pkgs.openssh}/bin/ssh-keygen";
+  setsid = "${pkgs.util-linux}/bin/setsid";
+
   dev-vm-script = pkgs.writeShellScriptBin "dev-vm" ''
-    VOL_IMAGE="dev-vm-root.img"
-    REPO_URL=""
-    CLEAN_FIRST=false
+    # All VM state (disk images, pid file, log) lives in one fixed place so
+    # dev-vm can be started from any directory.
+    STATE_DIR="$HOME/.local/share/dev-vm"
+    PID_FILE="$STATE_DIR/vm.pid"
+    LOG_FILE="$STATE_DIR/vm.log"
 
-    for arg in "$@"; do
-      case $arg in
-        --clean) CLEAN_FIRST=true ;;
-        http*) REPO_URL="$arg" ;;
-        *) ;;
-      esac
-    done
+    vm_ssh() {
+      ${ssh} -o BatchMode=yes -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR -p 2222 root@localhost "$@"
+    }
 
-    if [ "$CLEAN_FIRST" = true ]; then
-      rm -f "$VOL_IMAGE"
-      ssh-keygen -R "[localhost]:2222" 2>/dev/null || true
-    fi
+    vm_running() {
+      vm_ssh true 2>/dev/null
+    }
 
-    # Start VM in background
-    ${runner}/bin/microvm-run &
-    VM_PID=$!
-
-    # Wait for SSH to be ready
-    while ! ssh -o BatchMode=yes -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p 2222 root@localhost true 2>/dev/null; do
-      sleep 0.5
-    done
-
-    # Clone repo if provided
-    if [ -n "$REPO_URL" ]; then
-      REPO_NAME=$(basename "$REPO_URL" .git)
-      TARGET_DIR="/root/$REPO_NAME"
-      ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p 2222 root@localhost "
-        if [ ! -d \"$TARGET_DIR\" ]; then
-          git clone \"$REPO_URL\" \"$TARGET_DIR\"
+    stop_vm() {
+      stopped=false
+      if vm_running; then
+        echo "Stopping dev-vm..."
+        vm_ssh poweroff >/dev/null 2>&1 || true
+        tries=0
+        while vm_running; do
+          tries=$((tries + 1))
+          if [ "$tries" -gt 60 ]; then
+            break
+          fi
+          sleep 0.5
+        done
+        stopped=true
+      fi
+      if [ -f "$PID_FILE" ]; then
+        pid=$(cat "$PID_FILE")
+        rm -f "$PID_FILE"
+        # Only kill if the pid still belongs to the VM (guard against a
+        # stale pid file whose pid was reused by an unrelated process).
+        if [ -n "$pid" ] && kill -0 "$pid" 2>/dev/null && grep -qaz -e qemu -e microvm "/proc/$pid/cmdline" 2>/dev/null; then
+          echo "Force-stopping dev-vm process group $pid..."
+          kill -TERM -- -"$pid" 2>/dev/null || kill -TERM "$pid" 2>/dev/null || true
+          stopped=true
         fi
-        echo \"$TARGET_DIR\" > /root/.last_dir
-      "
+      fi
+      if [ "$stopped" = true ]; then
+        echo "dev-vm stopped."
+      else
+        echo "dev-vm is not running."
+      fi
+    }
+
+    case "$1" in
+      stop)
+        stop_vm
+        exit 0
+        ;;
+      --clean)
+        if vm_running; then
+          echo "dev-vm is running. Stop it first with: dev-vm stop" >&2
+          exit 1
+        fi
+        echo "Removing dev-vm disk images..."
+        rm -f "$STATE_DIR"/dev-vm-root.img "$STATE_DIR"/nix-store-writable.img
+        # The VM's ssh host key lives on the wiped root volume, so the next
+        # boot generates a new one. Drop the stale known_hosts entry so zed's
+        # ssh doesn't complain about a changed host key.
+        ${sshKeygen} -R "[localhost]:2222" 2>/dev/null || true
+        ;;
+      "")
+        ;;
+      *)
+        echo "Usage: dev-vm [--clean] | dev-vm stop" >&2
+        exit 1
+        ;;
+    esac
+
+    mkdir -p "$STATE_DIR"
+
+    # Resolve the host git repository before anything changes directory.
+    # Inside one: make sure the project exists on the VM at /root/<repo dir
+    # name>, cloning from the origin remote if needed.
+    git_root=$(${git} rev-parse --show-toplevel 2>/dev/null) || git_root=""
+
+    if vm_running; then
+      echo "dev-vm is already running."
+    else
+      echo "Starting dev-vm in the background (log: $LOG_FILE)..."
+      cd "$STATE_DIR"
+      # Detach into a new session so the VM survives the terminal closing.
+      ${setsid} ${runner}/bin/microvm-run >"$LOG_FILE" 2>&1 </dev/null &
+      echo $! > "$PID_FILE"
+
+      tries=0
+      until vm_running; do
+        if ! kill -0 "$(cat "$PID_FILE")" 2>/dev/null; then
+          echo "dev-vm failed to start, see $LOG_FILE" >&2
+          exit 1
+        fi
+        tries=$((tries + 1))
+        if [ "$tries" -gt 120 ]; then
+          echo "Timed out waiting for dev-vm SSH, see $LOG_FILE" >&2
+          exit 1
+        fi
+        sleep 0.5
+      done
+      echo "dev-vm is up."
     fi
 
-    TARGET_DIR=$(ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p 2222 root@localhost cat /root/.last_dir 2>/dev/null || echo /root)
-    ZED_CMD=$(command -v zeditor)
-    if [ -n "$ZED_CMD" ]; then
-      "$ZED_CMD" "ssh://root@localhost:2222$TARGET_DIR"
+    if [ -z "$git_root" ]; then
+      echo "Not inside a git repository; not opening zed."
+      exit 0
     fi
 
-    wait $VM_PID
+    project_name=$(basename "$git_root")
+    vm_project_dir="/root/$project_name"
+
+    if ! vm_ssh "test -d '$vm_project_dir'"; then
+      repo_url=$(${git} -C "$git_root" remote get-url origin 2>/dev/null) || repo_url=""
+      if [ -n "$repo_url" ]; then
+        vm_ssh "git clone '$repo_url' '$vm_project_dir'" || echo "Clone failed; will open /root instead." >&2
+      else
+        echo "No 'origin' remote for $git_root; cannot clone into the VM." >&2
+      fi
+    fi
+
+    if ! vm_ssh "test -d '$vm_project_dir'"; then
+      vm_project_dir="/root"
+    fi
+
+    zed_cmd=$(command -v zeditor) || zed_cmd=""
+    if [ -n "$zed_cmd" ]; then
+      "$zed_cmd" "ssh://root@localhost:2222$vm_project_dir" >/dev/null 2>&1 &
+    else
+      echo "zeditor not found in PATH." >&2
+    fi
   '';
 in
 pkgs.symlinkJoin {

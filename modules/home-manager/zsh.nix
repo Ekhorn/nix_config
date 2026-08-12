@@ -26,7 +26,7 @@ in
 
     initContent =
       let
-        guestDiffCmd = colorize: ''git --no-pager -C "$(cat .last_dir)" diff --color=${colorize}'';
+        guestDiffCmd = colorize: ''git --no-pager -C \"$VM_PROJECT_DIR\" diff --color=${colorize}'';
       in
       ''
         build-vm() {
@@ -47,12 +47,18 @@ in
           fi
         }
         dev-box-diff() {
+          local git_root
+          if ! git_root=$(git rev-parse --show-toplevel 2>/dev/null); then
+            echo "dbd: not inside a git repository" >&2
+            return 1
+          fi
+          local VM_PROJECT_DIR="/root/$(basename "$git_root")"
           if [ -t 1 ]; then
             ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR \
-                -p 2222 root@localhost '${guestDiffCmd "always"}' "$@" | less -R
+                -p 2222 root@localhost "${guestDiffCmd "always"}" "$@" | less -R
           else
             ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR \
-                -p 2222 root@localhost '${guestDiffCmd "never"}' "$@"
+                -p 2222 root@localhost "${guestDiffCmd "never"}" "$@"
           fi
         }
         gradle() {
