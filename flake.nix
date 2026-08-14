@@ -98,6 +98,8 @@
           ];
         } overlays;
       mkShell = file: pkgs: import file { inherit pkgs; };
+
+      mkVmRunner = import ./lib/vm-runner.nix { inherit (stable) lib; };
     in
     {
       apps = forAllSystems (
@@ -151,7 +153,9 @@
 
       packages = forAllSystems (
         system: pkgs:
-        (builtins.mapAttrs (host: cfg: cfg.config.system.build.vm) self.nixosConfigurations)
+        (pkgs.lib.optionalAttrs pkgs.stdenv.isLinux (
+          builtins.mapAttrs (host: mkVmRunner system pkgs) self.nixosConfigurations
+        ))
         // pkgs.lib.optionalAttrs pkgs.stdenv.isLinux {
           dev-box = import ./packages/dev-box.nix { inherit pkgs; };
         }
