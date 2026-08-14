@@ -20,11 +20,11 @@ in
       "-object rng-random,id=rng0,filename=/dev/urandom"
       # "-nographic"
     ];
-  };
 
-  # Essential overwrites
-  user.username = lib.mkVMOverride user;
-  users.users.${user} = {
-    initialPassword = lib.mkVMOverride "test";
+    # Essential overwrites
+    user.username = lib.mkVMOverride user;
+    users.users.${user} = {
+      initialPassword = lib.mkVMOverride "test";
+    };
   };
 }
