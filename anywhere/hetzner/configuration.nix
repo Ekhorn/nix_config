@@ -1,7 +1,8 @@
 {
+  config,
   inputs,
-  modulesPath,
   lib,
+  modulesPath,
   pkgs,
   ...
 }:
@@ -15,10 +16,18 @@
     ./nextcloud.nix
     ./tailscale.nix
     inputs.disko.nixosModules.disko
+    inputs.home-manager.nixosModules.home-manager
   ]
   ++ (builtins.attrValues (import ../../modules/nixos/anywhere));
 
   environment.systemPackages = map lib.lowPrio [ ];
+
+  home-manager = {
+    backupFileExtension = "backup";
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    users.${config.user.username} = import ./home.nix;
+  };
 
   services.openssh = {
     enable = true;
@@ -31,13 +40,13 @@
     };
   };
 
+  system.stateVersion = "25.05";
+
   user.enable = true;
   user.username = "koen";
   user.extraGroups = [
     "wheel"
     "headscale"
   ];
-  user.shell = pkgs.bashInteractive;
-
-  system.stateVersion = "25.05";
+  user.shell = pkgs.zsh;
 }

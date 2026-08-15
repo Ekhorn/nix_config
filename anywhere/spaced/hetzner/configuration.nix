@@ -1,7 +1,8 @@
 {
+  config,
   inputs,
-  modulesPath,
   lib,
+  modulesPath,
   pkgs,
   ...
 }:
@@ -12,10 +13,18 @@
     (modulesPath + "/profiles/qemu-guest.nix")
     ./hardware-configuration.nix
     inputs.disko.nixosModules.disko
+    inputs.home-manager.nixosModules.home-manager
   ]
   ++ (builtins.attrValues (import ../../../modules/nixos/anywhere));
 
   environment.systemPackages = map lib.lowPrio [ ];
+
+  home-manager = {
+    backupFileExtension = "backup";
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    users.${config.user.username} = import ./home.nix;
+  };
 
   networking.hostName = "spaced";
 
@@ -30,7 +39,7 @@
   user.extraKeys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOpnh3ftRObnt6vht3N6qcJbpzHzzXi/5eE0gr7aT5G4"
   ];
-  user.shell = pkgs.bash;
+  user.shell = pkgs.zsh;
 
   virtualisation.docker.enable = true;
 }
