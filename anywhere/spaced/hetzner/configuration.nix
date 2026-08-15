@@ -17,7 +17,7 @@
 
   environment.systemPackages = map lib.lowPrio [ ];
 
-  networking.hostName = "spaced-hetzner";
+  networking.hostName = "spaced";
 
   system.stateVersion = "24.11";
 
