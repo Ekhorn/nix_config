@@ -22,6 +22,8 @@
   security.sudo.wheelNeedsPassword = true;
   security.pam.sshAgentAuth.enable = true;
 
+  programs.zsh.enable = true;
+
   users.users = {
     root.openssh.authorizedKeys.keys =
       config.users.users."${config.user.username}".openssh.authorizedKeys.keys;
