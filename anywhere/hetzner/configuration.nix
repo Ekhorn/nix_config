@@ -7,6 +7,20 @@
   ...
 }:
 
+let
+  domain = "kschellingerhout.nl";
+
+  headscale = {
+    domain = "headscale.${domain}";
+    address = "127.0.0.1";
+    port = 8080;
+    baseDomain = "tailnet.${domain}";
+  };
+
+  nextcloud = {
+    domain = "nextcloud.${headscale.baseDomain}";
+  };
+in
 {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
@@ -14,6 +28,7 @@
     ./hardware-configuration.nix
     ./headscale.nix
     ./nextcloud.nix
+    ./nginx.nix
     ./tailscale.nix
     inputs.disko.nixosModules.disko
     inputs.home-manager.nixosModules.home-manager
@@ -49,4 +64,8 @@
     "headscale"
   ];
   user.shell = pkgs.zsh;
+
+  _module.args = {
+    inherit domain headscale nextcloud;
+  };
 }
