@@ -92,7 +92,6 @@
 
   unfree.enable = true;
   unfree.packages = [
-    "slack"
     "steam"
     "steam-unwrapped"
     "vintagestory"
