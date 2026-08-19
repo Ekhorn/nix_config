@@ -1,7 +1,7 @@
 {
   inputs,
-  modulesPath,
   lib,
+  modulesPath,
   pkgs,
   ...
 }:
@@ -17,20 +17,24 @@
 
   environment.systemPackages = map lib.lowPrio [ ];
 
-  networking.hostName = "spaced-gc";
-
-  system.stateVersion = "24.11";
+  services.openssh = {
+    enable = true;
+    ports = [ 22 ];
+    settings = {
+      # PasswordAuthentication = false;
+      # PermitRootLogin = "no";
+      # UsePAM = false;
+      # KbdInteractiveAuthentication = false;
+    };
+  };
 
   user.enable = true;
-  user.username = "spaced";
+  user.username = "koen";
   user.extraGroups = [
     "wheel"
     "docker"
   ];
-  user.extraKeys = [
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOpnh3ftRObnt6vht3N6qcJbpzHzzXi/5eE0gr7aT5G4"
-  ];
   user.shell = pkgs.bash;
 
-  virtualisation.docker.enable = true;
+  system.stateVersion = "25.11";
 }

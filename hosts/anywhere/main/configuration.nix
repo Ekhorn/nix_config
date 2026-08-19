@@ -33,7 +33,7 @@ in
     inputs.disko.nixosModules.disko
     inputs.home-manager.nixosModules.home-manager
   ]
-  ++ (builtins.attrValues (import ../../modules/nixos/anywhere));
+  ++ (builtins.attrValues (import ../../../modules/nixos/anywhere));
 
   environment.systemPackages = map lib.lowPrio [ ];
 
