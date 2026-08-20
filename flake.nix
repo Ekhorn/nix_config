@@ -143,6 +143,7 @@
         pi = mkPi ./hosts/pi/configuration.nix ./overlays;
         main = mkAnywhere ./hosts/anywhere/main/configuration.nix "/dev/sda";
         spaced = mkAnywhere ./hosts/anywhere/spaced/configuration.nix "/dev/sda";
+        anywhere = mkAnywhere ./hosts/anywhere/template/configuration.nix "/dev/sda";
       };
 
       nixosModules = import ./modules/nixos;
