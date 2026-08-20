@@ -17,6 +17,8 @@
 
   environment.systemPackages = map lib.lowPrio [ ];
 
+  networking.hostName = "anywhere";
+
   services.openssh = {
     enable = true;
     ports = [ 22 ];
@@ -28,6 +30,8 @@
     };
   };
 
+  system.stateVersion = "26.05";
+
   user.enable = true;
   user.username = "koen";
   user.extraGroups = [
@@ -35,6 +39,4 @@
     "docker"
   ];
   user.shell = pkgs.bash;
-
-  system.stateVersion = "25.11";
 }
