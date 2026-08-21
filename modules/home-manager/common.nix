@@ -39,7 +39,6 @@
     lm_sensors
     lsof
     gnumake
-    nautilus
     # neovim
     nil
     package-version-server
