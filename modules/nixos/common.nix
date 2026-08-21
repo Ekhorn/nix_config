@@ -21,6 +21,7 @@
       alacritty
       bluez
       gnupg
+      nautilus
       parted
     ]
     ++ [ outputs.packages.${pkgs.stdenv.hostPlatform.system}.dev-vm ];
@@ -63,6 +64,10 @@
   programs.gnupg = {
     agent.enable = true;
     agent.pinentryPackage = pkgs.pinentry-gnome3;
+  };
+  programs.nautilus-open-any-terminal = {
+    enable = true;
+    terminal = "alacritty";
   };
   programs.zsh.enable = true;
 
