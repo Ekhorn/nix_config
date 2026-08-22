@@ -6,7 +6,7 @@
 }:
 
 let
-  omz_theme = import ../modules/shared/omz-theme.nix pkgs;
+  omz_theme = import ./omz-theme.nix pkgs;
 
   zed-deps = with pkgs; [
     stdenv.cc.cc
