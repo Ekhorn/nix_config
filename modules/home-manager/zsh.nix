@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  omz_theme = import ../shared/omz-theme.nix pkgs;
+  omz_theme = import ../../packages/omz-theme.nix pkgs;
 in
 {
   programs.zsh = {
