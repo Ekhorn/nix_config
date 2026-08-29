@@ -53,7 +53,7 @@
       agent = {
         default_model = {
           provider = "ollama";
-          model = "qwen3.6:27b";
+          model = "qwen3.8:27b";
         };
         favorite_models = [
         ];
