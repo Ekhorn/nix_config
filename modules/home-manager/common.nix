@@ -16,7 +16,7 @@
     unstable.deno
     deskflow
     dig
-    latest.discord
+    discord
     dunst
     fastfetch
     fd
