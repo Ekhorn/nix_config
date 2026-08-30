@@ -21,7 +21,7 @@
     backupFileExtension = "backup";
     useGlobalPkgs = true;
     useUserPackages = true;
-    users.${config.user.username} = import ../../hosts/${config.networking.hostName}/home.nix;
+    users.${config.user.username} = import ./home.nix;
   };
 
   networking.hostName = "laptop-koen";

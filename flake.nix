@@ -38,8 +38,6 @@
     let
       inherit (self) outputs;
 
-      home-manager = inputs.home-manager.nixosModules.default;
-
       # Using nixpkgs.lib.systems.flakeExposed systems,
       # see https://github.com/NixOS/nixpkgs/blob/5d65a618c663db71662a434a3d5887f2ee7f0a1f/lib/systems/flake-systems.nix
       forAllSystems = f: builtins.mapAttrs f stable.legacyPackages;
@@ -65,12 +63,6 @@
             }
           ];
           specialArgs = { inherit inputs outputs; };
-        };
-      mkHome =
-        configuration:
-        home-manager.lib.homeManagerConfiguration {
-          # inherit pkgs; # Already "applied" with `home-manager.useGlobalPkgs = true;`
-          modules = [ configuration ];
         };
       mkNixos =
         configuration: overlays:
@@ -127,11 +119,6 @@
           openremote = mkShell ./shells/openremote.nix pkgs;
         }
       );
-
-      homeConfigurations = {
-        "koen@laptop-koen" = mkHome ./hosts/laptop-koen/home.nix;
-        "koen@pc-koen" = mkHome ./hosts/pc-koen/home.nix;
-      };
 
       homeManagerModules = import ./modules/home-manager;
 

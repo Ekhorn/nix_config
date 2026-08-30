@@ -14,6 +14,4 @@
     # hyprpicker
     # hyprshot
   ];
-
-  programs.home-manager.enable = true;
 }
