@@ -108,4 +108,10 @@
 
     };
   };
+
+  # Global agent rules for the Zed agent
+  home.file."AGENTS.md" = {
+    target = ".config/zed/AGENTS.md";
+    source = ./GLOBAL.md;
+  };
 }
