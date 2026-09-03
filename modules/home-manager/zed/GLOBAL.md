@@ -9,6 +9,9 @@ files.
 For Zed file tools, every path argument MUST begin with the opened project
 root's directory name. This includes source and destination paths.
 
+If the terminal tool is unavailable, stop and notify the user that they may not
+be in write mode.
+
 #### Path Examples
 
 Example for a project named `nix_config`:
