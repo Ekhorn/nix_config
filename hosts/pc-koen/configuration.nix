@@ -12,6 +12,7 @@
     inputs.home-manager.nixosModules.home-manager
     inputs.nix-flatpak.nixosModules.nix-flatpak
     ./flatpak.nix
+    ../../modules/nixos/nvidia.nix
   ]
   ++ (builtins.attrValues outputs.nixosModules);
 

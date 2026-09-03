@@ -7,7 +7,6 @@
   services.gnome.gnome-software.enable = false;
   services.xserver = {
     enable = true;
-    videoDrivers = [ "nvidia" ];
     xkb = {
       layout = "us";
       variant = "";

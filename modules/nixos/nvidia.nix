@@ -22,6 +22,8 @@
     };
   };
 
+  services.xserver.videoDrivers = [ "nvidia" ];
+
   unfree.enable = true;
   unfree.packages = [
     "nvidia-kernel-modules"
