@@ -46,6 +46,12 @@
     }
   ];
 
+  # Resume from hibernation: the swapfile lives on the LUKS volume, which the
+  # initrd unlocks before the resume attempt. The kernel then finds the
+  # hibernation image on that device (or at the offset recorded by
+  # systemd-sleep in the EFI HibernateLocation variable).
+  boot.resumeDevice = "/dev/mapper/crypted";
+
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

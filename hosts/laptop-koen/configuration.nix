@@ -43,9 +43,14 @@
     wantedBy = [ "multi-user.target" ];
     serviceConfig.Type = "simple";
   };
+
   services.fprintd.enable = true;
   services.usbguard = {
     enable = true;
+  };
+  services.logind.settings.Login = {
+    HandleLidSwitch = "hibernate";
+    HandleLidSwitchExternalPower = "hibernate";
   };
   services.xserver.videoDrivers = lib.mkForce [ ];
 
