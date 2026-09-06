@@ -13,15 +13,16 @@
       powerManagement.enable = false;
       powerManagement.finegrained = false;
       open = false;
-      nvidiaSettings = true;
       package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
     };
     nvidia-container-toolkit = {
       enable = true;
-      suppressNvidiaDriverAssertion = true;
     };
   };
 
+  # The only switch that turns `hardware.nvidia.enabled` on (it is readOnly and
+  # derived from this). No X server is required — this just enables the kernel
+  # driver + Vulkan ICD for the Wayland session.
   services.xserver.videoDrivers = [ "nvidia" ];
 
   unfree.enable = true;

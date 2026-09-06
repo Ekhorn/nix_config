@@ -47,6 +47,7 @@ in
     users.groups.guest = { };
 
     # Essential overwrites
+    hardware.nvidia-container-toolkit.enable = lib.mkVMOverride false;
     user.username = lib.mkVMOverride user;
     users.users.${user} = {
       initialPassword = lib.mkVMOverride "test";
