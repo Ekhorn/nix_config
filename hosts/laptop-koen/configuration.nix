@@ -52,7 +52,6 @@
     HandleLidSwitch = "hibernate";
     HandleLidSwitchExternalPower = "hibernate";
   };
-  services.xserver.videoDrivers = lib.mkForce [ ];
 
   time.timeZone = "Europe/Amsterdam";
 
