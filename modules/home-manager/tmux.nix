@@ -47,6 +47,9 @@ in
       bind -n C-k select-pane -U
       bind -n C-l select-pane -R
 
+      bind -n C-PPage select-window -t '{previous}'
+      bind -n C-NPage select-window -t '{next}'
+
       bind -r h resize-pane -L 5
       bind -r j resize-pane -D 5
       bind -r k resize-pane -U 5
