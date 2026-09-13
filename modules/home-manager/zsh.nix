@@ -111,6 +111,17 @@ in
             esac
           done
         }
+        docker-host-access-toggle() {
+          local var="DOCKERD_ROOTLESS_ROOTLESSKIT_DISABLE_HOST_LOOPBACK"
+
+          if [[ "$(systemctl --user show-environment)" == *"$var"* ]]; then
+              systemctl --user unset-environment "$var"
+          else
+              systemctl --user set-environment "$var=false"
+          fi
+
+          systemctl --user restart docker
+        }
       '';
 
     oh-my-zsh = {
