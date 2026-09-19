@@ -67,6 +67,7 @@ let
           busybox
           fd
           gitMinimal
+          htop
           nix
           nix-ld
           ripgrep
