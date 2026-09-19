@@ -80,6 +80,7 @@
     nssmdns4 = true;
     openFirewall = true;
   };
+  services.fwupd.enable = true;
   services.gnome.gcr-ssh-agent.enable = true;
   services.gvfs.enable = true;
   services.logind.settings.Login = {
