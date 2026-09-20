@@ -26,7 +26,7 @@ in
 
     initContent =
       let
-        guestDiffCmd = colorize: ''git --no-pager -C \"$VM_PROJECT_DIR\" diff --color=${colorize}'';
+        guestDiffCmd = colorize: ''git --no-pager -C \"$GUEST_PROJECT_DIR\" diff --color=${colorize}'';
       in
       ''
         build-vm() {
@@ -52,7 +52,9 @@ in
             echo "dbd: not inside a git repository" >&2
             return 1
           fi
-          local VM_PROJECT_DIR="/root/$(basename "$git_root")"
+          local GUEST_PROJECT_DIR=$(basename "$(git remote get-url origin 2>/dev/null)")
+          [ -n "$GUEST_PROJECT_DIR" ] || GUEST_PROJECT_DIR=''${git_root##*/}
+          GUEST_PROJECT_DIR="/root/''${GUEST_PROJECT_DIR%.git}"
           if [ -t 1 ]; then
             ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR \
                 -p 2222 root@localhost "${guestDiffCmd "always"}" "$@" | less -R
