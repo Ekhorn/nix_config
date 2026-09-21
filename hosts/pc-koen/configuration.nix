@@ -17,6 +17,7 @@
   ++ (builtins.attrValues outputs.nixosModules);
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+  boot.binfmt.preferStaticEmulators = true;
 
   hardware.bluetooth.powerOnBoot = true;
 
